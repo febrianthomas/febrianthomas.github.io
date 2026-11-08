@@ -55,8 +55,54 @@
     "details": "This is where I share more about myself, my work, and the things I enjoy.",
     "image": "/images/hero-1.png",
     "imageAlt": "Illustration of febrianthomas",
-    "tools": { "title": "Tools I use", "empty": "My tools, coming soon.", "items": [{ "name": "Tool name", "image": "" }] },
-    "software": { "title": "Software I use", "empty": "My software, coming soon.", "items": [{ "name": "Software name", "image": "" }] }
+    "socialLabel": "Social profiles",
+    "socialUnavailable": "link not set",
+    "socials": {
+      "instagram": {
+        "name": "Instagram",
+        "url": ""
+      },
+      "youtube": {
+        "name": "YouTube",
+        "url": ""
+      },
+      "twitter": {
+        "name": "X / Twitter",
+        "url": ""
+      },
+      "threads": {
+        "name": "Threads",
+        "url": ""
+      },
+      "twitch": {
+        "name": "Twitch",
+        "url": ""
+      },
+      "tiktok": {
+        "name": "TikTok",
+        "url": ""
+      }
+    },
+    "tools": {
+      "title": "Tools I use",
+      "empty": "My tools, coming soon.",
+      "items": [
+        {
+          "name": "Tool name",
+          "image": "/images/temp-1.png"
+        }
+      ]
+    },
+    "software": {
+      "title": "Software I use",
+      "empty": "My software, coming soon.",
+      "items": [
+        {
+          "name": "Software name",
+          "image": "/images/temp-2.png"
+        }
+      ]
+    }
   },
   "portfolio": {
     "title": "Portfolio.",
