@@ -22,7 +22,7 @@
       {
         "id": "who-am-i",
         "title": "Who Am I?",
-        "description": "A little more about me, coming soon.",
+        "description": "A little more about me, coming soon. A little more about me, coming soon. A little more about me, coming soon. A little more about me, coming soon.",
         "image": "/images/temp-3.gif",
         "imageAlt": "Illustration of febrianthomas",
         "imagePosition": "left",
@@ -31,7 +31,7 @@
       {
         "id": "what-i-do",
         "title": "What I Do.",
-        "description": "More about my work, coming soon.",
+        "description": "More about my work, coming soon. More about my work, coming soon. More about my work, coming soon. More about my work, coming soon.",
         "image": "/images/temp-1.png",
         "imageAlt": "Illustration of a crying character",
         "imagePosition": "right",
@@ -40,7 +40,7 @@
       {
         "id": "what-i-like",
         "title": "What I Like.",
-        "description": "More about my interests, coming soon.",
+        "description": "More about my interests, coming soon. More about my interests, coming soon. More about my interests, coming soon. More about my interests, coming soon.",
         "image": "/images/temp-2.png",
         "imageAlt": "Illustration of a character with raised hands",
         "imagePosition": "left",
@@ -51,7 +51,12 @@
   "about": {
     "title": "About.",
     "eyebrow": "A little introduction",
-    "description": "More about febrianthomas, coming soon."
+    "description": "Hi, I’m febrianthomas. Welcome to my little corner of the internet.",
+    "details": "This is where I share more about myself, my work, and the things I enjoy.",
+    "image": "/images/hero-1.png",
+    "imageAlt": "Illustration of febrianthomas",
+    "tools": { "title": "Tools I use", "empty": "My tools, coming soon.", "items": [{ "name": "Tool name", "image": "" }] },
+    "software": { "title": "Software I use", "empty": "My software, coming soon.", "items": [{ "name": "Software name", "image": "" }] }
   },
   "portfolio": {
     "title": "Portfolio.",
