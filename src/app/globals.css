@@ -1,10 +1,14 @@
 @import "tailwindcss";
+@custom-variant dark (&:where(.dark, .dark *));
 
 body {
   isolation: isolate;
   background: #fff;
   font-family: var(--font-sniglet), sans-serif;
 }
+
+html.dark { color-scheme: dark; }
+html.dark body { background: #18181b; }
 
 .background-shapes {
   position: fixed;
@@ -24,7 +28,19 @@ body {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background: rgb(255 244 228 / 45%);
+  color: rgb(255 244 228);
+}
+
+.background-shapes span::before {
+  position: absolute;
+  inset: 0;
+  content: "";
+  border-radius: inherit;
+  background: currentColor;
+}
+
+html.dark .background-shapes span {
+  filter: drop-shadow(0 0 10px currentColor);
 }
 
 .background-shapes span:nth-child(1) { top: 20%; left: 15%; }
@@ -52,28 +68,28 @@ body {
 .background-shapes span:nth-child(23) { top: 38%; left: 50%; width: 18px; height: 18px; }
 .background-shapes span:nth-child(24) { top: 78%; left: 94%; width: 32px; height: 32px; }
 .background-shapes span:nth-child(4n + 2) { border-radius: 5px; }
-.background-shapes span:nth-child(4n + 3) { border-radius: 0; clip-path: polygon(50% 0, 100% 100%, 0 100%); }
-.background-shapes span:nth-child(4n + 4) { border-radius: 0; clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%); }
-.background-shapes span:nth-child(1) { background: rgb(255 118 112 / 45%); }
-.background-shapes span:nth-child(2) { background: rgb(255 227 115 / 65%); }
-.background-shapes span:nth-child(3) { background: rgb(126 198 241 / 50%); }
-.background-shapes span:nth-child(4) { background: rgb(144 211 165 / 55%); }
-.background-shapes span:nth-child(5) { background: rgb(249 158 198 / 55%); }
-.background-shapes span:nth-child(6) { background: rgb(255 235 143 / 65%); }
-.background-shapes span:nth-child(7) { background: rgb(126 201 203 / 55%); }
-.background-shapes span:nth-child(8) { background: rgb(255 145 111 / 55%); }
-.background-shapes span:nth-child(9) { background: rgb(126 198 241 / 50%); }
-.background-shapes span:nth-child(10) { background: rgb(249 158 198 / 55%); }
-.background-shapes span:nth-child(11) { background: rgb(144 211 165 / 55%); }
-.background-shapes span:nth-child(12) { background: rgb(255 227 115 / 65%); }
-.background-shapes span:nth-child(13) { background: rgb(255 118 112 / 45%); }
-.background-shapes span:nth-child(14) { background: rgb(126 201 203 / 55%); }
-.background-shapes span:nth-child(6n + 15) { background: rgb(255 118 112 / 45%); }
-.background-shapes span:nth-child(6n + 16) { background: rgb(255 227 115 / 65%); }
-.background-shapes span:nth-child(6n + 17) { background: rgb(126 198 241 / 50%); }
-.background-shapes span:nth-child(6n + 18) { background: rgb(144 211 165 / 55%); }
-.background-shapes span:nth-child(6n + 19) { background: rgb(249 158 198 / 55%); }
-.background-shapes span:nth-child(6n + 20) { background: rgb(126 201 203 / 55%); }
+.background-shapes span:nth-child(4n + 3)::before { border-radius: 0; clip-path: polygon(50% 0, 100% 100%, 0 100%); }
+.background-shapes span:nth-child(4n + 4)::before { border-radius: 0; clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%); }
+.background-shapes span:nth-child(1) { color: rgb(255 118 112); }
+.background-shapes span:nth-child(2) { color: rgb(255 227 115); }
+.background-shapes span:nth-child(3) { color: rgb(126 198 241); }
+.background-shapes span:nth-child(4) { color: rgb(144 211 165); }
+.background-shapes span:nth-child(5) { color: rgb(249 158 198); }
+.background-shapes span:nth-child(6) { color: rgb(255 235 143); }
+.background-shapes span:nth-child(7) { color: rgb(126 201 203); }
+.background-shapes span:nth-child(8) { color: rgb(255 145 111); }
+.background-shapes span:nth-child(9) { color: rgb(126 198 241); }
+.background-shapes span:nth-child(10) { color: rgb(249 158 198); }
+.background-shapes span:nth-child(11) { color: rgb(144 211 165); }
+.background-shapes span:nth-child(12) { color: rgb(255 227 115); }
+.background-shapes span:nth-child(13) { color: rgb(255 118 112); }
+.background-shapes span:nth-child(14) { color: rgb(126 201 203); }
+.background-shapes span:nth-child(6n + 15) { color: rgb(255 118 112); }
+.background-shapes span:nth-child(6n + 16) { color: rgb(255 227 115); }
+.background-shapes span:nth-child(6n + 17) { color: rgb(126 198 241); }
+.background-shapes span:nth-child(6n + 18) { color: rgb(144 211 165); }
+.background-shapes span:nth-child(6n + 19) { color: rgb(249 158 198); }
+.background-shapes span:nth-child(6n + 20) { color: rgb(126 201 203); }
 
 .font-bagel-fat-one {
   font-family: var(--font-bagel-fat-one), sans-serif;

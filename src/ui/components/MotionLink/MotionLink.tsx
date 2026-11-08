@@ -5,7 +5,7 @@ import Link from "next/link";
 
 const AnimatedLink = motion.create(Link);
 
-export function MotionLink(props: React.ComponentProps<typeof AnimatedLink>) {
+export function MotionLink({ whileHover, ...props }: React.ComponentProps<typeof AnimatedLink>) {
   const reducedMotion = useReducedMotion();
-  return <AnimatedLink {...props} whileHover={reducedMotion ? undefined : { y: -2 }} transition={{ duration: 0.14 }} />;
+  return <AnimatedLink {...props} whileHover={reducedMotion ? undefined : whileHover ?? { y: -2 }} transition={{ type: "spring", duration: 0.3, bounce: 0.2 }} />;
 }

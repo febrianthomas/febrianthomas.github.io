@@ -35,8 +35,9 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" className={`${bagelFatOne.variable} ${cherryBombOne.variable} ${sniglet.variable}`}>
-      <body className="flex min-h-svh flex-col text-zinc-950 antialiased">
+    <html lang="en" suppressHydrationWarning className={`${bagelFatOne.variable} ${cherryBombOne.variable} ${sniglet.variable}`}>
+      <head><script dangerouslySetInnerHTML={{ __html: `try { var theme = localStorage.getItem('theme'); if (theme === 'dark' || (!theme && matchMedia('(prefers-color-scheme: dark)').matches)) document.documentElement.classList.add('dark'); } catch (_) {}` }} /></head>
+      <body className="flex min-h-svh flex-col text-zinc-950 antialiased dark:text-zinc-50">
         <BackgroundShapes />
         <Header />
         <PageMotion>{children}</PageMotion>
