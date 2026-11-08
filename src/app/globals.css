@@ -1,5 +1,88 @@
 @import "tailwindcss";
 
 body {
-  font-family: Arial, Helvetica, sans-serif;
+  isolation: isolate;
+  background: #fff;
+  font-family: var(--font-sniglet), sans-serif;
+}
+
+.background-shapes {
+  position: fixed;
+  z-index: -1;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.background-shapes-layer {
+  position: absolute;
+  inset: 0;
+}
+
+.background-shapes span {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: rgb(255 244 228 / 45%);
+}
+
+.background-shapes span:nth-child(1) { top: 20%; left: 15%; }
+.background-shapes span:nth-child(2) { top: 15%; left: 80%; width: 24px; height: 24px; }
+.background-shapes span:nth-child(3) { top: 70%; left: 75%; width: 52px; height: 52px; }
+.background-shapes span:nth-child(4) { top: 75%; left: 25%; width: 30px; height: 30px; }
+.background-shapes span:nth-child(5) { top: 40%; left: 5%; width: 22px; height: 22px; }
+.background-shapes span:nth-child(6) { top: 45%; left: 90%; width: 36px; height: 36px; }
+.background-shapes span:nth-child(7) { top: 8%; left: 50%; width: 28px; height: 28px; }
+.background-shapes span:nth-child(8) { top: 88%; left: 50%; width: 20px; height: 20px; }
+.background-shapes span:nth-child(9) { top: 34%; left: 30%; width: 18px; height: 18px; }
+.background-shapes span:nth-child(10) { top: 57%; left: 55%; width: 32px; height: 32px; }
+.background-shapes span:nth-child(11) { top: 8%; left: 65%; width: 18px; height: 18px; }
+.background-shapes span:nth-child(12) { top: 65%; left: 10%; width: 26px; height: 26px; }
+.background-shapes span:nth-child(13) { top: 32%; left: 65%; width: 22px; height: 22px; }
+.background-shapes span:nth-child(14) { top: 90%; left: 88%; width: 38px; height: 38px; }
+.background-shapes span:nth-child(15) { top: 12%; left: 8%; width: 22px; height: 22px; }
+.background-shapes span:nth-child(16) { top: 26%; left: 43%; width: 30px; height: 30px; }
+.background-shapes span:nth-child(17) { top: 48%; left: 18%; width: 34px; height: 34px; }
+.background-shapes span:nth-child(18) { top: 64%; left: 37%; width: 20px; height: 20px; }
+.background-shapes span:nth-child(19) { top: 82%; left: 63%; width: 28px; height: 28px; }
+.background-shapes span:nth-child(20) { top: 55%; left: 79%; width: 24px; height: 24px; }
+.background-shapes span:nth-child(21) { top: 5%; left: 92%; width: 30px; height: 30px; }
+.background-shapes span:nth-child(22) { top: 92%; left: 12%; width: 20px; height: 20px; }
+.background-shapes span:nth-child(23) { top: 38%; left: 50%; width: 18px; height: 18px; }
+.background-shapes span:nth-child(24) { top: 78%; left: 94%; width: 32px; height: 32px; }
+.background-shapes span:nth-child(4n + 2) { border-radius: 5px; }
+.background-shapes span:nth-child(4n + 3) { border-radius: 0; clip-path: polygon(50% 0, 100% 100%, 0 100%); }
+.background-shapes span:nth-child(4n + 4) { border-radius: 0; clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%); }
+.background-shapes span:nth-child(1) { background: rgb(255 118 112 / 45%); }
+.background-shapes span:nth-child(2) { background: rgb(255 227 115 / 65%); }
+.background-shapes span:nth-child(3) { background: rgb(126 198 241 / 50%); }
+.background-shapes span:nth-child(4) { background: rgb(144 211 165 / 55%); }
+.background-shapes span:nth-child(5) { background: rgb(249 158 198 / 55%); }
+.background-shapes span:nth-child(6) { background: rgb(255 235 143 / 65%); }
+.background-shapes span:nth-child(7) { background: rgb(126 201 203 / 55%); }
+.background-shapes span:nth-child(8) { background: rgb(255 145 111 / 55%); }
+.background-shapes span:nth-child(9) { background: rgb(126 198 241 / 50%); }
+.background-shapes span:nth-child(10) { background: rgb(249 158 198 / 55%); }
+.background-shapes span:nth-child(11) { background: rgb(144 211 165 / 55%); }
+.background-shapes span:nth-child(12) { background: rgb(255 227 115 / 65%); }
+.background-shapes span:nth-child(13) { background: rgb(255 118 112 / 45%); }
+.background-shapes span:nth-child(14) { background: rgb(126 201 203 / 55%); }
+.background-shapes span:nth-child(6n + 15) { background: rgb(255 118 112 / 45%); }
+.background-shapes span:nth-child(6n + 16) { background: rgb(255 227 115 / 65%); }
+.background-shapes span:nth-child(6n + 17) { background: rgb(126 198 241 / 50%); }
+.background-shapes span:nth-child(6n + 18) { background: rgb(144 211 165 / 55%); }
+.background-shapes span:nth-child(6n + 19) { background: rgb(249 158 198 / 55%); }
+.background-shapes span:nth-child(6n + 20) { background: rgb(126 201 203 / 55%); }
+
+.font-bagel-fat-one {
+  font-family: var(--font-bagel-fat-one), sans-serif;
+}
+
+.font-cherry-bomb-one {
+  font-family: var(--font-cherry-bomb-one), sans-serif;
+}
+
+.font-sniglet {
+  font-family: var(--font-sniglet), sans-serif;
 }

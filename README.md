@@ -39,6 +39,11 @@ Use only a publishable key, never a secret or service-role key. Enable Row Level
 Security and configure policies before exposing tables to browser clients.
 Rebuild and redeploy after changing environment variables.
 
+The sign-in page is at `/login/`. Enable email/password authentication in
+Supabase Auth and create the user there before signing in. A successful sign-in
+creates a browser session; access to Supabase data must still be protected with
+Row Level Security policies.
+
 ### Checks
 
 ```sh
@@ -66,4 +71,4 @@ this user-site repository.
 
 GitHub Pages serves static files. Use browser-side Supabase calls for live data;
 Next.js server actions, runtime API routes, and server-side rendering require a
-server host. Authentication and database tables are left for the app to define.
+server host. Database tables and their access policies are left for the app to define.
