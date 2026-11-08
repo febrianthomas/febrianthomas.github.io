@@ -1,0 +1,85 @@
+{
+  "site": {
+    "name": "febrianthomas",
+    "description": "febrianthomas's official website.",
+    "copyright": "© febrianthomas - 2026",
+    "brand": "febrianthomas."
+  },
+  "navigation": {
+    "label": "Main navigation",
+    "home": "Home",
+    "portfolio": "Portfolio",
+    "post": "Post",
+    "about": "About",
+    "signIn": "Sign in",
+    "signOut": "Sign out",
+    "darkTheme": "Dark theme"
+  },
+  "home": {
+    "greeting": "Hi",
+    "greetingButton": "Say hi to Febrian",
+    "sections": [
+      {
+        "id": "who-am-i",
+        "title": "Who Am I?",
+        "description": "A little more about me, coming soon.",
+        "image": "/images/temp-3.gif",
+        "imageAlt": "Illustration of febrianthomas",
+        "imagePosition": "left",
+        "imageFit": "contain"
+      },
+      {
+        "id": "what-i-do",
+        "title": "What I Do.",
+        "description": "More about my work, coming soon.",
+        "image": "/images/temp-1.png",
+        "imageAlt": "Illustration of a crying character",
+        "imagePosition": "right",
+        "imageFit": "cover"
+      },
+      {
+        "id": "what-i-like",
+        "title": "What I Like.",
+        "description": "More about my interests, coming soon.",
+        "image": "/images/temp-2.png",
+        "imageAlt": "Illustration of a character with raised hands",
+        "imagePosition": "left",
+        "imageFit": "cover"
+      }
+    ]
+  },
+  "about": {
+    "title": "About.",
+    "eyebrow": "A little introduction",
+    "description": "More about febrianthomas, coming soon."
+  },
+  "portfolio": {
+    "title": "Portfolio.",
+    "eyebrow": "Selected work",
+    "description": "A collection of projects, coming soon."
+  },
+  "post": {
+    "title": "Post.",
+    "eyebrow": "Writing",
+    "description": "Posts are coming soon."
+  },
+  "login": {
+    "eyebrow": "Account access",
+    "title": "Welcome back, febrianthomas.",
+    "description": "Only febrianthomas can sign in.",
+    "email": "Email address",
+    "password": "Password",
+    "showPassword": "Show password",
+    "hidePassword": "Hide password",
+    "signingIn": "Signing in…",
+    "success": "You’re signed in.",
+    "returnHome": "Return to home",
+    "invalidCredentials": "Could not sign in. Check your email and password and try again.",
+    "connectionError": "Unable to connect. Please try again later.",
+    "confirmSignOut": "Are you sure you want to sign out?",
+    "signOutDescription": "You can sign in again whenever you’re ready.",
+    "cancel": "Cancel",
+    "signingOut": "Signing out…",
+    "signOutError": "Could not sign out. Please try again."
+  }
+}

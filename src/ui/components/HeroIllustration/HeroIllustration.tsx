@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import hero from "../../../../public/images/hero-1.png";
 import greetingHero from "../../../../public/images/hero-2.png";
+import text from "@/content/text.json";
 
 export function HeroIllustration() {
   const [greeting, setGreeting] = useState(false);
@@ -26,7 +27,7 @@ export function HeroIllustration() {
       <motion.button
         type="button"
         onClick={sayHi}
-        aria-label="Say hi to Febrian"
+        aria-label={text.home.greetingButton}
         whileHover={reducedMotion ? undefined : { scale: 1.05 }}
         transition={{ type: "spring", duration: 0.3, bounce: 0.2 }}
         className="block w-full cursor-pointer rounded-lg focus-visible:outline-2 focus-visible:outline-offset-4"
@@ -41,7 +42,7 @@ export function HeroIllustration() {
             transition={{ duration: 0.2, ease: [0.23, 1, 0.32, 1] }}
             className="relative block origin-bottom-right rounded-2xl border-2 border-zinc-900 bg-white px-8 py-4 text-2xl font-medium text-zinc-900 shadow-sm after:absolute after:-right-2 after:bottom-3 after:h-3 after:w-3 after:rotate-45 after:border-t-2 after:border-r-2 after:border-zinc-900 after:bg-white dark:border-zinc-100 dark:bg-zinc-800 dark:text-zinc-50 dark:after:border-zinc-100 dark:after:bg-zinc-800"
           >
-            Hi
+            {text.home.greeting}
           </motion.span>
         )}
       </span>

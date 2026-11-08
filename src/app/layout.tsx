@@ -6,6 +6,7 @@ import { Footer } from "@/ui/components/Footer/Footer";
 import { Header } from "@/ui/components/Header/Header";
 import { PageMotion } from "@/ui/components/PageMotion/PageMotion";
 import { SmoothScroll } from "@/ui/components/SmoothScroll/SmoothScroll";
+import text from "@/content/text.json";
 import "lenis/dist/lenis.css";
 import "./globals.css";
 
@@ -31,8 +32,8 @@ const sniglet = Sniglet({
 });
 
 export const metadata: Metadata = {
-  title: "febrianthomas",
-  description: "febrianthomas's official website.",
+  title: text.site.name,
+  description: text.site.description,
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
