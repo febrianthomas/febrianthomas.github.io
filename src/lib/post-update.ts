@@ -19,7 +19,7 @@ export async function updatePostRecord(client: SupabaseClient, original: { id: s
   query = original.image_path ? query.eq("image_path", original.image_path) : query.is("image_path", null);
   let result;
   try {
-    result = await query.select("id,title,description,body,body_format,created_at,updated_at,image_path,image_alt,image_caption,tags,featured,inline_image_paths").maybeSingle();
+    result = await query.select("id,kind,title,description,body,body_format,created_at,updated_at,image_path,image_alt,image_caption,tags,featured,inline_image_paths").maybeSingle();
   } catch {
     throw new PostUpdateUncertainError();
   }

@@ -2,8 +2,11 @@ import { getSupabase } from "@/lib/supabase";
 import { optimizePostImage, postImageExtension } from "@/lib/post-image";
 import { updatePostRecord } from "@/lib/post-update";
 
+export type PostKind = "post" | "portfolio";
+
 export type PublishedPost = {
   id: string;
+  kind: PostKind;
   title: string;
   description: string;
   body: string;
@@ -27,9 +30,10 @@ export function postImageUrl(path: string) {
   return getSupabase().storage.from("post-images").getPublicUrl(path).data.publicUrl;
 }
 
-export async function listPosts() {
+export async function listPosts(kind: PostKind = "post") {
   const { data, error } = await getSupabase().from("posts")
     .select("id,title,description,image_path,image_alt,created_at,tags,featured,body,body_format,inline_image_paths")
+    .eq("kind", kind)
     .order("featured", { ascending: false })
     .order("created_at", { ascending: false })
     .order("id", { ascending: false });
@@ -37,9 +41,9 @@ export async function listPosts() {
   return data as PostSummary[];
 }
 
-export async function getPost(id: string) {
+export async function getPost(id: string, kind: PostKind = "post") {
   const { data, error } = await getSupabase().from("posts")
-    .select("id,title,description,body,body_format,created_at,updated_at,image_path,image_alt,image_caption,tags,featured,inline_image_paths").eq("id", id).maybeSingle();
+    .select("id,kind,title,description,body,body_format,created_at,updated_at,image_path,image_alt,image_caption,tags,featured,inline_image_paths").eq("id", id).eq("kind", kind).maybeSingle();
   if (error) throw error;
   return data as PublishedPost | null;
 }
@@ -51,7 +55,7 @@ export async function updatePost(original: PublishedPost, values: PostDetails, i
   return { post: result.post as PublishedPost, cleanupFailed: result.cleanupFailed };
 }
 
-export async function createPost(post: Pick<PublishedPost, "title" | "description" | "body" | "tags" | "featured" | "image_caption" | "inline_image_paths">, image?: File, imageAlt?: string) {
+export async function createPost(post: Pick<PublishedPost, "kind" | "title" | "description" | "body" | "tags" | "featured" | "image_caption" | "inline_image_paths">, image?: File, imageAlt?: string) {
   const supabase = getSupabase();
   let imagePath: string | null = null;
   if (image && !postImageExtension(image)) throw new Error("Invalid image");
