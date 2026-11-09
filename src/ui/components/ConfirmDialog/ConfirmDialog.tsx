@@ -45,7 +45,7 @@ export function ConfirmDialog({ trigger, title, description, cancelLabel, confir
               initial={reducedMotion ? false : { opacity: 0, scale: 0.96, y: 8 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               transition={{ duration: 0.2, ease: [0.23, 1, 0.32, 1] }}
-              className="pointer-events-auto w-full max-w-sm rounded-3xl border-2 border-zinc-900 bg-white p-7 text-zinc-950 shadow-xl focus:outline-none dark:border-zinc-100 dark:bg-zinc-900 dark:text-zinc-50"
+              className="surface-shadow pointer-events-auto w-full max-w-sm rounded-3xl border-2 border-zinc-900 bg-white p-7 text-zinc-950 focus:outline-none dark:border-zinc-100 dark:bg-zinc-900 dark:text-zinc-50"
             >
               <AlertDialog.Title className="font-bagel-fat-one text-3xl">{title}</AlertDialog.Title>
               <AlertDialog.Description className="mt-3 leading-6 text-zinc-600 dark:text-zinc-300">{description}</AlertDialog.Description>

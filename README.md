@@ -49,8 +49,20 @@ public and are loaded from Supabase by the browser. The `posts` table and its po
 defined in `supabase/migrations/20261109000000_create_posts.sql`: everyone can
 read posts, while only the configured site owner's Supabase user can publish.
 If the owner account changes, update the insert policy before publishing from
-the new account. Posts currently support text only; image uploads, editing, and
-deletion are not included.
+the new account. Posts can include an optional PNG, JPEG, WebP, or GIF image up
+to 5 MiB. Images use the public `post-images` Storage bucket; its setup and
+owner-only upload policies are in `supabase/migrations/20261109000001_post_images.sql`.
+Before upload, static images are resized to fit within 1600 pixels and converted
+to WebP if the result is smaller; otherwise the original is uploaded. Animated
+images keep their original format.
+Posts support headings, bold, italic, underline, strikethrough, lists, quotes,
+code, dividers, and links. The format column is
+added by `supabase/migrations/20261109000002_post_body_format.sql`; editor
+documents are enabled by `20261109000003_post_tiptap_format.sql`. Apply the
+migrations in order when setting up another project.
+Definitively rejected post inserts try to clean up their uploaded image; if the
+outcome is uncertain, check the post list and Storage before retrying. Editing and
+deletion are not included; deleting a post row alone does not delete its image.
 
 ### Checks
 

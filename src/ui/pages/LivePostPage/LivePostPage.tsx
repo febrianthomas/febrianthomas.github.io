@@ -1,9 +1,12 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
+import Markdown from "react-markdown";
 import { useEffect, useState } from "react";
 import text from "@/content/text.json";
-import { getPost, type PublishedPost } from "@/lib/posts";
+import { getPost, postImageUrl, type PublishedPost } from "@/lib/posts";
+import { PostContent } from "@/ui/components/PostContent/PostContent";
 
 export function LivePostPage() {
   const [post, setPost] = useState<PublishedPost | null>(null);
@@ -34,7 +37,16 @@ export function LivePostPage() {
             <p className="mt-10 text-xs font-semibold uppercase tracking-[0.15em] text-zinc-500 dark:text-zinc-400">{text.navigation.post}</p>
             <h1 className="mt-4 font-bagel-fat-one text-5xl leading-tight sm:text-6xl">{post.title}</h1>
             <p className="mt-5 text-xl leading-8 text-zinc-600 dark:text-zinc-300">{post.description}</p>
-            <div className="mt-10 whitespace-pre-wrap wrap-break-words text-lg leading-8 text-zinc-700 dark:text-zinc-200">{post.body}</div>
+            {post.image_path && <Image src={postImageUrl(post.image_path)} alt={post.image_alt ?? ""} width={1200} height={675} className="surface-shadow mt-10 h-auto w-full rounded-3xl object-contain" sizes="(min-width: 768px) 768px, 100vw" />}
+            {post.body_format === "tiptap" ? (
+              <PostContent body={post.body} />
+            ) : post.body_format === "markdown" ? (
+              <div className="post-rich-content mt-10 text-lg leading-8 text-zinc-700 dark:text-zinc-200">
+                <Markdown skipHtml allowedElements={["p", "strong", "em", "ul", "ol", "li", "blockquote", "h2", "br", "a"]} unwrapDisallowed components={{ a: ({ node: _node, ...props }) => <a {...props} target="_blank" rel="noopener noreferrer" /> }}>{post.body}</Markdown>
+              </div>
+            ) : (
+              <div className="mt-10 whitespace-pre-wrap wrap-break-words text-lg leading-8 text-zinc-700 dark:text-zinc-200">{post.body}</div>
+            )}
           </>
         )}
       </article>

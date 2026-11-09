@@ -4,8 +4,24 @@ begin;
 
 set local role authenticated;
 select set_config('request.jwt.claim.sub', '1007e0fb-6f2f-473f-8305-067666bc643f', true);
+insert into public.posts (title, description, body, body_format, image_path, image_alt)
+values ('temporary policy check', 'temporary policy check', '{"type":"doc"}', 'tiptap', '00000000-0000-0000-0000-000000000002.png', 'Test image');
+
 insert into public.posts (title, description, body)
-values ('temporary policy check', 'temporary policy check', 'temporary policy check');
+values ('temporary plain check', 'temporary plain check', 'temporary plain check');
+
+do $$
+begin
+  if not exists (select 1 from public.posts where title = 'temporary plain check' and body_format = 'plain') then
+    raise exception 'Existing clients must default to plain text';
+  end if;
+  begin
+    insert into public.posts (title, description, body, body_format)
+    values ('invalid format check', 'invalid format check', 'invalid format check', 'invalid');
+    raise exception 'Invalid body format accepted';
+  exception when check_violation then null;
+  end;
+end $$;
 
 select set_config('request.jwt.claim.sub', '00000000-0000-0000-0000-000000000001', true);
 do $$
@@ -21,7 +37,7 @@ end $$;
 set local role anon;
 do $$
 begin
-  if not exists (select 1 from public.posts where title = 'temporary policy check') then
+  if not exists (select 1 from public.posts where title = 'temporary policy check' and body_format = 'tiptap') then
     raise exception 'Public read failed';
   end if;
   begin

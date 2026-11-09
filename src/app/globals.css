@@ -5,6 +5,76 @@
   overflow-wrap: break-word;
 }
 
+html, body, [data-lenis-prevent] {
+  scrollbar-width: none;
+}
+
+html::-webkit-scrollbar, body::-webkit-scrollbar, [data-lenis-prevent]::-webkit-scrollbar {
+  display: none;
+}
+
+.post-rich-content {
+  overflow-wrap: break-word;
+}
+
+.post-rich-content > * + * {
+  margin-top: 1em;
+}
+
+.post-rich-content p {
+  white-space: pre-wrap;
+}
+
+.post-rich-content a {
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.post-rich-content h2 {
+  font-family: var(--font-bagel-fat-one), sans-serif;
+  font-size: 1.5em;
+  line-height: 1.2;
+}
+
+.post-rich-content h3 {
+  font-family: var(--font-bagel-fat-one), sans-serif;
+  font-size: 1.2em;
+  line-height: 1.3;
+}
+
+.post-rich-content :not(pre) > code {
+  border-radius: 0.25em;
+  background: rgb(113 113 122 / 0.15);
+  padding: 0.1em 0.3em;
+  font-size: 0.9em;
+}
+
+.post-rich-content pre {
+  overflow-x: auto;
+  border-radius: 0.75rem;
+  background: rgb(113 113 122 / 0.15);
+  padding: 1em;
+  font-size: 0.9em;
+}
+
+.post-rich-content hr {
+  border: 0;
+  border-top: 1px solid currentColor;
+  opacity: 0.3;
+}
+
+.post-rich-content ul, .post-rich-content ol {
+  padding-left: 1.5em;
+}
+
+.post-rich-content ul { list-style: disc; }
+.post-rich-content ol { list-style: decimal; }
+
+.post-rich-content blockquote {
+  border-left: 3px solid currentColor;
+  padding-left: 1em;
+}
+
 body {
   isolation: isolate;
   background: #fff;
@@ -13,6 +83,14 @@ body {
 
 html.dark { color-scheme: dark; }
 html.dark body { background: #18181b; }
+
+.surface-shadow {
+  box-shadow: 0 5px 18px rgb(24 24 27 / 0.10), 0 1px 4px rgb(24 24 27 / 0.06);
+}
+
+html.dark .surface-shadow {
+  box-shadow: 0 0 0 1px rgb(255 244 228 / 0.08), 0 0 20px rgb(255 221 180 / 0.12);
+}
 
 .background-shapes {
   position: fixed;
