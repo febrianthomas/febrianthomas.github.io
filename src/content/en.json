@@ -249,7 +249,7 @@
     "titleLabel": "Title",
     "descriptionLabel": "Short description",
     "bodyLabel": "Post content",
-    "linkHelp": "Type or paste a link, or select text and paste a link onto it.",
+    "linkHelp": "Paste a YouTube link to add a video, or select text and paste a link onto it.",
     "formattingToolbar": "Post formatting",
     "bold": "Bold",
     "italic": "Italic",

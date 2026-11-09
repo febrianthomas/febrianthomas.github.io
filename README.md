@@ -70,6 +70,8 @@ publication date and the date of their most recent update. The format column is
 added by `supabase/migrations/20261109000002_post_body_format.sql`; editor
 documents are enabled by `20261109000003_post_tiptap_format.sql`. Apply the
 migrations in order when setting up another project.
+Paste a YouTube video URL into the post or project content editor to embed it.
+Pasting a link onto selected text still creates a regular link.
 Definitively rejected post inserts try to clean up their uploaded image; if the
 outcome is uncertain, check the post list and Storage before retrying. Signed-in
 owners can delete a post and its image from the post page. If image removal fails,

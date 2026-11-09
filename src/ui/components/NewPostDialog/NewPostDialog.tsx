@@ -13,6 +13,7 @@ import { PostUpdateUncertainError } from "@/lib/post-update";
 import { optimizePostImage, postImageExtension } from "@/lib/post-image";
 import { prepareInlineImages, removeUnlinkedImages, InlineImageCleanupError, InlineImageLimitError } from "@/lib/post-inline-images";
 import { getSupabase } from "@/lib/supabase";
+import { hasYoutubeVideo } from "@/lib/youtube";
 import { Button } from "@/ui/components/Button/Button";
 import { PostEditor, type PostEditorValue } from "@/ui/components/PostEditor/PostEditor";
 import { LoadingIndicator } from "@/ui/components/LoadingIndicator/LoadingIndicator";
@@ -110,7 +111,7 @@ export function NewPostDialog({ postId, postTitle, onSaved, compact = false, kin
       setError(t.tagsInvalid);
       return;
     }
-    if (!title || !description || !content.plainText.trim()) {
+    if (!title || !description || (!content.plainText.trim() && !hasYoutubeVideo(body))) {
       setError(t.requiredFields);
       return;
     }
