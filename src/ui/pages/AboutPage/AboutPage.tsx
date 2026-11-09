@@ -66,7 +66,7 @@ export default function AboutPage() {
             </section>
           ))}
         </div>
-        <section className="mx-auto mt-24 max-w-3xl rounded-3xl bg-orange-50 px-6 py-12 text-center sm:mt-32 sm:px-12 sm:py-16 dark:bg-zinc-900">
+        <section className="surface-shadow mx-auto mt-24 max-w-3xl rounded-3xl bg-white px-6 py-12 text-center sm:mt-32 sm:px-12 sm:py-16 dark:bg-zinc-900">
           <h2 className="font-bagel-fat-one text-4xl sm:text-5xl">{text.about.donations.title}</h2>
           <p className="mx-auto mt-5 max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-300">{text.about.donations.description}</p>
           <div className="mt-8 flex flex-wrap justify-center gap-4">
