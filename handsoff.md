@@ -21,7 +21,7 @@ Snapshot: 2026-11-09. Recheck the working tree and live state before making chan
 
 ## Recent progress
 
-- Added `AGENTS.md`, homepage previews for live posts and projects, and an About page donation section. Tools and software stack vertically with horizontal item rows; donations follow them. The footer includes navigation, social links, and a link to the support section.
+- Added `AGENTS.md`, homepage previews for live posts and projects, and an About page donation section. Tools and software stack vertically with horizontal item rows; donations follow them. The footer shows copyright and social links.
 - About page links include four donation providers with configurable GIFs. The outer support card was removed. Signed-in owner controls show or hide each provider using `public.support_buttons`; disabled buttons remain visible to signed-in users. Migration `20261109000009_support_buttons.sql` is applied remotely. RLS was tested in a rolled-back transaction with `supabase/tests/support_buttons_rls.sql`.
 - The user supplied six social links and four donation links, stored in `src/content/text.json`. Type checking passed after these changes. No production build was run.
 - The working tree also contains user-edited copy, deleted temporary assets, and new GIFs under `public/images`. Preserve these unrelated uncommitted edits. Check `git status` before further work.
