@@ -22,8 +22,8 @@
       {
         "id": "who-am-i",
         "title": "Who Am I?",
-        "description": "I’m Febrian—a creator, illustrator, and builder who loves turning playful ideas into things people can see and use.",
-        "image": "/images/temp-3.gif",
+        "description": "I’m Febrian, a self-taught illustrator and 2D animator learning to build for the web. I’m a little shy and awkward, but I’m always happy to make a friend—even if my jokes are a little cringe.",
+        "image": "/images/hero-section-1.gif",
         "imageAlt": "Illustration of febrianthomas",
         "imagePosition": "left",
         "imageFit": "contain"
@@ -31,20 +31,29 @@
       {
         "id": "what-i-do",
         "title": "What I Do.",
-        "description": "I draw characters, design interfaces, and build web projects—mixing illustration with clean, interactive code.",
-        "image": "/images/temp-1.png",
+        "description": "I draw fan art and original characters, bring ideas to life through animation, and experiment with web development. Sometimes I make YouTube videos too, though uploads are a rare sight.",
+        "image": "/images/hero-section-2.gif",
         "imageAlt": "Illustration of a crying character",
         "imagePosition": "right",
-        "imageFit": "cover"
+        "imageFit": "contain"
       },
       {
         "id": "what-i-like",
         "title": "What I Like.",
-        "description": "Sketching late at night, experimenting with new tools, animation, cozy games, and a good cup of coffee.",
-        "image": "/images/temp-2.png",
+        "description": "Give me anime, animation, drawing, video games, and a good cup of coffee. Actually, make that a lot of coffee.",
+        "image": "/images/hero-section-3.gif",
         "imageAlt": "Illustration of a character with raised hands",
         "imagePosition": "left",
-        "imageFit": "cover"
+        "imageFit": "contain"
+      },
+      {
+        "id": "what-inspires-me",
+        "title": "What Inspires Me.",
+        "description": "I love drawing and want to keep making better art and animation. Creators like GingerPale inspire me with the way they bring stories to life through animation.",
+        "image": "/images/hero-section-4.gif",
+        "imageAlt": "Illustration of a character with raised hands",
+        "imagePosition": "right",
+        "imageFit": "contain"
       }
     ]
   },
