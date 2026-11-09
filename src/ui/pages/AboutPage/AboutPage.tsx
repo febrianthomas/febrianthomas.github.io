@@ -3,6 +3,7 @@ import { ImageIcon } from "lucide-react";
 import { siInstagram, siYoutube, siX, siThreads, siTwitch, siTiktok } from "simple-icons";
 import { MotionLink } from "@/ui/components/MotionLink/MotionLink";
 import { SocialPlaceholder } from "@/ui/components/SocialPlaceholder/SocialPlaceholder";
+import { SupportButtons } from "@/ui/components/SupportButtons/SupportButtons";
 import text from "@/content/text.json";
 
 export default function AboutPage() {
@@ -66,21 +67,7 @@ export default function AboutPage() {
             </section>
           ))}
         </div>
-        <section className="mx-auto mt-24 max-w-3xl text-center sm:mt-32">
-          <h2 className="font-bagel-fat-one text-4xl sm:text-5xl">{text.about.donations.title}</h2>
-          <p className="mx-auto mt-5 max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-300">{text.about.donations.description}</p>
-          <div className="mt-8 flex flex-wrap justify-center gap-4">
-            {[text.about.donations.streamlabs, text.about.donations.saweria, text.about.donations.kofi, text.about.donations.trakteer].map((donation) => donation.url ? (
-              <MotionLink key={donation.name} href={donation.url} target="_blank" rel="noopener noreferrer" whileHover={{ y: -3, scale: 1.04 }} className="surface-shadow inline-flex min-h-40 w-40 max-w-full flex-col items-center justify-center gap-3 rounded-2xl bg-zinc-100 px-6 py-6 text-lg text-zinc-900 focus-visible:outline-2 focus-visible:outline-offset-4 dark:bg-zinc-800 dark:text-zinc-100">
-                {donation.image && <Image src={donation.image} alt="" width={80} height={80} className="size-20 object-contain" />}{donation.name}
-              </MotionLink>
-            ) : (
-              <span key={donation.name} className="inline-flex min-h-40 w-40 max-w-full flex-col items-center justify-center gap-3 rounded-2xl bg-zinc-100 px-6 py-6 text-lg text-zinc-600 dark:bg-zinc-800 dark:text-zinc-300">
-                {donation.image && <Image src={donation.image} alt="" width={80} height={80} className="size-20 object-contain" />}<span>{donation.name} · {text.about.donations.unavailable}</span>
-              </span>
-            ))}
-          </div>
-        </section>
+        <SupportButtons />
       </div>
     </main>
   );
