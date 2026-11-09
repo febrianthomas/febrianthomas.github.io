@@ -31,7 +31,7 @@ export function LivePosts({ kind = "post" }: { kind?: PostKind }) {
   if (error) return <p role="status" className="text-sm text-zinc-600 dark:text-zinc-300 sm:col-span-2 lg:col-span-3">{t.loadError}</p>;
   if (posts === null) return <PageLoading />;
   if (posts.length === 0) return (
-    <div className="surface-shadow flex min-h-72 flex-col items-center justify-center rounded-3xl bg-zinc-100 px-6 py-12 text-center sm:col-span-2 lg:col-span-3 dark:bg-zinc-900">
+    <div className="flex min-h-72 flex-col items-center justify-center px-6 py-12 text-center sm:col-span-2 lg:col-span-3">
       <span aria-hidden="true" className="flex size-16 items-center justify-center rounded-2xl bg-orange-100 text-orange-700 dark:bg-zinc-800 dark:text-orange-300"><FileText size={30} /></span>
       <h2 className="mt-6 font-bagel-fat-one text-3xl">{t.emptyTitle}</h2>
       <p className="mt-3 max-w-sm leading-7 text-zinc-600 dark:text-zinc-300">{t.emptyDescription}</p>
