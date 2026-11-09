@@ -6,7 +6,7 @@ Snapshot: 2026-11-09. Recheck the working tree and live state before making chan
 
 - Complete requested work directly and keep changes simple. Keep user-facing text in `src/content/text.json`.
 - Do not run a production build after every change. Use focused checks; build when needed for a significant release or static-export verification.
-- Commit after every requested change (not questions). Push to the active branch after every **10 commits**. Last pushed commit: `e3a41ec` on `origin/main`. Five commits followed it; the handoff update adds one more commit.
+- Commit after every requested change (not questions). Push to the active branch after every **10 commits**. Check `git status -sb` for the current count; a push is due after this handoff update.
 - Update this handoff every 5 commits. If the model limit is below 5%, stop all work and write all progress and pending tasks here. The assistant cannot see the quota; if the user reports a limit, stop and update this document.
 - Use the `init-project-conversation` skill (`.agents/skills/`) at session start; it applies ponytail and caveman.
 - Use Context7 for library, framework, API, and cloud documentation. Do not expose credentials in files or logs.
@@ -21,7 +21,8 @@ Snapshot: 2026-11-09. Recheck the working tree and live state before making chan
 
 ## Recent progress
 
-- Latest feature commit: `16fc029` (social and donation links). Added `AGENTS.md`, homepage previews for live posts and projects, and an About page donation section. Tools and software sit side by side on larger screens; donations follow them.
+- Latest feature commit: `5caf195` (stack donation GIFs above button labels). Added `AGENTS.md`, homepage previews for live posts and projects, and an About page donation section. Tools and software stack vertically with horizontal item rows; donations follow them.
+- About page links include four donation providers with configurable GIFs. The user asked whether to remove the outer support card; recommended removing it, but no removal was requested yet.
 - The user supplied six social links and four donation links, stored in `src/content/text.json`. Type checking passed after these changes. No production build was run.
 - The working tree also contains user-edited copy, deleted temporary assets, and new GIFs under `public/images`. Preserve these unrelated uncommitted edits. Check `git status` before further work.
 - The following post and portfolio features are committed. The live GitHub Pages deployment remains separate from source pushes.
