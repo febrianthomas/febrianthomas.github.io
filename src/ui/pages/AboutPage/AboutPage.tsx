@@ -64,7 +64,7 @@ export default function AboutPage() {
           <h2 className="font-bagel-fat-one text-4xl sm:text-5xl">{text.about.donations.title}</h2>
           <p className="mx-auto mt-5 max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-300">{text.about.donations.description}</p>
           <div className="mt-8 flex flex-wrap justify-center gap-4">
-            {[text.about.donations.streamlabs, text.about.donations.saweria].map((donation) => donation.url ? (
+            {[text.about.donations.streamlabs, text.about.donations.saweria, text.about.donations.kofi, text.about.donations.trakteer].map((donation) => donation.url ? (
               <MotionLink key={donation.name} href={donation.url} target="_blank" rel="noopener noreferrer" whileHover={{ y: -3, scale: 1.04 }} className="surface-shadow inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-orange-100 px-6 py-3 text-orange-900 focus-visible:outline-2 focus-visible:outline-offset-4 dark:bg-zinc-800 dark:text-orange-200">
                 <Heart size={18} aria-hidden="true" />{donation.name}
               </MotionLink>

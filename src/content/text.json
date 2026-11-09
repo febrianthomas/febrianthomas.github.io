@@ -61,33 +61,35 @@
       "title": "Support My Work.",
       "description": "If you enjoy what I create, you can support me here.",
       "unavailable": "Coming soon",
-      "streamlabs": { "name": "Streamlabs", "url": "" },
-      "saweria": { "name": "Saweria", "url": "" }
+      "streamlabs": { "name": "Streamlabs", "url": "https://streamlabs.com/febrianthomas/tip" },
+      "saweria": { "name": "Saweria", "url": "https://saweria.co/donate/febrianthomas" },
+      "kofi": { "name": "Ko-fi", "url": "https://ko-fi.com/febrianthomas" },
+      "trakteer": { "name": "Trakteer", "url": "https://trakteer.id/febrianthomas" }
     },
     "socials": {
       "instagram": {
         "name": "Instagram",
-        "url": ""
+        "url": "https://www.instagram.com/febrianthomas_"
       },
       "youtube": {
         "name": "YouTube",
-        "url": ""
+        "url": "https://www.youtube.com/@febrianthomas"
       },
       "twitter": {
         "name": "X / Twitter",
-        "url": ""
+        "url": "https://x.com/febrianthomas_"
       },
       "threads": {
         "name": "Threads",
-        "url": ""
+        "url": "https://www.threads.com/@febrianthomas_"
       },
       "twitch": {
         "name": "Twitch",
-        "url": ""
+        "url": "https://www.twitch.tv/febrianthomas/about"
       },
       "tiktok": {
         "name": "TikTok",
-        "url": ""
+        "url": "https://www.tiktok.com/@febrianthomas_"
       }
     },
     "tools": {
