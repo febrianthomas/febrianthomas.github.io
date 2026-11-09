@@ -25,8 +25,8 @@ export function Header() {
         </nav>
         <div className="absolute right-4 top-5 flex items-center gap-0 sm:gap-2 md:static md:justify-self-end">
           <LanguageToggle />
-          <AuthControl />
           <ThemeToggle />
+          <AuthControl />
         </div>
       </div>
     </header>
