@@ -1,10 +1,26 @@
 # febrianthomas.github.io
-febrianthomas official website
 
-The [HTML portfolio prototype](prototype/index.html) follows [the PRD](issues/prd.md).
-Open it directly, or run `python -m http.server 8000 --directory prototype` from this repository and visit <http://localhost:8000> for the full motion preview.
+A personal website for Febrian Thomas, a self-taught illustrator and 2D animator.
+It brings together illustrations, projects, and posts in one place, with a little
+animation and personality along the way. Visit [febrianthomas.github.io](https://febrianthomas.github.io/).
 
-See [prototype notes](prototype/README.md) for the demo studio, content assumptions, and checks.
+## Features
+
+- A home page introducing Febrian, with previews of recent projects and posts.
+- Portfolio and post pages with search, tags, featured items, and expandable images.
+- An About page with social links, tools, software, and support links.
+- English and Indonesian site text, plus light and dark themes.
+- Owner sign-in to create, edit, and delete projects and posts, and manage support link visibility.
+- A rich-text editor for images, formatting, and embedded YouTube videos.
+
+## Tech stack
+
+- **Next.js and React** with TypeScript for the website and static export.
+- **Tailwind CSS** for styling, with **Motion** and **Lenis** for animation and smooth scrolling.
+- **Supabase** for authentication, the PostgreSQL database, and image storage.
+- **Tiptap** for rich-text editing and **Radix UI** for accessible dialogs.
+- **Lucide** and **Simple Icons** for icons.
+- **GitHub Actions and GitHub Pages** for building and hosting the site.
 
 ## App setup
 
