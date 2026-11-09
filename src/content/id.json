@@ -22,7 +22,7 @@
     "sections": [
       {
         "id": "who-am-i",
-        "title": "Siapa Aku?",
+        "title": "Aku Siapa?",
         "description": "Hai, aku Febrian! Aku ilustrator dan animator 2D otodidak yang lagi belajar web development. Awalnya mungkin agak diem, tapi aku suka berbagi karya dan kenalan sama orang-orang baru.",
         "image": "/images/hero-section-1.gif",
         "imageAlt": "Ilustrasi karakter",
@@ -41,7 +41,7 @@
       {
         "id": "what-i-like",
         "title": "Aku Suka Apa?",
-        "description": "Aku suka anime, animasi, gambar, main game, dan kopi. Banyak kopi.",
+        "description": "Aku suka anime, animasi, gambar, main game, dan kopi. Kopinya yang banyak.",
         "image": "/images/hero-section-3.gif",
         "imageAlt": "Ilustrasi karakter",
         "imagePosition": "left",
