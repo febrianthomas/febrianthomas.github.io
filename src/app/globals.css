@@ -94,6 +94,12 @@ html::-webkit-scrollbar, body::-webkit-scrollbar, [data-lenis-prevent]::-webkit-
   padding-left: 1em;
 }
 
+.post-rich-content img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 1rem;
+}
+
 body {
   isolation: isolate;
   background: #fff;

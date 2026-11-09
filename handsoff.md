@@ -1,48 +1,39 @@
 # Handoff: febrianthomas.github.io
 
-Snapshot: 2026-11-09. Recheck the working tree and current files before making changes; the user may edit them directly.
+Snapshot: 2026-11-09. Recheck the working tree and live state before making changes. The user may edit files directly; preserve those edits.
 
-## Working preferences
+## User preferences
 
-- Make the requested change directly and keep solutions simple. Preserve the user's edits.
-- Do not run a production build after every change. Use targeted checks; build when needed to verify static export or when asked.
-- Commit and push to GitHub after every **10 requested changes**. This snapshot was prepared for the tenth change in the batch following `780e944`; once that batch is committed and pushed, start the next count at zero. Questions and explanations alone do not increment the count. Do not commit or push early unless asked.
-- Refresh `handsoff.md` after every **five commits**, counting the commit containing this snapshot as the first. Record the current state and reset the five-commit count after each refresh.
-- The user asked for Context7 documentation when working with a library, framework, API, CLI, or cloud service. Resolve the library first, then query its docs. Use the available equivalent if Context7 is unavailable.
-- Keep visible copy editable in `src/content/text.json`. Preserve accessibility, keyboard access, responsive layouts, and reduced-motion support.
+- Complete requested work directly and keep changes simple. Keep user-facing text in `src/content/text.json`.
+- Do not run a production build after every change. Use focused checks; build when needed for a significant release or static-export verification.
+- Commit after every requested change (not questions). Push to the active branch after every **10 commits**. Last pushed commit: `43b32b0` on `origin/main`. Commits since last push: tracked below.
+- Update this handoff every 5 commits. If the model limit is below 5%, stop all work and write all progress and pending tasks here. The assistant cannot see the quota; if the user reports a limit, stop and update this document.
+- Use the `init-project-conversation` skill (`.agents/skills/`) at session start; it applies ponytail and caveman.
+- Use Context7 for library, framework, API, and cloud documentation. Do not expose credentials in files or logs.
+- Keep GitHub Pages and do not require a redeployment each time a post is created or edited. The user explicitly cancelled custom post URLs. Retain `/post/view/?id=<uuid>`.
 
-## Project and repository
+## Project
 
-- Personal website using Next.js App Router, React, TypeScript, Tailwind CSS, and Supabase. `next.config.ts` uses `output: "export"` and `trailingSlash: true` for GitHub Pages.
-- `src/app` contains routes. Reusable components and page components are under `src/ui/components` and `src/ui/pages`; `src/pages` is intentionally avoided because Next.js treats it as Pages Router routes.
-- Run `npm.cmd run typecheck` and `npm.cmd test` in this PowerShell environment. `npm.cmd run build` verifies static export and may require network access for Google Fonts.
-- GitHub remote: `https://github.com/febrianthomas/febrianthomas.github.io.git`, branch `main`. The active GitHub CLI account was switched to `febrianthomas`; repository-local Git identity was set to that account. Verify before a future push. The user requested commit and push, not automatic deployment: GitHub Pages deployment uses the separate `npm run deploy` workflow described in `README.md`.
+- Next.js App Router, React, Tailwind CSS, Supabase, Tiptap, Motion, Lenis, and Radix dialogs. `next.config.ts` uses static export for GitHub Pages. UI components and page components live in `src/ui`.
+- GitHub: `https://github.com/febrianthomas/febrianthomas.github.io.git`, branch `main`. A push updates source, not the GitHub Pages site; deployment is a separate process. Use the authenticated `febrianthomas` GitHub CLI account; if Git's default credential helper hangs, `git -c credential.helper= -c 'credential.helper=!gh auth git-credential' push origin main` worked previously.
+- Supabase project reference: `tnxcutuipxqxcdcllhdn`. `.env` contains a public URL and publishable key; never copy credentials into this document. Public post reads are allowed. Database write and Storage policies enforce the owner account.
+- Existing features include post creation, editing, deleting, images in a public `post-images` bucket, owner-only Storage access, image cleanup, and Tiptap rich text. All ordinary posts and uploaded images are public.
 
-## What has been built
+## Current task: implemented, uncommitted
 
-- Home page: animated character with a click greeting; editable sections from `text.home.sections` in `src/content/text.json`. The background has colorful moving shapes, follows mouse movement, and respects reduced motion. Motion is used for UI animation; Lenis handles smooth scrolling.
-- Shared header/footer, light/dark toggle, logo links, and About, Portfolio, Post, and Login pages. About has editable tool/software cards and social URLs. Social icons use `simple-icons`; empty URLs are non-link placeholders.
-- Supabase email/password sign-in; the header switches to a sign-out control with a Radix confirmation dialog. Logged-in users are redirected from `/login/` to `/`. The login copy says only the owner can sign in, but sign-in itself accepts any valid user in the project; do not treat that copy as an authorization check.
-- Posts: `/post/` shows published Supabase posts or a loading, empty, or error state. Signed-in users can open **Add post**, a modal accepting title, description, and text body. `/post/view/?id=<uuid>` reads a post client-side, allowing newly published posts to work on a static host without rebuilding. The former sample posts and their static detail routes were removed.
+The user requested published and updated dates, better social previews, inline images, search, tags, image captions, featured posts, previous/next navigation, and an image lightbox. They cancelled custom URLs because static GitHub Pages cannot create new routes at runtime. They specifically approved a public unauthenticated Supabase Edge Function for social previews.
 
-## Supabase and security
+- This batch is committed locally in one commit (not pushed). Commits since last push: 1.
+- Applied to the connected Supabase project: `20261109000006_post_features.sql` (tags, featured, caption, updated timestamp) and `20261109000007_inline_images.sql` (inline paths and Storage deletion policy). These are backward-compatible for the currently deployed site. Both were tested inside rolled-back transactions before application. Do not reapply remotely.
+- The `share-post` Edge Function was deleted from Supabase (verified: function list is empty). Its local source and tests were removed. The copy-share feature is gone. The old GitHub Pages URL cannot serve dynamic post metadata.
+- Implemented locally: metadata fields and form controls, featured ordering, searchable post content, tag filtering, publish/update dates, cover captions, chronological previous/next links, a cover and inline-image lightbox, and inline image selection. The inline image flow uses temporary local blob URLs while editing, uploads on save, records `inline_image_paths`, and cleans up unreferenced images after an update/delete. Existing database posts and image paths must not be damaged.
+- Tiptap's `@tiptap/extension-image` was installed. Inline images use `storagePath` attributes to track Storage files; captions are added as editable paragraphs. The editor inserts images using a nested Radix dialog.
+- Tests added or updated: `tests/post-list.test.mjs`, `tests/post-inline-images.test.mjs`, `tests/post-update.test.mjs`, `tests/post-delete.test.mjs`, `tests/post-format.test.mjs`; SQL checks in `supabase/tests/post_features.sql` and `inline_images.sql`. TypeScript and the tests passed. Database policy checks ran in rolled-back transactions.
+- Headless Edge verified the public Posts page and existing post, search filtering, cover lightbox open/close, inline-image lightbox keyboard access, and previous/next navigation. The user later changed previous/next links to icons and removed the copy-share button. A simulated owner session with all writes blocked verified that the edit form inserts a local image and caption without uploading or submitting. No real post was changed. A portal submit bubbling bug found by this check was fixed with `stopPropagation`.
+- Real owner-credential end-to-end saving and Storage cleanup were not tested in a browser. Unit tests exercise upload, update, failure, and cleanup decisions using mocks. Do not modify or delete the user's real posts for testing. The static GitHub Pages site has not been redeployed; the current changes are local until the normal source commit and deployment workflow.
 
-- Configured project reference: `tnxcutuipxqxcdcllhdn`. The local environment contains the public project URL and publishable key; do not copy keys or credentials into this file or commits.
-- The `public.posts` table and RLS policies were **already applied to the connected remote project**. The corresponding migration is `supabase/migrations/20261109000000_create_posts.sql`; inspect before applying it elsewhere or attempting to reapply it.
-- Posts are public immediately after creation. Anyone can read; only the specific confirmed owner account in the migration policy can insert. The owner check is enforced in the database, not by hiding the button. Update the policy deliberately if the owner account changes.
-- Policy checks were run inside a rolled-back transaction: owner insert and public read succeeded; anonymous and another authenticated identity were denied. `supabase/tests/posts_rls.sql` records the checks. An anonymous Supabase client also verified public read and rejected insert. No test rows were left behind.
-- Post creation is text-only. Image upload, post editing, and post deletion are not implemented. The user asked whether Supabase supports image uploads and whether deleting a post deletes its image; these were questions, not requests to implement either feature. Storage objects require separate Storage API deletion and careful failure handling if this is requested later.
+## Supabase and deployment cautions
 
-## Working-tree snapshot
-
-Run `git status --short` for the authoritative list. This snapshot was prepared immediately before committing the post list, empty state, creation modal, reader, Supabase client helpers, migration and policy test, plus social-icon styling and the related JSON/README changes. The Supabase posts table already exists remotely. A Git push does not itself deploy the site. Do not overwrite or discard uncommitted changes.
-
-TypeScript typecheck and existing tests passed after the creation modal was added. A production build passed earlier with the Supabase post routes, before the sample and standalone creation routes were removed. The live sign-in, creation modal, and empty-state UI have not been verified end-to-end in a browser using the owner's credentials.
-
-## Recent commit history
-
-- `780e944` — About-page social links and related styling.
-- `10f8849` — About page and tool cards.
-- `7e951b9` — Centralized content and sign-in improvements.
-- `7e1baf5` — Home sections and scrolling.
-- `c66bd2b` — Home page and hero interaction.
+- Migrations through `20261109000007_inline_images.sql` have been applied remotely. Use the Storage API to remove files, not SQL deletes on `storage.objects`.
+- Updates save the database before deleting replaced files; if cleanup fails, the user sees a warning and should inspect Storage. Retain conservative handling of uncertain network responses so files still referenced by posts are not removed.
+- Earlier handoffs that claimed posts were text-only are obsolete. Check current code and migrations for the authoritative behavior.

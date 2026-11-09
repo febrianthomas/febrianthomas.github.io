@@ -8,7 +8,9 @@ import { useEffect, useRef, useState, type FormEvent } from "react";
 import text from "@/content/text.json";
 import { createPost, getPost, postImageUrl, updatePost, PostImageUncertainError, type PublishedPost } from "@/lib/posts";
 import { PostUpdateUncertainError } from "@/lib/post-update";
-import { postImageExtension } from "@/lib/post-image";
+import { optimizePostImage, postImageExtension } from "@/lib/post-image";
+import { prepareInlineImages, removeUnlinkedImages, InlineImageCleanupError, InlineImageLimitError } from "@/lib/post-inline-images";
+import { getSupabase } from "@/lib/supabase";
 import { Button } from "@/ui/components/Button/Button";
 import { PostEditor, type PostEditorValue } from "@/ui/components/PostEditor/PostEditor";
 import { LoadingIndicator } from "@/ui/components/LoadingIndicator/LoadingIndicator";
@@ -26,11 +28,13 @@ export function NewPostDialog({ postId, postTitle, onSaved, compact = false }: {
   const [loadingPost, setLoadingPost] = useState(false);
   const [removeImage, setRemoveImage] = useState(false);
   const [bodyChanged, setBodyChanged] = useState(false);
+  const [savedWarning, setSavedWarning] = useState(false);
   const [preview, setPreview] = useState<{ file: File; url: string } | null>(null);
   const [imageError, setImageError] = useState("");
   const [dragging, setDragging] = useState(false);
   const [content, setContent] = useState<PostEditorValue>({ document: "", plainText: "" });
   const fileInput = useRef<HTMLInputElement>(null);
+  const inlineFiles = useRef(new Map<string, File>());
 
   function resetForm() {
     setImage(null);
@@ -40,6 +44,9 @@ export function NewPostDialog({ postId, postTitle, onSaved, compact = false }: {
     setOriginal(null);
     setRemoveImage(false);
     setBodyChanged(false);
+    setSavedWarning(false);
+    for (const url of inlineFiles.current.keys()) URL.revokeObjectURL(url);
+    inlineFiles.current.clear();
   }
 
   useEffect(() => {
@@ -61,6 +68,16 @@ export function NewPostDialog({ postId, postTitle, onSaved, compact = false }: {
     return () => URL.revokeObjectURL(url);
   }, [image]);
 
+  useEffect(() => () => { for (const url of inlineFiles.current.keys()) URL.revokeObjectURL(url); inlineFiles.current.clear(); }, []);
+
+  function addContentImage(file: File) {
+    if (!postImageExtension(file)) { setError(text.post.imageInvalid); return null; }
+    const url = URL.createObjectURL(file);
+    inlineFiles.current.set(url, file);
+    setError("");
+    return url;
+  }
+
   function selectImage(file: File | null) {
     if (file && !postImageExtension(file)) {
       setImage(null);
@@ -81,7 +98,14 @@ export function NewPostDialog({ postId, postTitle, onSaved, compact = false }: {
     const description = String(form.get("description") ?? "").trim();
     const body = content.document;
     const imageAlt = String(form.get("imageAlt") ?? "").trim();
+    const imageCaption = String(form.get("imageCaption") ?? "").trim();
+    const tags = [...new Set(String(form.get("tags") ?? "").split(",").map((tag) => tag.trim().toLowerCase()).filter(Boolean))];
+    const featured = form.get("featured") === "on";
     if (imageError) return;
+    if (tags.length > 10 || tags.some((tag) => tag.length > 40)) {
+      setError(text.post.tagsInvalid);
+      return;
+    }
     if (!title || !description || !content.plainText.trim()) {
       setError(text.post.requiredFields);
       return;
@@ -96,15 +120,20 @@ export function NewPostDialog({ postId, postTitle, onSaved, compact = false }: {
     }
     setPending(true);
     setError("");
+    let uploaded: string[] = [];
     try {
+      const prepared = (bodyChanged || !postId) ? await prepareInlineImages(getSupabase(), body, inlineFiles.current, original?.inline_image_paths ?? [], optimizePostImage) : { body: original!.body, paths: original!.inline_image_paths, uploaded: [] };
+      uploaded = prepared.uploaded;
+      if (prepared.body.length > 20000) throw new Error("Post content too long");
       if (postId && original) {
-        const result = await updatePost(original, { title, description, body: bodyChanged ? body : original.body, body_format: bodyChanged ? "tiptap" : original.body_format, image_alt: imageAlt || null }, image, removeImage);
+        const result = await updatePost(original, { title, description, body: prepared.body, body_format: bodyChanged ? "tiptap" : original.body_format, image_alt: imageAlt || null, image_caption: imageCaption || null, tags, featured, inline_image_paths: prepared.paths }, image, removeImage);
         onSaved?.(result.post);
         setOriginal(result.post);
         setImage(null);
         setRemoveImage(false);
         setBodyChanged(false);
         if (result.cleanupFailed) {
+          setSavedWarning(true);
           setError(text.post.editImageCleanupError);
           return;
         }
@@ -112,12 +141,16 @@ export function NewPostDialog({ postId, postTitle, onSaved, compact = false }: {
         resetForm();
         return;
       }
-      const id = await createPost({ title, description, body }, image ?? undefined, imageAlt);
+      const id = await createPost({ title, description, body: prepared.body, tags, featured, image_caption: imageCaption || null, inline_image_paths: prepared.paths }, image ?? undefined, imageAlt);
       setOpen(false);
       resetForm();
       router.push(`/post/view/?id=${encodeURIComponent(id)}`);
     } catch (error) {
-      setError(error instanceof PostImageUncertainError || error instanceof PostUpdateUncertainError ? text.post.imageCleanupUncertain : postId ? text.post.editError : text.post.publishError);
+      if (uploaded.length && !(error instanceof PostImageUncertainError) && !(error instanceof PostUpdateUncertainError)) {
+        try { await removeUnlinkedImages(getSupabase(), uploaded); }
+        catch { setError(text.post.imageCleanupUncertain); return; }
+      }
+      setError(error instanceof InlineImageLimitError ? text.post.contentImagesLimit : error instanceof Error && error.message === "Post content too long" ? text.post.bodyTooLong : error instanceof PostImageUncertainError || error instanceof PostUpdateUncertainError || error instanceof InlineImageCleanupError ? text.post.imageCleanupUncertain : postId ? text.post.editError : text.post.publishError);
     } finally {
       setPending(false);
     }
@@ -150,7 +183,9 @@ export function NewPostDialog({ postId, postTitle, onSaved, compact = false }: {
               <form onSubmit={submit} className="mt-7 space-y-5">
                 <div><label htmlFor="post-title" className="block text-sm font-medium">{text.post.titleLabel}</label><input id="post-title" name="title" defaultValue={original?.title} required maxLength={120} className={fieldClass} /></div>
                 <div><label htmlFor="post-description" className="block text-sm font-medium">{text.post.descriptionLabel}</label><textarea id="post-description" name="description" defaultValue={original?.description} required maxLength={240} rows={3} className={fieldClass} /></div>
-                <div><p id="post-body-label" className="block text-sm font-medium">{text.post.bodyLabel}</p><PostEditor initialPost={original} onReady={setContent} onChange={(value) => { setContent(value); setBodyChanged(true); }} disabled={pending} /><p id="post-link-help" className="mt-2 text-sm text-zinc-600 dark:text-zinc-300">{text.post.linkHelp}</p></div>
+                <div><label htmlFor="post-tags" className="block text-sm font-medium">{text.post.tagsLabel}</label><input id="post-tags" name="tags" defaultValue={original?.tags.join(", ")} aria-describedby="post-tags-help" className={fieldClass} /><p id="post-tags-help" className="mt-2 text-sm text-zinc-600 dark:text-zinc-300">{text.post.tagsHelp}</p></div>
+                <label className="flex min-h-11 items-center gap-3 text-sm font-medium"><input type="checkbox" name="featured" defaultChecked={original?.featured} className="h-5 w-5 accent-orange-600" />{text.post.featuredLabel}</label>
+                <div><p id="post-body-label" className="block text-sm font-medium">{text.post.bodyLabel}</p><PostEditor initialPost={original} onReady={setContent} onChange={(value) => { setContent(value); setBodyChanged(true); }} onImage={addContentImage} disabled={pending || savedWarning} /><p id="post-link-help" className="mt-2 text-sm text-zinc-600 dark:text-zinc-300">{text.post.linkHelp}</p></div>
                 <div>
                   <p id="post-image-label" className="block text-sm font-medium">{text.post.imageLabel}</p>
                   <div
@@ -186,8 +221,9 @@ export function NewPostDialog({ postId, postTitle, onSaved, compact = false }: {
                   {imageError && <p id="post-image-error" role="alert" className="mt-2 text-sm text-red-700 dark:text-red-400">{imageError}</p>}
                 </div>
                 {(image || (original?.image_path && !removeImage)) && <div><label htmlFor="post-image-alt" className="block text-sm font-medium">{text.post.imageAltLabel}</label><input id="post-image-alt" name="imageAlt" defaultValue={original?.image_alt ?? ""} maxLength={300} aria-describedby="post-image-alt-help" className={fieldClass} /><p id="post-image-alt-help" className="mt-2 text-sm text-zinc-600 dark:text-zinc-300">{text.post.imageAltHelp}</p></div>}
+                {(image || (original?.image_path && !removeImage)) && <div><label htmlFor="post-image-caption" className="block text-sm font-medium">{text.post.captionLabel}</label><input id="post-image-caption" name="imageCaption" defaultValue={original?.image_caption ?? ""} maxLength={300} className={fieldClass} /></div>}
                 {error && <p role="alert" className="text-sm text-red-700 dark:text-red-400">{error}</p>}
-                <Button type="submit" disabled={pending} className="min-h-11 rounded-xl!">{pending ? <LoadingIndicator label={postId ? text.post.saving : text.post.publishing} /> : postId ? text.post.saveChanges : text.post.publish}</Button>
+                <Button type="submit" disabled={pending || savedWarning} className="min-h-11 rounded-xl!">{pending ? <LoadingIndicator label={postId ? text.post.saving : text.post.publishing} /> : postId ? text.post.saveChanges : text.post.publish}</Button>
               </form>
               )}
             </motion.div>

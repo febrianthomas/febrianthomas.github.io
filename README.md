@@ -56,7 +56,10 @@ Before upload, static images are resized to fit within 1600 pixels and converted
 to WebP if the result is smaller; otherwise the original is uploaded. Animated
 images keep their original format.
 Posts support headings, bold, italic, underline, strikethrough, lists, quotes,
-code, dividers, and links. The format column is
+code, dividers, links, and images inside the content. Authors can add tags,
+feature posts, and add captions to the cover image. Visitors can search and
+filter posts, view images larger, and navigate between posts. Posts show their
+publication date and the date of their most recent update. The format column is
 added by `supabase/migrations/20261109000002_post_body_format.sql`; editor
 documents are enabled by `20261109000003_post_tiptap_format.sql`. Apply the
 migrations in order when setting up another project.
@@ -67,6 +70,11 @@ retry from the confirmation dialog or check Storage. Owners can also edit posts,
 keeping, replacing, or removing the image. If an old image cannot be removed
 after saving, check Storage. The delete and edit policies are in migrations
 `20261109000004_delete_posts.sql` and `20261109000005_update_posts.sql`.
+Post metadata and inline images use `20261109000006_post_features.sql` and
+`20261109000007_inline_images.sql`. Inline images are uploaded on save; removing
+an image or deleting its post attempts to remove the unused file from Storage.
+If cleanup fails, inspect the bucket. Publishing and editing do not require a
+GitHub Pages rebuild.
 
 ### Checks
 

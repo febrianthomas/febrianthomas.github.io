@@ -7,7 +7,7 @@ import { getSupabase } from "@/lib/supabase";
 import { ConfirmDialog } from "@/ui/components/ConfirmDialog/ConfirmDialog";
 
 export function DeletePostButton({ post, onDeleted, compact = false }: {
-  post: { id: string; title: string; image_path: string | null };
+  post: { id: string; title: string; image_path: string | null; inline_image_paths: string[] };
   onDeleted: () => void;
   compact?: boolean;
 }) {

@@ -42,3 +42,9 @@ test("reports cleanup failure if the image still exists", async () => {
   const client = mockClient({ removed: [], listed: [{ name: "image.webp" }] });
   await assert.rejects(deletePost(client, { id: "post", image_path: "image.webp" }), PostImageDeleteError);
 });
+
+test("deletes attached content images together with the cover", async () => {
+  const client = mockClient({ deleted: [{ image_path: "cover.webp", inline_image_paths: ["one.png", "two.png"] }], removed: [{ name: "cover.webp" }, { name: "one.png" }, { name: "two.png" }] });
+  await deletePost(client, { id: "post", image_path: "cover.webp", inline_image_paths: ["one.png", "two.png"] });
+  assert.deepEqual(client.calls, [["one.png", "two.png", "cover.webp"]]);
+});

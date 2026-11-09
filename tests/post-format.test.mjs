@@ -75,3 +75,10 @@ test("older Markdown posts load into the editor with their formatting", () => {
   assert.equal(content[1].content[0].marks[0].type, "bold");
   editor.destroy();
 });
+
+test("inline image paths survive the editor document round trip", () => {
+  const content = { type: "doc", content: [{ type: "image", attrs: { src: "https://example.com/image.webp", alt: "Drawing", storagePath: "image.webp" } }] };
+  const editor = new Editor({ element: null, extensions: postEditorExtensions(true), content });
+  assert.equal(editor.getJSON().content[0].attrs.storagePath, "image.webp");
+  editor.destroy();
+});

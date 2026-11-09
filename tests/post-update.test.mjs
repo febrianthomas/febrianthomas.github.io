@@ -2,8 +2,8 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import { updatePostRecord, PostUpdateUncertainError } from "../src/lib/post-update.ts";
 
-const original = { id: "post", image_path: "old.webp" };
-const values = { title: "Title", description: "Description", body: "Body", body_format: "plain", image_alt: "Alt" };
+const original = { id: "post", image_path: "old.webp", inline_image_paths: [] };
+const values = { title: "Title", description: "Description", body: "Body", body_format: "plain", image_alt: "Alt", image_caption: null, tags: [], featured: false, inline_image_paths: [] };
 
 function mockClient({ updateError = null, status = 200, noMatch = false, removeError = false } = {}) {
   const calls = [];
@@ -62,4 +62,11 @@ test("uncertain updates keep both images and cleanup failures are reported", asy
   assert.deepEqual(uncertain.calls.map((call) => call[0]), ["upload", "update"]);
   const client = mockClient({ removeError: true });
   assert.equal((await updatePostRecord(client, original, values, image, false)).cleanupFailed, true);
+});
+
+test("removing an inline image cleans it up after saving", async () => {
+  const client = mockClient();
+  await updatePostRecord(client, { ...original, inline_image_paths: ["old-inline.png", "keep.png"] }, { ...values, inline_image_paths: ["keep.png"] }, null, false);
+  assert.deepEqual(client.calls.map((call) => call[0]), ["update", "remove"]);
+  assert.deepEqual(client.calls[1], ["remove", "old-inline.png"]);
 });
