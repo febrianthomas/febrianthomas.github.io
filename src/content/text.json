@@ -61,10 +61,10 @@
       "title": "Support My Work.",
       "description": "If you enjoy what I create, you can support me here.",
       "unavailable": "Coming soon",
-      "streamlabs": { "name": "Streamlabs", "url": "https://streamlabs.com/febrianthomas/tip" },
-      "saweria": { "name": "Saweria", "url": "https://saweria.co/donate/febrianthomas" },
-      "kofi": { "name": "Ko-fi", "url": "https://ko-fi.com/febrianthomas" },
-      "trakteer": { "name": "Trakteer", "url": "https://trakteer.id/febrianthomas" }
+      "streamlabs": { "name": "Streamlabs", "url": "https://streamlabs.com/febrianthomas/tip", "image": "/images/donatedollar.gif" },
+      "saweria": { "name": "Saweria", "url": "https://saweria.co/donate/febrianthomas", "image": "/images/donaterp.gif" },
+      "kofi": { "name": "Ko-fi", "url": "https://ko-fi.com/febrianthomas", "image": "/images/donatedollar.gif" },
+      "trakteer": { "name": "Trakteer", "url": "https://trakteer.id/febrianthomas", "image": "/images/donaterp.gif" }
     },
     "socials": {
       "instagram": {
