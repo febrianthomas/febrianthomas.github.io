@@ -6,7 +6,7 @@ Snapshot: 2026-11-09. Recheck the working tree and live state before making chan
 
 - Complete requested work directly and keep changes simple. Keep user-facing text in `src/content/text.json`.
 - Do not run a production build after every change. Use focused checks; build when needed for a significant release or static-export verification.
-- Commit after every requested change (not questions). Push to the active branch after every **10 commits**. Last pushed commit: `43b32b0` on `origin/main`. Commits since last push: tracked below.
+- Commit after every requested change (not questions). Push to the active branch after every **10 commits**. Last pushed commit: `e3a41ec` on `origin/main`. Five commits followed it; the handoff update adds one more commit.
 - Update this handoff every 5 commits. If the model limit is below 5%, stop all work and write all progress and pending tasks here. The assistant cannot see the quota; if the user reports a limit, stop and update this document.
 - Use the `init-project-conversation` skill (`.agents/skills/`) at session start; it applies ponytail and caveman.
 - Use Context7 for library, framework, API, and cloud documentation. Do not expose credentials in files or logs.
@@ -19,11 +19,15 @@ Snapshot: 2026-11-09. Recheck the working tree and live state before making chan
 - Supabase project reference: `tnxcutuipxqxcdcllhdn`. `.env` contains a public URL and publishable key; never copy credentials into this document. Public post reads are allowed. Database write and Storage policies enforce the owner account.
 - Existing features include post creation, editing, deleting, images in a public `post-images` bucket, owner-only Storage access, image cleanup, and Tiptap rich text. All ordinary posts and uploaded images are public.
 
-## Current task: implemented, uncommitted
+## Recent progress
+
+- Latest feature commit: `16fc029` (social and donation links). Added `AGENTS.md`, homepage previews for live posts and projects, and an About page donation section. Tools and software sit side by side on larger screens; donations follow them.
+- The user supplied six social links and four donation links, stored in `src/content/text.json`. Type checking passed after these changes. No production build was run.
+- The working tree also contains user-edited copy, deleted temporary assets, and new GIFs under `public/images`. Preserve these unrelated uncommitted edits. Check `git status` before further work.
+- The following post and portfolio features are committed. The live GitHub Pages deployment remains separate from source pushes.
 
 The user requested published and updated dates, better social previews, inline images, search, tags, image captions, featured posts, previous/next navigation, and an image lightbox. They cancelled custom URLs because static GitHub Pages cannot create new routes at runtime. They specifically approved a public unauthenticated Supabase Edge Function for social previews.
 
-- Last pushed commit: tracked in `git log origin/main`. Commits since last push: 0 (after push).
 - Portfolio feature: uses a separate `public.projects` table in Supabase with the same schema, grants, RLS policies, and Storage image-deletion protection as `public.posts`. `src/lib/post-kind.ts` (`kindTable`, `kindText`, `kindPath`) routes `"portfolio"` to `"projects"` and `"post"` to `"posts"`. `PostSectionPage`, `LivePosts`, `LivePostPage`, `NewPostDialog` and `DeletePostButton` take a `kind` prop. Routes: `/portfolio/` and `/portfolio/view/?id=<uuid>`.
 - Refactored UI and CSS: extracted `PostSectionPage`, removed modal outer borders, tuned card/image shadow & warm glow, updated Tailwind v4 classes (`@theme inline`, `size-*`, `z-60..90`), removed unused `Cherry_Bomb_One` font and 6 empty leftover folders, and updated `src/content/text.json` copy.
 - Applied to the connected Supabase project: `20261109000006_post_features.sql` (tags, featured, caption, updated timestamp) and `20261109000007_inline_images.sql` (inline paths and Storage deletion policy). These are backward-compatible for the currently deployed site. Both were tested inside rolled-back transactions before application. Do not reapply remotely.
@@ -32,7 +36,7 @@ The user requested published and updated dates, better social previews, inline i
 - Tiptap's `@tiptap/extension-image` was installed. Inline images use `storagePath` attributes to track Storage files; captions are added as editable paragraphs. The editor inserts images using a nested Radix dialog.
 - Tests added or updated: `tests/post-list.test.mjs`, `tests/post-inline-images.test.mjs`, `tests/post-update.test.mjs`, `tests/post-delete.test.mjs`, `tests/post-format.test.mjs`; SQL checks in `supabase/tests/post_features.sql` and `inline_images.sql`. TypeScript and the tests passed. Database policy checks ran in rolled-back transactions.
 - Headless Edge verified the public Posts page and existing post, search filtering, cover lightbox open/close, inline-image lightbox keyboard access, and previous/next navigation. The user later changed previous/next links to icons and removed the copy-share button. A simulated owner session with all writes blocked verified that the edit form inserts a local image and caption without uploading or submitting. No real post was changed. A portal submit bubbling bug found by this check was fixed with `stopPropagation`.
-- Real owner-credential end-to-end saving and Storage cleanup were not tested in a browser. Unit tests exercise upload, update, failure, and cleanup decisions using mocks. Do not modify or delete the user's real posts for testing. The static GitHub Pages site has not been redeployed; the current changes are local until the normal source commit and deployment workflow.
+- Real owner-credential end-to-end saving and Storage cleanup were not tested in a browser. Unit tests exercise upload, update, failure, and cleanup decisions using mocks. Do not modify or delete the user's real posts for testing. Confirm the GitHub Pages deployment separately from source commits.
 
 ## Supabase and deployment cautions
 
