@@ -38,7 +38,7 @@ export default function AboutPage() {
         </div>
       </div>
       <div className="mx-auto max-w-5xl pb-32 pt-8 sm:pb-40 sm:pt-12">
-        <div className="grid gap-16 md:grid-cols-2 md:gap-10">
+        <div className="flex flex-col gap-16 sm:gap-20">
           {sections.map((section) => (
             <section key={section.title}>
               <h2 className="text-center font-bagel-fat-one text-4xl sm:text-5xl">{section.title}</h2>
