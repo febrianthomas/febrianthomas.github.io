@@ -58,7 +58,7 @@ export function SupportButtons() {
           const enabled = status[id] === true;
           if (!signedIn && !enabled) return null;
           return <div key={id} className="flex flex-col items-center gap-3">
-            {(enabled || signedIn) && donation.url && <MotionLink href={donation.url} target="_blank" rel="noopener noreferrer" whileHover={{ y: -3, scale: 1.04 }} className={`surface-shadow inline-flex min-h-40 w-40 max-w-full flex-col items-center justify-center gap-3 rounded-2xl bg-zinc-100 px-6 py-6 text-lg text-zinc-900 focus-visible:outline-2 focus-visible:outline-offset-4 dark:bg-zinc-800 dark:text-zinc-100 ${enabled ? "" : "opacity-60"}`}>
+            {(enabled || signedIn) && donation.url && <MotionLink href={donation.url} target="_blank" rel="noopener noreferrer" whileHover={{ y: -3, scale: 1.04 }} className={`inline-flex min-h-40 w-40 max-w-full flex-col items-center justify-center gap-3 rounded-2xl px-6 py-6 text-lg text-zinc-900 focus-visible:outline-2 focus-visible:outline-offset-4 dark:text-zinc-100 ${enabled ? "" : "opacity-60"}`}>
               {donation.image && <Image src={donation.image} alt="" width={80} height={80} className="size-20 object-contain" />}{donation.name}
             </MotionLink>}
             {signedIn && <label className="flex min-h-11 cursor-pointer items-center gap-2 text-sm text-zinc-700 dark:text-zinc-300">

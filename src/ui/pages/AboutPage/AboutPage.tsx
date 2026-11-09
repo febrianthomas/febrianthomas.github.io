@@ -46,11 +46,11 @@ export default function AboutPage() {
               {section.items.length > 0 ? (
                 <ul className="mt-8 flex flex-wrap justify-center gap-4">
                   {section.items.map((item) => (
-                    <li key={item.name} className="surface-shadow flex min-h-44 w-44 max-w-full flex-col items-center justify-center gap-5 rounded-2xl bg-white p-6 text-center text-lg text-zinc-900 sm:w-52 dark:bg-zinc-900 dark:text-zinc-100">
+                    <li key={item.name} className="flex min-h-44 w-44 max-w-full flex-col items-center justify-center gap-5 p-6 text-center text-lg text-zinc-900 sm:w-52 dark:text-zinc-100">
                       {item.image ? (
                         <Image src={item.image} alt="" width={88} height={88} className="size-22 object-contain" />
                       ) : (
-                        <span aria-hidden="true" className="flex size-22 items-center justify-center rounded-xl bg-zinc-100 text-zinc-400 dark:bg-zinc-800 dark:text-zinc-500"><ImageIcon size={32} /></span>
+                        <span aria-hidden="true" className="flex size-22 items-center justify-center text-zinc-400 dark:text-zinc-500"><ImageIcon size={32} /></span>
                       )}
                       <span className="wrap-break-words font-medium">{item.name}</span>
                       {item.details && (
