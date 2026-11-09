@@ -2,11 +2,11 @@ import type { SupabaseClient } from "@supabase/supabase-js";
 
 export class PostImageDeleteError extends Error {}
 
-export async function deletePost(client: SupabaseClient, post: { id: string; image_path: string | null; inline_image_paths: string[] }) {
-  const { data, error } = await client.from("posts").delete().eq("id", post.id).select("image_path,inline_image_paths");
+export async function deletePost(client: SupabaseClient, post: { id: string; image_path: string | null; inline_image_paths: string[] }, table: "posts" | "projects" = "posts") {
+  const { data, error } = await client.from(table).delete().eq("id", post.id).select("image_path,inline_image_paths");
   if (error || !data?.length) {
     // A lost response can mean the deletion succeeded; check before retrying cleanup.
-    const result = await client.from("posts").select("id").eq("id", post.id).maybeSingle();
+    const result = await client.from(table).select("id").eq("id", post.id).maybeSingle();
     if (result.error || result.data) throw error ?? result.error ?? new Error("Post was not deleted");
   }
 

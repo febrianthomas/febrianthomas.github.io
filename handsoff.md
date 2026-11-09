@@ -23,8 +23,8 @@ Snapshot: 2026-11-09. Recheck the working tree and live state before making chan
 
 The user requested published and updated dates, better social previews, inline images, search, tags, image captions, featured posts, previous/next navigation, and an image lightbox. They cancelled custom URLs because static GitHub Pages cannot create new routes at runtime. They specifically approved a public unauthenticated Supabase Edge Function for social previews.
 
-- This batch is committed locally in one commit (not pushed). Commits since last push: 2 (second is the portfolio feature).
-- Portfolio feature: reuses the posts table with a `kind` column (`post` | `portfolio`, default `post`, insert-only for the owner, never updatable). `src/lib/post-kind.ts` (`kindText`, `kindPath`) picks wording (`text.portfolio` overrides `text.post`) and base path. `LivePosts`, `LivePostPage`, `NewPostDialog` and `DeletePostButton` take a `kind` prop. Routes: `/portfolio/` and `/portfolio/view/?id=<uuid>`. `getPost` and `listPosts` filter by kind, so a portfolio id does not open under `/post/view/`. Not yet checked in a browser; no real data was changed.
+- This batch is committed locally (not pushed). Commits since last push: 3.
+- Portfolio feature: uses a separate `public.projects` table in Supabase with the same schema, grants, RLS policies, and Storage image-deletion protection as `public.posts`. `src/lib/post-kind.ts` (`kindTable`, `kindText`, `kindPath`) routes `"portfolio"` to `"projects"` and `"post"` to `"posts"`. `LivePosts`, `LivePostPage`, `NewPostDialog` and `DeletePostButton` take a `kind` prop. Routes: `/portfolio/` and `/portfolio/view/?id=<uuid>`.
 - Applied to the connected Supabase project: `20261109000006_post_features.sql` (tags, featured, caption, updated timestamp) and `20261109000007_inline_images.sql` (inline paths and Storage deletion policy). These are backward-compatible for the currently deployed site. Both were tested inside rolled-back transactions before application. Do not reapply remotely.
 - The `share-post` Edge Function was deleted from Supabase (verified: function list is empty). Its local source and tests were removed. The copy-share feature is gone. The old GitHub Pages URL cannot serve dynamic post metadata.
 - Implemented locally: metadata fields and form controls, featured ordering, searchable post content, tag filtering, publish/update dates, cover captions, chronological previous/next links, a cover and inline-image lightbox, and inline image selection. The inline image flow uses temporary local blob URLs while editing, uploads on save, records `inline_image_paths`, and cleans up unreferenced images after an update/delete. Existing database posts and image paths must not be damaged.
@@ -35,6 +35,6 @@ The user requested published and updated dates, better social previews, inline i
 
 ## Supabase and deployment cautions
 
-- Migrations through `20261109000008_portfolio_kind.sql` have been applied remotely (do not reapply). Use the Storage API to remove files, not SQL deletes on `storage.objects`.
+- Migrations through `20261109000008_portfolio_kind.sql` (`create_projects` and `protect_project_images`) have been applied remotely (do not reapply). Use the Storage API to remove files, not SQL deletes on `storage.objects`.
 - Updates save the database before deleting replaced files; if cleanup fails, the user sees a warning and should inspect Storage. Retain conservative handling of uncertain network responses so files still referenced by posts are not removed.
 - Earlier handoffs that claimed posts were text-only are obsolete. Check current code and migrations for the authoritative behavior.

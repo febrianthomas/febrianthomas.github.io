@@ -127,7 +127,7 @@ export function NewPostDialog({ postId, postTitle, onSaved, compact = false, kin
       uploaded = prepared.uploaded;
       if (prepared.body.length > 20000) throw new Error("Post content too long");
       if (postId && original) {
-        const result = await updatePost(original, { title, description, body: prepared.body, body_format: bodyChanged ? "tiptap" : original.body_format, image_alt: imageAlt || null, image_caption: imageCaption || null, tags, featured, inline_image_paths: prepared.paths }, image, removeImage);
+        const result = await updatePost(original, { title, description, body: prepared.body, body_format: bodyChanged ? "tiptap" : original.body_format, image_alt: imageAlt || null, image_caption: imageCaption || null, tags, featured, inline_image_paths: prepared.paths }, image, removeImage, kind);
         onSaved?.(result.post);
         setOriginal(result.post);
         setImage(null);
@@ -142,7 +142,7 @@ export function NewPostDialog({ postId, postTitle, onSaved, compact = false, kin
         resetForm();
         return;
       }
-      const id = await createPost({ kind, title, description, body: prepared.body, tags, featured, image_caption: imageCaption || null, inline_image_paths: prepared.paths }, image ?? undefined, imageAlt);
+      const id = await createPost({ title, description, body: prepared.body, tags, featured, image_caption: imageCaption || null, inline_image_paths: prepared.paths }, image ?? undefined, imageAlt, kind);
       setOpen(false);
       resetForm();
       router.push(`${kindPath(kind)}view/?id=${encodeURIComponent(id)}`);

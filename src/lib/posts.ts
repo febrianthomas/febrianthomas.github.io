@@ -1,4 +1,5 @@
 import { getSupabase } from "@/lib/supabase";
+import { kindTable } from "@/lib/post-kind";
 import { optimizePostImage, postImageExtension } from "@/lib/post-image";
 import { updatePostRecord } from "@/lib/post-update";
 
@@ -6,7 +7,6 @@ export type PostKind = "post" | "portfolio";
 
 export type PublishedPost = {
   id: string;
-  kind: PostKind;
   title: string;
   description: string;
   body: string;
@@ -31,9 +31,8 @@ export function postImageUrl(path: string) {
 }
 
 export async function listPosts(kind: PostKind = "post") {
-  const { data, error } = await getSupabase().from("posts")
+  const { data, error } = await getSupabase().from(kindTable(kind))
     .select("id,title,description,image_path,image_alt,created_at,tags,featured,body,body_format,inline_image_paths")
-    .eq("kind", kind)
     .order("featured", { ascending: false })
     .order("created_at", { ascending: false })
     .order("id", { ascending: false });
@@ -42,20 +41,20 @@ export async function listPosts(kind: PostKind = "post") {
 }
 
 export async function getPost(id: string, kind: PostKind = "post") {
-  const { data, error } = await getSupabase().from("posts")
-    .select("id,kind,title,description,body,body_format,created_at,updated_at,image_path,image_alt,image_caption,tags,featured,inline_image_paths").eq("id", id).eq("kind", kind).maybeSingle();
+  const { data, error } = await getSupabase().from(kindTable(kind))
+    .select("id,title,description,body,body_format,created_at,updated_at,image_path,image_alt,image_caption,tags,featured,inline_image_paths").eq("id", id).maybeSingle();
   if (error) throw error;
   return data as PublishedPost | null;
 }
 
-export async function updatePost(original: PublishedPost, values: PostDetails, image: File | null, removeImage: boolean) {
+export async function updatePost(original: PublishedPost, values: PostDetails, image: File | null, removeImage: boolean, kind: PostKind = "post") {
   if (image && !postImageExtension(image)) throw new Error("Invalid image");
   const optimized = image ? await optimizePostImage(image) : null;
-  const result = await updatePostRecord(getSupabase(), original, values, optimized, removeImage);
+  const result = await updatePostRecord(getSupabase(), original, values, optimized, removeImage, kindTable(kind));
   return { post: result.post as PublishedPost, cleanupFailed: result.cleanupFailed };
 }
 
-export async function createPost(post: Pick<PublishedPost, "kind" | "title" | "description" | "body" | "tags" | "featured" | "image_caption" | "inline_image_paths">, image?: File, imageAlt?: string) {
+export async function createPost(post: Pick<PublishedPost, "title" | "description" | "body" | "tags" | "featured" | "image_caption" | "inline_image_paths">, image?: File, imageAlt?: string, kind: PostKind = "post") {
   const supabase = getSupabase();
   let imagePath: string | null = null;
   if (image && !postImageExtension(image)) throw new Error("Invalid image");
@@ -76,7 +75,7 @@ export async function createPost(post: Pick<PublishedPost, "kind" | "title" | "d
 
   let result;
   try {
-    result = await supabase.from("posts")
+    result = await supabase.from(kindTable(kind))
       .insert({ ...post, image_caption: imagePath ? post.image_caption : null, body_format: "tiptap", image_path: imagePath, image_alt: imagePath ? imageAlt?.trim() || null : null })
       .select("id").single();
   } catch (error) {
