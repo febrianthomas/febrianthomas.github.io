@@ -40,9 +40,9 @@ export function BackgroundShapes() {
         {Array.from({ length: 24 }, (_, index) => (
           <motion.span
             key={index}
-            initial={false}
+            initial={{ transform: paths[index % 3][0] }}
             animate={reducedMotion ? { transform: "none" } : { transform: paths[index % 3] }}
-            transition={{ duration: 12 + (index % 9), delay: -(index % 10), ease: "easeInOut", repeat: Infinity, repeatType: "reverse" }}
+            transition={reducedMotion ? { duration: 0 } : { duration: 12 + (index % 9), delay: -(index % 10), ease: "easeInOut", repeat: Infinity, repeatType: "reverse" }}
           />
         ))}
       </motion.div>
