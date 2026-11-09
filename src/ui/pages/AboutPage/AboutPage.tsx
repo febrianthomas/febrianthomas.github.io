@@ -48,7 +48,7 @@ export default function AboutPage() {
                   {section.items.map((item) => (
                     <li key={item.name} className="flex min-h-44 w-44 max-w-full flex-col items-center justify-center gap-5 p-6 text-center text-lg text-zinc-900 sm:w-52 dark:text-zinc-100">
                       {item.image ? (
-                        <Image src={item.image} alt="" width={88} height={88} className="size-22 object-contain" />
+                        <Image src={item.image} alt="" width={88} height={88} className="about-item-image size-22 object-contain" />
                       ) : (
                         <span aria-hidden="true" className="flex size-22 items-center justify-center text-zinc-400 dark:text-zinc-500"><ImageIcon size={32} /></span>
                       )}

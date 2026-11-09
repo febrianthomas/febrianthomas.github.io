@@ -109,6 +109,14 @@ html.dark .surface-shadow, html.dark .image-glow, html.dark .post-rich-content i
   box-shadow: 0 6px 22px rgb(0 0 0 / 0.38), 0 0 18px rgb(255 221 180 / 0.14);
 }
 
+.about-item-image {
+  filter: drop-shadow(0 3px 5px rgb(24 24 27 / 0.2));
+}
+
+html.dark .about-item-image {
+  filter: drop-shadow(0 0 9px rgb(255 221 180 / 0.45));
+}
+
 body {
   isolation: isolate;
   background: #fff;
