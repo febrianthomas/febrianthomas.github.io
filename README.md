@@ -44,6 +44,14 @@ Supabase Auth and create the user there before signing in. A successful sign-in
 creates a browser session; access to Supabase data must still be protected with
 Row Level Security policies.
 
+Signed-in users can open the post form from the Post page. Published posts are
+public and are loaded from Supabase by the browser. The `posts` table and its policies are
+defined in `supabase/migrations/20261109000000_create_posts.sql`: everyone can
+read posts, while only the configured site owner's Supabase user can publish.
+If the owner account changes, update the insert policy before publishing from
+the new account. Posts currently support text only; image uploads, editing, and
+deletion are not included.
+
 ### Checks
 
 ```sh
@@ -71,4 +79,4 @@ this user-site repository.
 
 GitHub Pages serves static files. Use browser-side Supabase calls for live data;
 Next.js server actions, runtime API routes, and server-side rendering require a
-server host. Database tables and their access policies are left for the app to define.
+server host. Supabase Row Level Security policies control database access.

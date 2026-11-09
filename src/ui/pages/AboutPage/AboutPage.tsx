@@ -7,12 +7,12 @@ import text from "@/content/text.json";
 
 export default function AboutPage() {
   const socials = [
-    { ...text.about.socials.instagram, icon: siInstagram },
-    { ...text.about.socials.threads, icon: siThreads },
-    { ...text.about.socials.twitter, icon: siX },
-    { ...text.about.socials.tiktok, icon: siTiktok },
-    { ...text.about.socials.youtube, icon: siYoutube },
-    { ...text.about.socials.twitch, icon: siTwitch },
+    { ...text.about.socials.instagram, icon: siInstagram, color: "bg-pink-100 text-pink-700 dark:bg-pink-200 dark:text-pink-800" },
+    { ...text.about.socials.threads, icon: siThreads, color: "bg-zinc-200 text-zinc-950 dark:bg-zinc-100 dark:text-zinc-950" },
+    { ...text.about.socials.twitter, icon: siX, color: "bg-zinc-200 text-zinc-950 dark:bg-zinc-100 dark:text-zinc-950" },
+    { ...text.about.socials.tiktok, icon: siTiktok, color: "bg-cyan-100 text-zinc-950 dark:bg-cyan-200 dark:text-zinc-950" },
+    { ...text.about.socials.youtube, icon: siYoutube, color: "bg-red-100 text-red-700 dark:bg-red-200 dark:text-red-800" },
+    { ...text.about.socials.twitch, icon: siTwitch, color: "bg-violet-100 text-violet-700 dark:bg-violet-200 dark:text-violet-800" },
   ];
 
   return (
@@ -26,11 +26,11 @@ export default function AboutPage() {
           <p className="mt-4 text-lg leading-8 text-zinc-600 dark:text-zinc-300">{text.about.details}</p>
           <nav aria-label={text.about.socialLabel} className="mt-8 flex flex-wrap gap-3">
             {socials.map((social, index) => {
-              const icon = <svg aria-hidden="true" viewBox="0 0 24 24" className="h-5 w-5 fill-current"><path d={social.icon.path} /></svg>;
+              const icon = <svg aria-hidden="true" viewBox="0 0 24 24" className="h-6 w-6 fill-current"><path d={social.icon.path} /></svg>;
               return social.url ? (
-                <MotionLink key={social.name} href={social.url} target="_blank" rel="noopener noreferrer" aria-label={social.name} title={social.name} whileHover={{ y: -4, rotate: index % 2 ? 8 : -8, scale: 1.12 }} className="inline-flex h-11 w-11 items-center justify-center rounded-full bg-zinc-100 text-zinc-700 hover:bg-zinc-200 focus-visible:outline-2 focus-visible:outline-offset-2 dark:bg-zinc-800 dark:text-zinc-100 dark:hover:bg-zinc-700">{icon}</MotionLink>
+                <MotionLink key={social.name} href={social.url} target="_blank" rel="noopener noreferrer" aria-label={social.name} title={social.name} whileHover={{ y: -4, rotate: index % 2 ? 8 : -8, scale: 1.12 }} className={`inline-flex h-12 w-12 items-center justify-center rounded-full focus-visible:outline-2 focus-visible:outline-offset-2 ${social.color}`}>{icon}</MotionLink>
               ) : (
-                <SocialPlaceholder key={social.name} label={`${social.name} — ${text.about.socialUnavailable}`} title={social.name} index={index}>{icon}</SocialPlaceholder>
+                <SocialPlaceholder key={social.name} label={`${social.name} — ${text.about.socialUnavailable}`} title={social.name} index={index} className={social.color}>{icon}</SocialPlaceholder>
               );
             })}
           </nav>

@@ -1,6 +1,10 @@
 @import "tailwindcss";
 @custom-variant dark (&:where(.dark, .dark *));
 
+@utility wrap-break-words {
+  overflow-wrap: break-word;
+}
+
 body {
   isolation: isolate;
   background: #fff;

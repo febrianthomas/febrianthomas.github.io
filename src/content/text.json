@@ -112,7 +112,25 @@
   "post": {
     "title": "Post.",
     "eyebrow": "Writing",
-    "description": "Posts are coming soon."
+    "description": "A little space for thoughts, ideas, and things worth sharing.",
+    "emptyTitle": "No posts yet.",
+    "emptyDescription": "There’s nothing here yet. Check back soon for something new.",
+    "addPost": "Add post",
+    "createTitle": "Add a post",
+    "close": "Close",
+    "createDescription": "Your post will be visible to everyone after you publish it.",
+    "titleLabel": "Title",
+    "descriptionLabel": "Short description",
+    "bodyLabel": "Post content",
+    "publish": "Publish post",
+    "publishing": "Publishing…",
+    "publishError": "Could not publish the post. Check that you’re signed in with the site owner account and try again.",
+    "requiredFields": "Please fill in all fields.",
+    "signInToPublish": "Sign in to create a post.",
+    "loadError": "Posts couldn’t be loaded. Please try again later.",
+    "notFound": "Post not found.",
+    "loading": "Loading…",
+    "backToPosts": "Back to posts"
   },
   "login": {
     "eyebrow": "Account access",
