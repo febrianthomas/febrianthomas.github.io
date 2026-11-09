@@ -22,7 +22,7 @@
       {
         "id": "who-am-i",
         "title": "Who Am I?",
-        "description": "I’m Febrian, a self-taught illustrator and 2D animator learning to build for the web. I’m a little shy and awkward, but I’m always happy to make a friend—even if my jokes are a little cringe.",
+        "description": "Hi, I’m Febrian! I’m a self-taught illustrator and 2D animator who’s also learning web development. I’m a little shy and awkward, but I enjoy making friends and the occasional questionable joke.",
         "image": "/images/hero-section-1.gif",
         "imageAlt": "Illustration of febrianthomas",
         "imagePosition": "left",
@@ -31,7 +31,7 @@
       {
         "id": "what-i-do",
         "title": "What I Do.",
-        "description": "I draw fan art and original characters, bring ideas to life through animation, and experiment with web development. Sometimes I make YouTube videos too, though uploads are a rare sight.",
+        "description": "I create fan art and original characters, then bring some of them to life through 2D animation. I also experiment with websites and occasionally share videos on YouTube—when I remember to upload.",
         "image": "/images/hero-section-2.gif",
         "imageAlt": "Illustration of a crying character",
         "imagePosition": "right",
