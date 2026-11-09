@@ -96,19 +96,17 @@ npm run build
 ### GitHub Pages
 
 ```sh
-npm run deploy
+gh workflow run deploy-pages.yml --ref main
+gh run list --workflow deploy-pages.yml --limit 1
 ```
 
-This builds the site into `out/`, then publishes it to the `gh-pages` branch on
-`origin` with a `.nojekyll` marker so GitHub serves Next.js's `_next` assets.
-It requires Git credentials with push access and a configured Git name and email.
-The deployed branch is generated output; keep source changes on the source branch.
-
-After the first deployment, open the repository's **Settings → Pages**, select
-**Deploy from a branch**, choose **gh-pages** and **/(root)**, and save. See
-[GitHub's publishing instructions](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site).
-The site URL is <https://febrianthomas.github.io/>. No `basePath` is needed for
-this user-site repository.
+The manually triggered workflow builds the committed `main` branch on GitHub
+and deploys the `out/` artifact through GitHub Pages. Push source commits before
+running it. GitHub Pages must use the **GitHub Actions** source, and the
+repository must have `NEXT_PUBLIC_SUPABASE_URL` and
+`NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` configured as Actions secrets. These
+values are public in the built site; never use a secret or service-role key.
+The site URL is <https://febrianthomas.github.io/>.
 
 GitHub Pages serves static files. Use browser-side Supabase calls for live data;
 Next.js server actions, runtime API routes, and server-side rendering require a
