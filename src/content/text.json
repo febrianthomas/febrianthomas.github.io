@@ -97,8 +97,17 @@
       "empty": "My tools, coming soon.",
       "items": [
         {
-          "name": "Tool name",
-          "image": "/images/temp-1.png"
+          "name": "XP Pen Artist 13.3 Pro",
+          "image": ""
+        },
+        {
+          "name": "PC",
+          "image": "",
+          "details": [
+            "AMD Ryzen 7 5700X",
+            "AMD Radeon RX 9060 XT 16GB",
+            "KLEVV BOLT XR DDR4 3600 16GB"
+          ]
         }
       ]
     },
@@ -107,8 +116,16 @@
       "empty": "My software, coming soon.",
       "items": [
         {
-          "name": "Software name",
-          "image": "/images/temp-2.png"
+          "name": "Adobe Animate CC",
+          "image": ""
+        },
+        {
+          "name": "Clip Studio Paint EX V.1",
+          "image": ""
+        },
+        {
+          "name": "My small brain",
+          "image": ""
         }
       ]
     }

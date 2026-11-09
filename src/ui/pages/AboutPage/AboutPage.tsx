@@ -6,6 +6,7 @@ import { SocialPlaceholder } from "@/ui/components/SocialPlaceholder/SocialPlace
 import text from "@/content/text.json";
 
 export default function AboutPage() {
+  const sections: { title: string; empty: string; items: { name: string; image: string; details?: string[] }[] }[] = [text.about.tools, text.about.software];
   const socials = [
     { ...text.about.socials.instagram, icon: siInstagram, color: "bg-pink-100 text-pink-700 dark:bg-pink-200 dark:text-pink-800" },
     { ...text.about.socials.threads, icon: siThreads, color: "bg-zinc-200 text-zinc-950 dark:bg-zinc-100 dark:text-zinc-950" },
@@ -38,7 +39,7 @@ export default function AboutPage() {
       </div>
       <div className="mx-auto max-w-5xl pb-32 pt-8 sm:pb-40 sm:pt-12">
         <div className="grid gap-16 md:grid-cols-2 md:gap-10">
-          {[text.about.tools, text.about.software].map((section) => (
+          {sections.map((section) => (
             <section key={section.title}>
               <h2 className="text-center font-bagel-fat-one text-4xl sm:text-5xl">{section.title}</h2>
               {section.items.length > 0 ? (
@@ -51,6 +52,11 @@ export default function AboutPage() {
                         <span aria-hidden="true" className="flex size-22 items-center justify-center rounded-xl bg-zinc-100 text-zinc-400 dark:bg-zinc-800 dark:text-zinc-500"><ImageIcon size={32} /></span>
                       )}
                       <span className="wrap-break-words font-medium">{item.name}</span>
+                      {item.details && (
+                        <ul className="-mt-2 space-y-1 text-sm leading-5 text-zinc-600 dark:text-zinc-300">
+                          {item.details.map((detail) => <li key={detail}>{detail}</li>)}
+                        </ul>
+                      )}
                     </li>
                   ))}
                 </ul>
