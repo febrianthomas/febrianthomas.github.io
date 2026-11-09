@@ -22,7 +22,7 @@ Snapshot: 2026-11-09. Recheck the working tree and live state before making chan
 ## Recent progress
 
 - Added `AGENTS.md`, homepage previews for live posts and projects, and an About page donation section. Hero descriptions reflect the user's profile and use four committed GIFs. Tools and software stack vertically with horizontal item rows; donations follow them. The footer shows copyright and social links.
-- The header has an EN/ID language switch. Site copy is in `src/content/en.json` and `src/content/id.json`; the language is saved in local storage. Supabase post and project content stays in its original language. Keep keys and asset paths aligned across both files.
+- The header has an EN/ID language switch. Site copy is in `src/content/en.json` and `src/content/id.json`; the Indonesian copy uses a casual tone. The language is saved in local storage. Supabase post and project content stays in its original language. Keep keys and asset paths aligned across both files.
 - As of `4cbe096`, portfolio and post empty states have no outer card; the portfolio description and search text were refreshed. Check `git status -sb` for commits since the last push.
 - About page links include four donation providers with configurable GIFs. The outer support card was removed. Signed-in owner controls show or hide each provider using `public.support_buttons`; disabled buttons remain visible to signed-in users. Migration `20261109000009_support_buttons.sql` is applied remotely. RLS was tested in a rolled-back transaction with `supabase/tests/support_buttons_rls.sql`.
 - The user supplied six social links and four donation links, stored in the language JSON files. Type checking passed after these changes. No production build was run.
