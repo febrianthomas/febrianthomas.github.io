@@ -36,43 +36,45 @@ export default function AboutPage() {
           </nav>
         </div>
       </div>
-      <div className="mx-auto flex max-w-5xl flex-col gap-16 pb-32 pt-6 sm:gap-20 sm:pb-40 sm:pt-10">
-        <section className="text-center">
+      <div className="mx-auto max-w-5xl pb-32 pt-8 sm:pb-40 sm:pt-12">
+        <div className="grid gap-16 md:grid-cols-2 md:gap-10">
+          {[text.about.tools, text.about.software].map((section) => (
+            <section key={section.title}>
+              <h2 className="text-center font-bagel-fat-one text-4xl sm:text-5xl">{section.title}</h2>
+              {section.items.length > 0 ? (
+                <ul className="mt-8 flex flex-wrap justify-center gap-4">
+                  {section.items.map((item) => (
+                    <li key={item.name} className="surface-shadow flex min-h-44 w-44 max-w-full flex-col items-center justify-center gap-5 rounded-2xl bg-white p-6 text-center text-lg text-zinc-900 sm:w-52 dark:bg-zinc-900 dark:text-zinc-100">
+                      {item.image ? (
+                        <Image src={item.image} alt="" width={88} height={88} className="size-22 object-contain" />
+                      ) : (
+                        <span aria-hidden="true" className="flex size-22 items-center justify-center rounded-xl bg-zinc-100 text-zinc-400 dark:bg-zinc-800 dark:text-zinc-500"><ImageIcon size={32} /></span>
+                      )}
+                      <span className="wrap-break-words font-medium">{item.name}</span>
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p className="mt-5 text-center text-lg leading-8 text-zinc-600 dark:text-zinc-300">{section.empty}</p>
+              )}
+            </section>
+          ))}
+        </div>
+        <section className="mx-auto mt-24 max-w-3xl rounded-3xl bg-orange-50 px-6 py-12 text-center sm:mt-32 sm:px-12 sm:py-16 dark:bg-zinc-900">
           <h2 className="font-bagel-fat-one text-4xl sm:text-5xl">{text.about.donations.title}</h2>
-          <p className="mt-5 text-lg leading-8 text-zinc-600 dark:text-zinc-300">{text.about.donations.description}</p>
+          <p className="mx-auto mt-5 max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-300">{text.about.donations.description}</p>
           <div className="mt-8 flex flex-wrap justify-center gap-4">
             {[text.about.donations.streamlabs, text.about.donations.saweria].map((donation) => donation.url ? (
               <MotionLink key={donation.name} href={donation.url} target="_blank" rel="noopener noreferrer" whileHover={{ y: -3, scale: 1.04 }} className="surface-shadow inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-orange-100 px-6 py-3 text-orange-900 focus-visible:outline-2 focus-visible:outline-offset-4 dark:bg-zinc-800 dark:text-orange-200">
                 <Heart size={18} aria-hidden="true" />{donation.name}
               </MotionLink>
             ) : (
-              <span key={donation.name} className="inline-flex min-h-12 items-center gap-2 rounded-xl bg-zinc-100 px-6 py-3 text-zinc-600 dark:bg-zinc-800 dark:text-zinc-300">
+              <span key={donation.name} className="inline-flex min-h-12 items-center gap-2 rounded-xl bg-white px-6 py-3 text-zinc-600 dark:bg-zinc-800 dark:text-zinc-300">
                 <Heart size={18} aria-hidden="true" />{donation.name} · {text.about.donations.unavailable}
               </span>
             ))}
           </div>
         </section>
-        {[text.about.tools, text.about.software].map((section) => (
-          <section key={section.title}>
-            <h2 className="text-center font-bagel-fat-one text-4xl sm:text-5xl">{section.title}</h2>
-            {section.items.length > 0 ? (
-              <ul className="mt-8 flex flex-wrap justify-center gap-4">
-                {section.items.map((item) => (
-                  <li key={item.name} className="surface-shadow flex min-h-44 w-44 max-w-full flex-col items-center justify-center gap-5 rounded-2xl bg-white p-6 text-center text-lg text-zinc-900 sm:w-52 dark:bg-zinc-900 dark:text-zinc-100">
-                    {item.image ? (
-                      <Image src={item.image} alt="" width={88} height={88} className="size-22 object-contain" />
-                    ) : (
-                      <span aria-hidden="true" className="flex size-22 items-center justify-center rounded-xl bg-zinc-100 text-zinc-400 dark:bg-zinc-800 dark:text-zinc-500"><ImageIcon size={32} /></span>
-                    )}
-                    <span className="wrap-break-words font-medium">{item.name}</span>
-                  </li>
-                ))}
-              </ul>
-            ) : (
-              <p className="mt-5 text-center text-lg leading-8 text-zinc-600 dark:text-zinc-300">{section.empty}</p>
-            )}
-          </section>
-        ))}
       </div>
     </main>
   );
