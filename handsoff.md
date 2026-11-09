@@ -6,7 +6,7 @@ Snapshot: 2026-11-09. Recheck the working tree and live state before making chan
 
 - Complete requested work directly and keep changes simple. Keep user-facing text in `src/content/text.json`.
 - Do not run a production build after every change. Use focused checks; build when needed for a significant release or static-export verification.
-- Commit after every requested change (not questions). Push to the active branch after every **10 commits**. Check `git status -sb` for the current count; a push is due after this handoff update.
+- Commit after every requested change (not questions). Push to the active branch after every **10 commits**. Check `git status -sb` for the count since the last push.
 - Update this handoff every 5 commits. If the model limit is below 5%, stop all work and write all progress and pending tasks here. The assistant cannot see the quota; if the user reports a limit, stop and update this document.
 - Use the `init-project-conversation` skill (`.agents/skills/`) at session start; it applies ponytail and caveman.
 - Use Context7 for library, framework, API, and cloud documentation. Do not expose credentials in files or logs.
