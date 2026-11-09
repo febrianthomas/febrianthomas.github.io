@@ -1,4 +1,5 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
+import { removeUnlinkedImages } from "./post-inline-images.ts";
 
 export class PostImageDeleteError extends Error {}
 
@@ -11,18 +12,9 @@ export async function deletePost(client: SupabaseClient, post: { id: string; ima
   }
 
   const deleted = data?.length ? data[0] : post;
-  const paths: string[] = [...new Set<string>([...(deleted.inline_image_paths ?? []), ...(deleted.image_path ? [deleted.image_path] : [])])];
-  if (!paths.length) return;
+  const paths = [...new Set<string>([...(deleted.inline_image_paths ?? []), ...(deleted.image_path ? [deleted.image_path] : [])])];
   try {
-    const bucket = client.storage.from("post-images");
-    const result = await bucket.remove(paths);
-    if (result.error) throw result.error;
-    if ((result.data?.length ?? 0) < paths.length) {
-      for (const imagePath of paths) {
-        const listing = await bucket.list("", { search: imagePath });
-        if (listing.error || !listing.data || listing.data.some((item) => item.name === imagePath)) throw listing.error ?? new Error("Image was not deleted");
-      }
-    }
+    await removeUnlinkedImages(client, paths);
   } catch {
     throw new PostImageDeleteError();
   }

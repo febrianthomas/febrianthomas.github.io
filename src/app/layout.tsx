@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Bagel_Fat_One, Cherry_Bomb_One, Sniglet } from "next/font/google";
+import { Bagel_Fat_One, Sniglet } from "next/font/google";
 import type { ReactNode } from "react";
 import { BackgroundShapes } from "@/ui/components/BackgroundShapes/BackgroundShapes";
 import { Footer } from "@/ui/components/Footer/Footer";
@@ -17,13 +17,6 @@ const bagelFatOne = Bagel_Fat_One({
   preload: false,
 });
 
-const cherryBombOne = Cherry_Bomb_One({
-  subsets: ["latin"],
-  weight: "400",
-  variable: "--font-cherry-bomb-one",
-  preload: false,
-});
-
 const sniglet = Sniglet({
   subsets: ["latin"],
   weight: ["400", "800"],
@@ -38,7 +31,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en" suppressHydrationWarning className={`${bagelFatOne.variable} ${cherryBombOne.variable} ${sniglet.variable}`}>
+    <html lang="en" suppressHydrationWarning className={`${bagelFatOne.variable} ${sniglet.variable}`}>
       <head>
         <script dangerouslySetInnerHTML={{ __html: `try { var theme = localStorage.getItem('theme'); if (theme === 'dark' || (!theme && matchMedia('(prefers-color-scheme: dark)').matches)) document.documentElement.classList.add('dark'); } catch (_) {}` }} />
         <script dangerouslySetInnerHTML={{ __html: `if (performance.getEntriesByType('navigation')[0]?.type === 'reload') { history.scrollRestoration = 'manual'; scrollTo(0, 0); addEventListener('pageshow', function () { scrollTo(0, 0); setTimeout(function () { history.scrollRestoration = 'auto'; }, 0); }, { once: true }); }` }} />

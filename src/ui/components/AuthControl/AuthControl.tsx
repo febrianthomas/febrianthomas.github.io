@@ -1,27 +1,16 @@
 "use client";
 
 import { LogOut, UserRound } from "lucide-react";
-import { useEffect, useState } from "react";
 import text from "@/content/text.json";
 import { getSupabase } from "@/lib/supabase";
 import { MotionLink } from "@/ui/components/MotionLink/MotionLink";
 import { ConfirmDialog } from "@/ui/components/ConfirmDialog/ConfirmDialog";
+import { useSignedIn } from "@/ui/components/SignedInOnly/SignedInOnly";
 
-const controlClass = "inline-flex h-11 w-11 items-center justify-center text-zinc-500 hover:text-zinc-950 dark:text-zinc-400 dark:hover:text-zinc-50 focus-visible:outline-2 focus-visible:outline-offset-4";
+const controlClass = "inline-flex size-11 items-center justify-center text-zinc-500 hover:text-zinc-950 focus-visible:outline-2 focus-visible:outline-offset-4 dark:text-zinc-400 dark:hover:text-zinc-50";
 
 export function AuthControl() {
-  const [signedIn, setSignedIn] = useState(false);
-
-  useEffect(() => {
-    try {
-      const { data: { subscription } } = getSupabase().auth.onAuthStateChange((_event, session) => {
-        setSignedIn(Boolean(session));
-      });
-      return () => subscription.unsubscribe();
-    } catch {
-      return;
-    }
-  }, []);
+  const signedIn = useSignedIn();
 
   async function signOut() {
     const { error } = await getSupabase().auth.signOut({ scope: "local" });

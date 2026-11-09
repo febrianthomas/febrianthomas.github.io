@@ -16,9 +16,9 @@ export default function Home() {
       {text.home.sections.map((section) => (
         <Fragment key={section.id}>
         <div aria-hidden="true" className="flex items-center justify-center gap-4 py-6">
-          <span className="h-2.5 w-2.5 rounded-full bg-sky-300" />
-          <span className="h-3 w-3 rotate-45 rounded-sm bg-rose-300" />
-          <span className="h-2.5 w-2.5 rounded-full bg-amber-300" />
+          <span className="size-2.5 rounded-full bg-sky-300" />
+          <span className="size-3 rotate-45 rounded-sm bg-rose-300" />
+          <span className="size-2.5 rounded-full bg-amber-300" />
         </div>
         <FadeSection className="mx-auto flex min-h-[120svh] w-full max-w-5xl items-center py-32 sm:py-40">
           <div className="grid w-full items-center gap-10 md:grid-cols-2">

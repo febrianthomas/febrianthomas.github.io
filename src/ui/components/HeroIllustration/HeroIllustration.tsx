@@ -40,7 +40,7 @@ export function HeroIllustration() {
             initial={reducedMotion ? false : { opacity: 0, scale: 0.9, y: 5 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             transition={{ duration: 0.2, ease: [0.23, 1, 0.32, 1] }}
-            className="relative block origin-bottom-right rounded-2xl border-2 border-zinc-900 bg-white px-8 py-4 text-2xl font-medium text-zinc-900 shadow-sm after:absolute after:-right-2 after:bottom-3 after:h-3 after:w-3 after:rotate-45 after:border-t-2 after:border-r-2 after:border-zinc-900 after:bg-white dark:border-zinc-100 dark:bg-zinc-800 dark:text-zinc-50 dark:after:border-zinc-100 dark:after:bg-zinc-800"
+            className="relative block origin-bottom-right rounded-2xl border-2 border-zinc-900 bg-white px-8 py-4 text-2xl font-medium text-zinc-900 shadow-sm after:absolute after:-right-2 after:bottom-3 after:size-3 after:rotate-45 after:border-t-2 after:border-r-2 after:border-zinc-900 after:bg-white dark:border-zinc-100 dark:bg-zinc-800 dark:text-zinc-50 dark:after:border-zinc-100 dark:after:bg-zinc-800"
           >
             {text.home.greeting}
           </motion.span>

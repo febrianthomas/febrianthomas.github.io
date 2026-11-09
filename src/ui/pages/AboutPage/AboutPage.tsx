@@ -26,9 +26,9 @@ export default function AboutPage() {
           <p className="mt-4 text-lg leading-8 text-zinc-600 dark:text-zinc-300">{text.about.details}</p>
           <nav aria-label={text.about.socialLabel} className="mt-8 flex flex-wrap gap-3">
             {socials.map((social, index) => {
-              const icon = <svg aria-hidden="true" viewBox="0 0 24 24" className="h-6 w-6 fill-current"><path d={social.icon.path} /></svg>;
+              const icon = <svg aria-hidden="true" viewBox="0 0 24 24" className="size-6 fill-current"><path d={social.icon.path} /></svg>;
               return social.url ? (
-                <MotionLink key={social.name} href={social.url} target="_blank" rel="noopener noreferrer" aria-label={social.name} title={social.name} whileHover={{ y: -4, rotate: index % 2 ? 8 : -8, scale: 1.12 }} className={`inline-flex h-12 w-12 items-center justify-center rounded-full focus-visible:outline-2 focus-visible:outline-offset-2 ${social.color}`}>{icon}</MotionLink>
+                <MotionLink key={social.name} href={social.url} target="_blank" rel="noopener noreferrer" aria-label={social.name} title={social.name} whileHover={{ y: -4, rotate: index % 2 ? 8 : -8, scale: 1.12 }} className={`inline-flex size-12 items-center justify-center rounded-full focus-visible:outline-2 focus-visible:outline-offset-2 ${social.color}`}>{icon}</MotionLink>
               ) : (
                 <SocialPlaceholder key={social.name} label={`${social.name} — ${text.about.socialUnavailable}`} title={social.name} index={index} className={social.color}>{icon}</SocialPlaceholder>
               );
@@ -45,9 +45,9 @@ export default function AboutPage() {
                 {section.items.map((item) => (
                   <li key={item.name} className="surface-shadow flex min-h-44 w-44 max-w-full flex-col items-center justify-center gap-5 rounded-2xl bg-white p-6 text-center text-lg text-zinc-900 sm:w-52 dark:bg-zinc-900 dark:text-zinc-100">
                     {item.image ? (
-                      <Image src={item.image} alt="" width={88} height={88} className="h-22 w-22 object-contain" />
+                      <Image src={item.image} alt="" width={88} height={88} className="size-22 object-contain" />
                     ) : (
-                      <span aria-hidden="true" className="flex h-22 w-22 items-center justify-center rounded-xl bg-zinc-100 text-zinc-400 dark:bg-zinc-800 dark:text-zinc-500"><ImageIcon size={32} /></span>
+                      <span aria-hidden="true" className="flex size-22 items-center justify-center rounded-xl bg-zinc-100 text-zinc-400 dark:bg-zinc-800 dark:text-zinc-500"><ImageIcon size={32} /></span>
                     )}
                     <span className="wrap-break-words font-medium">{item.name}</span>
                   </li>

@@ -39,14 +39,14 @@ export function ConfirmDialog({ trigger, title, description, cancelLabel, confir
     <AlertDialog.Root open={open} onOpenChange={(nextOpen) => { if (!pending) { setOpen(nextOpen); setError(""); } }}>
       <AlertDialog.Trigger asChild>{trigger}</AlertDialog.Trigger>
       <AlertDialog.Portal>
-        <AlertDialog.Overlay className="fixed inset-0 z-[60] bg-zinc-950/50" />
-        <div className="pointer-events-none fixed inset-0 z-[70] flex items-center justify-center p-6">
+        <AlertDialog.Overlay className="fixed inset-0 z-60 bg-zinc-950/50" />
+        <div className="pointer-events-none fixed inset-0 z-70 flex items-center justify-center p-6">
           <AlertDialog.Content asChild>
             <motion.div
               initial={reducedMotion ? false : { opacity: 0, scale: 0.96, y: 8 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               transition={{ duration: 0.2, ease: [0.23, 1, 0.32, 1] }}
-              className="surface-shadow pointer-events-auto w-full max-w-sm rounded-3xl border-2 border-zinc-900 bg-white p-7 text-zinc-950 focus:outline-none dark:border-zinc-100 dark:bg-zinc-900 dark:text-zinc-50"
+              className="surface-shadow pointer-events-auto w-full max-w-sm rounded-3xl bg-white p-7 text-zinc-950 focus:outline-none dark:bg-zinc-900 dark:text-zinc-50"
             >
               <AlertDialog.Title className="font-bagel-fat-one text-3xl">{title}</AlertDialog.Title>
               <AlertDialog.Description className="mt-3 leading-6 text-zinc-600 dark:text-zinc-300">{description}</AlertDialog.Description>

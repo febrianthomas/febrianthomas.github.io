@@ -1,6 +1,5 @@
 "use client";
 
-import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Eye, EyeOff } from "lucide-react";
 import { useEffect, useState, type FormEvent } from "react";
@@ -13,13 +12,11 @@ export default function LoginPage() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
-  const [signedIn, setSignedIn] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
   useEffect(() => {
     try {
       const { data: { subscription } } = getSupabase().auth.onAuthStateChange((event, session) => {
-        setSignedIn(Boolean(session));
         if (event === "INITIAL_SESSION" && session) router.replace("/");
       });
       return () => subscription.unsubscribe();
@@ -67,7 +64,7 @@ export default function LoginPage() {
             <label htmlFor="password" className="block text-sm font-medium text-zinc-900 dark:text-zinc-100">{text.login.password}</label>
             <div className="relative mt-2">
               <input id="password" name="password" type={showPassword ? "text" : "password"} autoComplete="current-password" required className="h-12 w-full rounded-md border border-zinc-300 bg-white px-3 pr-12 text-base outline-none focus:border-zinc-900 focus:ring-1 focus:ring-zinc-900 dark:border-zinc-600 dark:bg-zinc-800 dark:text-zinc-50 dark:focus:border-zinc-300 dark:focus:ring-zinc-300" />
-              <button type="button" onClick={() => setShowPassword(!showPassword)} aria-label={showPassword ? text.login.hidePassword : text.login.showPassword} aria-controls="password" className="absolute right-0 top-0 flex h-12 w-12 items-center justify-center rounded-md text-zinc-500 hover:text-zinc-900 focus-visible:outline-2 focus-visible:outline-offset-2 dark:text-zinc-400 dark:hover:text-zinc-100">
+              <button type="button" onClick={() => setShowPassword(!showPassword)} aria-label={showPassword ? text.login.hidePassword : text.login.showPassword} aria-controls="password" className="absolute right-0 top-0 flex size-12 items-center justify-center rounded-md text-zinc-500 hover:text-zinc-900 focus-visible:outline-2 focus-visible:outline-offset-2 dark:text-zinc-400 dark:hover:text-zinc-100">
                 {showPassword ? <EyeOff size={20} aria-hidden="true" /> : <Eye size={20} aria-hidden="true" />}
               </button>
             </div>

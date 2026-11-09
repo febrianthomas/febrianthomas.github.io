@@ -1,4 +1,5 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
+import { removeUnlinkedImages } from "./post-inline-images.ts";
 
 export class PostUpdateUncertainError extends Error {}
 
@@ -35,17 +36,10 @@ export async function updatePostRecord(client: SupabaseClient, original: { id: s
   }
   let cleanupFailed = false;
   const unused = [...original.inline_image_paths.filter((path) => !values.inline_image_paths.includes(path)), ...(original.image_path && original.image_path !== imagePath ? [original.image_path] : [])];
-  if (unused.length) {
-    try {
-      const cleanup = await client.storage.from("post-images").remove(unused);
-      if (cleanup.error) throw cleanup.error;
-      if ((cleanup.data?.length ?? 0) < unused.length) {
-        for (const path of unused) {
-          const listing = await client.storage.from("post-images").list("", { search: path });
-          if (listing.error || !listing.data || listing.data.some((item) => item.name === path)) throw new Error();
-        }
-      }
-    } catch { cleanupFailed = true; }
+  try {
+    await removeUnlinkedImages(client, unused);
+  } catch {
+    cleanupFailed = true;
   }
   return { post: result.data, cleanupFailed };
 }

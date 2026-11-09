@@ -160,23 +160,23 @@ export function NewPostDialog({ postId, postTitle, onSaved, compact = false, kin
   return (
     <Dialog.Root open={open} onOpenChange={(nextOpen) => { if (!pending) { setOpen(nextOpen); setError(""); if (!nextOpen) resetForm(); } }}>
       <Dialog.Trigger asChild>
-        {postId ? <button type="button" aria-label={`${t.editPost}: ${postTitle ?? ""}`} title={t.editPost} className={`flex h-11 w-11 items-center justify-center rounded-xl text-zinc-700 hover:bg-zinc-100 focus-visible:outline-2 focus-visible:outline-offset-2 dark:text-zinc-200 dark:hover:bg-zinc-800 ${compact ? "bg-white shadow-sm dark:bg-zinc-900" : ""}`}><Pencil size={18} aria-hidden="true" /></button> : <Button className="min-h-11 gap-2 rounded-xl!"><Plus size={18} aria-hidden="true" />{t.addPost}</Button>}
+        {postId ? <button type="button" aria-label={`${t.editPost}: ${postTitle ?? ""}`} title={t.editPost} className={`flex size-11 items-center justify-center rounded-xl text-zinc-700 hover:bg-zinc-100 focus-visible:outline-2 focus-visible:outline-offset-2 dark:text-zinc-200 dark:hover:bg-zinc-800 ${compact ? "bg-white shadow-sm dark:bg-zinc-900" : ""}`}><Pencil size={18} aria-hidden="true" /></button> : <Button className="min-h-11 gap-2 rounded-xl!"><Plus size={18} aria-hidden="true" />{t.addPost}</Button>}
       </Dialog.Trigger>
       <Dialog.Portal>
-        <Dialog.Overlay className="fixed inset-0 z-[60] bg-zinc-950/50" />
-        <div className="pointer-events-none fixed inset-0 z-[70] flex items-center justify-center p-4 sm:p-6">
+        <Dialog.Overlay className="fixed inset-0 z-60 bg-zinc-950/50" />
+        <div className="pointer-events-none fixed inset-0 z-70 flex items-center justify-center p-4 sm:p-6">
           <Dialog.Content asChild onEscapeKeyDown={(event) => { if (pending) event.preventDefault(); }} onPointerDownOutside={(event) => { if (pending) event.preventDefault(); }}>
             <motion.div
               data-lenis-prevent
               initial={reducedMotion ? false : { opacity: 0, scale: 0.97, y: 8 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               transition={{ duration: 0.2, ease: [0.23, 1, 0.32, 1] }}
-              className="surface-shadow pointer-events-auto max-h-[calc(100dvh-2rem)] w-full max-w-2xl overflow-y-auto rounded-3xl border-2 border-zinc-900 bg-white p-6 text-zinc-950 focus:outline-none sm:p-8 dark:border-zinc-100 dark:bg-zinc-900 dark:text-zinc-50"
+              className="surface-shadow pointer-events-auto max-h-[calc(100dvh-2rem)] w-full max-w-2xl overflow-y-auto rounded-3xl bg-white p-6 text-zinc-950 focus:outline-none sm:p-8 dark:bg-zinc-900 dark:text-zinc-50"
             >
               <div className="flex items-start justify-between gap-4">
                 <Dialog.Title className="font-bagel-fat-one text-4xl">{postId ? t.editTitle : t.createTitle}</Dialog.Title>
                 <Dialog.Close asChild>
-                  <button type="button" disabled={pending} aria-label={t.close} className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl hover:bg-zinc-100 focus-visible:outline-2 focus-visible:outline-offset-2 disabled:opacity-50 dark:hover:bg-zinc-800"><X size={20} aria-hidden="true" /></button>
+                  <button type="button" disabled={pending} aria-label={t.close} className="flex size-11 shrink-0 items-center justify-center rounded-xl hover:bg-zinc-100 focus-visible:outline-2 focus-visible:outline-offset-2 disabled:opacity-50 dark:hover:bg-zinc-800"><X size={20} aria-hidden="true" /></button>
                 </Dialog.Close>
               </div>
               <Dialog.Description className="mt-3 text-lg leading-7 text-zinc-600 dark:text-zinc-300">{postId ? t.editDescription : t.createDescription}</Dialog.Description>
@@ -185,7 +185,7 @@ export function NewPostDialog({ postId, postTitle, onSaved, compact = false, kin
                 <div><label htmlFor="post-title" className="block text-sm font-medium">{t.titleLabel}</label><input id="post-title" name="title" defaultValue={original?.title} required maxLength={120} className={fieldClass} /></div>
                 <div><label htmlFor="post-description" className="block text-sm font-medium">{t.descriptionLabel}</label><textarea id="post-description" name="description" defaultValue={original?.description} required maxLength={240} rows={3} className={fieldClass} /></div>
                 <div><label htmlFor="post-tags" className="block text-sm font-medium">{t.tagsLabel}</label><input id="post-tags" name="tags" defaultValue={original?.tags.join(", ")} aria-describedby="post-tags-help" className={fieldClass} /><p id="post-tags-help" className="mt-2 text-sm text-zinc-600 dark:text-zinc-300">{t.tagsHelp}</p></div>
-                <label className="flex min-h-11 items-center gap-3 text-sm font-medium"><input type="checkbox" name="featured" defaultChecked={original?.featured} className="h-5 w-5 accent-orange-600" />{t.featuredLabel}</label>
+                <label className="flex min-h-11 items-center gap-3 text-sm font-medium"><input type="checkbox" name="featured" defaultChecked={original?.featured} className="size-5 accent-orange-600" />{t.featuredLabel}</label>
                 <div><p id="post-body-label" className="block text-sm font-medium">{t.bodyLabel}</p><PostEditor initialPost={original} onReady={setContent} onChange={(value) => { setContent(value); setBodyChanged(true); }} onImage={addContentImage} disabled={pending || savedWarning} /><p id="post-link-help" className="mt-2 text-sm text-zinc-600 dark:text-zinc-300">{t.linkHelp}</p></div>
                 <div>
                   <p id="post-image-label" className="block text-sm font-medium">{t.imageLabel}</p>
