@@ -71,11 +71,11 @@ export default function AboutPage() {
           <p className="mx-auto mt-5 max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-300">{text.about.donations.description}</p>
           <div className="mt-8 flex flex-wrap justify-center gap-4">
             {[text.about.donations.streamlabs, text.about.donations.saweria, text.about.donations.kofi, text.about.donations.trakteer].map((donation) => donation.url ? (
-              <MotionLink key={donation.name} href={donation.url} target="_blank" rel="noopener noreferrer" whileHover={{ y: -3, scale: 1.04 }} className="surface-shadow inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-orange-100 px-6 py-3 text-orange-900 focus-visible:outline-2 focus-visible:outline-offset-4 dark:bg-zinc-800 dark:text-orange-200">
+              <MotionLink key={donation.name} href={donation.url} target="_blank" rel="noopener noreferrer" whileHover={{ y: -3, scale: 1.04 }} className="surface-shadow inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-zinc-100 px-6 py-3 text-zinc-900 focus-visible:outline-2 focus-visible:outline-offset-4 dark:bg-zinc-800 dark:text-zinc-100">
                 <Heart size={18} aria-hidden="true" />{donation.name}
               </MotionLink>
             ) : (
-              <span key={donation.name} className="inline-flex min-h-12 items-center gap-2 rounded-xl bg-white px-6 py-3 text-zinc-600 dark:bg-zinc-800 dark:text-zinc-300">
+              <span key={donation.name} className="inline-flex min-h-12 items-center gap-2 rounded-xl bg-zinc-100 px-6 py-3 text-zinc-600 dark:bg-zinc-800 dark:text-zinc-300">
                 <Heart size={18} aria-hidden="true" />{donation.name} · {text.about.donations.unavailable}
               </span>
             ))}
