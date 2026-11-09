@@ -30,6 +30,17 @@ export function postImageUrl(path: string) {
   return getSupabase().storage.from("post-images").getPublicUrl(path).data.publicUrl;
 }
 
+export async function listPostPreviews(kind: PostKind) {
+  const { data, error } = await getSupabase().from(kindTable(kind))
+    .select("id,title,description,image_path")
+    .order("featured", { ascending: false })
+    .order("created_at", { ascending: false })
+    .order("id", { ascending: false })
+    .limit(3);
+  if (error) throw error;
+  return data;
+}
+
 export async function listPosts(kind: PostKind = "post") {
   const { data, error } = await getSupabase().from(kindTable(kind))
     .select("id,title,description,image_path,image_alt,created_at,tags,featured,body,body_format,inline_image_paths")

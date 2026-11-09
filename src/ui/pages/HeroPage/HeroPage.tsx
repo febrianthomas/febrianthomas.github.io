@@ -1,5 +1,6 @@
 import { HeroIllustration } from "@/ui/components/HeroIllustration/HeroIllustration";
 import { FadeSection } from "@/ui/components/FadeSection/FadeSection";
+import { HomePreview } from "@/ui/components/HomePreview/HomePreview";
 import Image from "next/image";
 import { Fragment } from "react";
 import text from "@/content/text.json";
@@ -38,6 +39,8 @@ export default function Home() {
         </FadeSection>
         </Fragment>
       ))}
+      <HomePreview kind="portfolio" />
+      <HomePreview kind="post" />
     </main>
   );
 }
