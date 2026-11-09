@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { ImageIcon } from "lucide-react";
+import { Heart, ImageIcon } from "lucide-react";
 import { siInstagram, siYoutube, siX, siThreads, siTwitch, siTiktok } from "simple-icons";
 import { MotionLink } from "@/ui/components/MotionLink/MotionLink";
 import { SocialPlaceholder } from "@/ui/components/SocialPlaceholder/SocialPlaceholder";
@@ -37,6 +37,21 @@ export default function AboutPage() {
         </div>
       </div>
       <div className="mx-auto flex max-w-5xl flex-col gap-16 pb-32 pt-6 sm:gap-20 sm:pb-40 sm:pt-10">
+        <section className="text-center">
+          <h2 className="font-bagel-fat-one text-4xl sm:text-5xl">{text.about.donations.title}</h2>
+          <p className="mt-5 text-lg leading-8 text-zinc-600 dark:text-zinc-300">{text.about.donations.description}</p>
+          <div className="mt-8 flex flex-wrap justify-center gap-4">
+            {[text.about.donations.streamlabs, text.about.donations.saweria].map((donation) => donation.url ? (
+              <MotionLink key={donation.name} href={donation.url} target="_blank" rel="noopener noreferrer" whileHover={{ y: -3, scale: 1.04 }} className="surface-shadow inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-orange-100 px-6 py-3 text-orange-900 focus-visible:outline-2 focus-visible:outline-offset-4 dark:bg-zinc-800 dark:text-orange-200">
+                <Heart size={18} aria-hidden="true" />{donation.name}
+              </MotionLink>
+            ) : (
+              <span key={donation.name} className="inline-flex min-h-12 items-center gap-2 rounded-xl bg-zinc-100 px-6 py-3 text-zinc-600 dark:bg-zinc-800 dark:text-zinc-300">
+                <Heart size={18} aria-hidden="true" />{donation.name} · {text.about.donations.unavailable}
+              </span>
+            ))}
+          </div>
+        </section>
         {[text.about.tools, text.about.software].map((section) => (
           <section key={section.title}>
             <h2 className="text-center font-bagel-fat-one text-4xl sm:text-5xl">{section.title}</h2>

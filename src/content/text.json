@@ -57,6 +57,13 @@
     "imageAlt": "Illustration of febrianthomas",
     "socialLabel": "Social profiles",
     "socialUnavailable": "link not set",
+    "donations": {
+      "title": "Support My Work.",
+      "description": "If you enjoy what I create, you can support me here.",
+      "unavailable": "Coming soon",
+      "streamlabs": { "name": "Streamlabs", "url": "" },
+      "saweria": { "name": "Saweria", "url": "" }
+    },
     "socials": {
       "instagram": {
         "name": "Instagram",
