@@ -26,4 +26,5 @@ test("featured posts appear first even after editing", () => {
 test("malformed rich content and UTC dates are handled predictably", () => {
   assert.equal(postBodyText("not json", "tiptap"), "");
   assert.equal(formatPostDate("2026-11-09T01:00:00Z"), "November 9, 2026");
+  assert.equal(formatPostDate("2026-11-09T01:00:00Z", "id"), "9 November 2026");
 });

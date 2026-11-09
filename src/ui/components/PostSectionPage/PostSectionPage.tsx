@@ -1,3 +1,7 @@
+"use client";
+
+import { useLanguage } from "@/ui/components/LanguageProvider/LanguageProvider";
+
 import type { PostKind } from "@/lib/posts";
 import { kindText } from "@/lib/post-kind";
 import { SignedInOnly } from "@/ui/components/SignedInOnly/SignedInOnly";
@@ -5,7 +9,8 @@ import { LivePosts } from "@/ui/components/LivePosts/LivePosts";
 import { NewPostDialog } from "@/ui/components/NewPostDialog/NewPostDialog";
 
 export function PostSectionPage({ kind = "post" }: { kind?: PostKind }) {
-  const t = kindText(kind);
+  const { text } = useLanguage();
+  const t = kindText(kind, text);
   return (
     <main className="flex-1 px-6 sm:px-10">
       <div className="mx-auto max-w-6xl py-20 sm:py-28">

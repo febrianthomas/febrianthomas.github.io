@@ -2,9 +2,10 @@
 
 import * as Dialog from "@radix-ui/react-dialog";
 import { X } from "lucide-react";
-import text from "@/content/text.json";
+import { useLanguage } from "@/ui/components/LanguageProvider/LanguageProvider";
 
 export function ImageLightboxDialog({ src, alt }: { src: string; alt: string }) {
+  const { text } = useLanguage();
   return (
     <Dialog.Portal>
         <Dialog.Overlay className="fixed inset-0 z-80 bg-zinc-950/90" />
@@ -18,5 +19,6 @@ export function ImageLightboxDialog({ src, alt }: { src: string; alt: string }) 
 }
 
 export function ImageLightbox({ src, alt, className = "" }: { src: string; alt: string; className?: string }) {
+  const { text } = useLanguage();
   return <Dialog.Root><Dialog.Trigger asChild><button type="button" aria-label={text.post.openImage} className="block w-full rounded-3xl focus-visible:outline-2 focus-visible:outline-offset-4"><img src={src} alt={alt} className={className} /></button></Dialog.Trigger><ImageLightboxDialog src={src} alt={alt} /></Dialog.Root>;
 }

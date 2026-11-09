@@ -2,9 +2,10 @@
 
 import { Moon, Sun } from "lucide-react";
 import { useEffect, useState } from "react";
-import text from "@/content/text.json";
+import { useLanguage } from "@/ui/components/LanguageProvider/LanguageProvider";
 
 export function ThemeToggle() {
+  const { text } = useLanguage();
   const [dark, setDark] = useState(false);
 
   useEffect(() => {

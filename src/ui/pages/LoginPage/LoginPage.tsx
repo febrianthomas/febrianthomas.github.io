@@ -6,9 +6,10 @@ import { useEffect, useState, type FormEvent } from "react";
 import { Button } from "@/ui/components/Button/Button";
 import { LoadingIndicator } from "@/ui/components/LoadingIndicator/LoadingIndicator";
 import { getSupabase } from "@/lib/supabase";
-import text from "@/content/text.json";
+import { useLanguage } from "@/ui/components/LanguageProvider/LanguageProvider";
 
 export default function LoginPage() {
+  const { text } = useLanguage();
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");

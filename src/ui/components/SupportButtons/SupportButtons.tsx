@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useState } from "react";
-import text from "@/content/text.json";
+import { useLanguage } from "@/ui/components/LanguageProvider/LanguageProvider";
 import { getSupabase } from "@/lib/supabase";
 import { MotionLink } from "@/ui/components/MotionLink/MotionLink";
 import { useSignedIn } from "@/ui/components/SignedInOnly/SignedInOnly";
@@ -12,6 +12,7 @@ type ButtonId = (typeof buttons)[number];
 type Status = Partial<Record<ButtonId, boolean>>;
 
 export function SupportButtons() {
+  const { text } = useLanguage();
   const signedIn = useSignedIn();
   const [status, setStatus] = useState<Status | null>(null);
   const [pending, setPending] = useState<ButtonId | null>(null);

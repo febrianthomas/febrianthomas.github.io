@@ -1,7 +1,7 @@
 "use client";
 
 import { Trash2 } from "lucide-react";
-import text from "@/content/text.json";
+import { useLanguage } from "@/ui/components/LanguageProvider/LanguageProvider";
 import { deletePost, PostImageDeleteError } from "@/lib/post-delete";
 import { kindTable, kindText } from "@/lib/post-kind";
 import type { PostKind } from "@/lib/posts";
@@ -14,7 +14,8 @@ export function DeletePostButton({ post, onDeleted, compact = false, kind = "pos
   compact?: boolean;
   kind?: PostKind;
 }) {
-  const t = kindText(kind);
+  const { text } = useLanguage();
+  const t = kindText(kind, text);
   return (
     <ConfirmDialog
       title={t.deleteTitle}

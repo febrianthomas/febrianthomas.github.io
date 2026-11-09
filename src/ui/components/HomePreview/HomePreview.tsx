@@ -4,7 +4,7 @@ import { ArrowRight, FileText } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import text from "@/content/text.json";
+import { useLanguage } from "@/ui/components/LanguageProvider/LanguageProvider";
 import { kindPath, kindText } from "@/lib/post-kind";
 import { listPostPreviews, postImageUrl, type PostKind } from "@/lib/posts";
 import { PostCard } from "@/ui/components/PostCard/PostCard";
@@ -14,7 +14,8 @@ type Preview = Awaited<ReturnType<typeof listPostPreviews>>[number];
 export function HomePreview({ kind }: { kind: PostKind }) {
   const [items, setItems] = useState<Preview[] | null>(null);
   const [error, setError] = useState(false);
-  const t = kindText(kind);
+  const { text } = useLanguage();
+  const t = kindText(kind, text);
   const path = kindPath(kind);
 
   useEffect(() => {

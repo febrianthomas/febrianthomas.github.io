@@ -1,11 +1,14 @@
+"use client";
+
 import { HeroIllustration } from "@/ui/components/HeroIllustration/HeroIllustration";
 import { FadeSection } from "@/ui/components/FadeSection/FadeSection";
 import { HomePreview } from "@/ui/components/HomePreview/HomePreview";
 import Image from "next/image";
 import { Fragment } from "react";
-import text from "@/content/text.json";
+import { useLanguage } from "@/ui/components/LanguageProvider/LanguageProvider";
 
 export default function Home() {
+  const { text } = useLanguage();
   return (
     <main className="flex flex-1 flex-col px-6 sm:px-10">
       <FadeSection className="mx-auto flex min-h-[calc(100svh-124px)] w-full max-w-6xl flex-col items-center justify-center gap-5 py-12 text-center sm:min-h-[calc(100svh-76px)] sm:gap-7 sm:py-16 mb-50">

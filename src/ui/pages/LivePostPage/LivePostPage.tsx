@@ -1,5 +1,7 @@
 "use client";
 
+import { useLanguage } from "@/ui/components/LanguageProvider/LanguageProvider";
+
 import Link from "next/link";
 import Markdown from "react-markdown";
 import { ArrowLeft, ArrowRight } from "lucide-react";
@@ -16,7 +18,8 @@ import { adjacentPosts, formatPostDate } from "@/lib/post-list";
 import { ImageLightbox } from "@/ui/components/ImageLightbox/ImageLightbox";
 
 export function LivePostPage({ kind = "post" }: { kind?: PostKind }) {
-  const t = kindText(kind);
+  const { text, language } = useLanguage();
+  const t = kindText(kind, text);
   const router = useRouter();
   const [post, setPost] = useState<PublishedPost | null>(null);
   const [posts, setPosts] = useState<PostSummary[]>([]);
@@ -53,7 +56,7 @@ export function LivePostPage({ kind = "post" }: { kind?: PostKind }) {
             <p className="mt-10 text-xs font-semibold uppercase tracking-[0.15em] text-zinc-500 dark:text-zinc-400">{t.itemLabel}</p>
             <h1 className="mt-4 font-bagel-fat-one text-5xl leading-tight sm:text-6xl">{post.title}</h1>
             <p className="mt-5 text-xl leading-8 text-zinc-600 dark:text-zinc-300">{post.description}</p>
-            <p className="mt-5 text-sm text-zinc-600 dark:text-zinc-400">{t.published} <time dateTime={post.created_at}>{formatPostDate(post.created_at)}</time>{post.updated_at && <> · {t.updated} <time dateTime={post.updated_at}>{formatPostDate(post.updated_at)}</time></>}</p>
+            <p className="mt-5 text-sm text-zinc-600 dark:text-zinc-400">{t.published} <time dateTime={post.created_at}>{formatPostDate(post.created_at, language)}</time>{post.updated_at && <> · {t.updated} <time dateTime={post.updated_at}>{formatPostDate(post.updated_at, language)}</time></>}</p>
             {post.tags.length > 0 && <div className="mt-4 flex flex-wrap gap-2">{post.tags.map((tag) => <span key={tag} className="rounded-full bg-orange-100 px-3 py-1 text-sm text-orange-800 dark:bg-zinc-800 dark:text-orange-200">{tag}</span>)}</div>}
             {post.image_path && <figure className="mt-10"><ImageLightbox src={postImageUrl(post.image_path)} alt={post.image_alt ?? ""} className="image-glow h-auto w-full rounded-3xl object-contain" />{post.image_caption && <figcaption className="mt-3 text-center text-sm text-zinc-600 dark:text-zinc-400">{post.image_caption}</figcaption>}</figure>}
             {post.body_format === "tiptap" ? (

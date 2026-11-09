@@ -2,7 +2,7 @@
 
 ## Project Structure
 
-This is a Next.js App Router site exported to GitHub Pages. Route files are in `src/app`; reusable components and page layouts are in `src/ui/components` and `src/ui/pages`. Shared logic lives in `src/lib`, editable site copy in `src/content/text.json`, and static images in `public/images`. Database migrations and SQL checks are in `supabase/migrations` and `supabase/tests`. JavaScript tests are in `tests`.
+This is a Next.js App Router site exported to GitHub Pages. Route files are in `src/app`; reusable components and page layouts are in `src/ui/components` and `src/ui/pages`. Shared logic lives in `src/lib`, editable English and Indonesian copy in `src/content/en.json` and `src/content/id.json`, and static images in `public/images`. Database migrations and SQL checks are in `supabase/migrations` and `supabase/tests`. JavaScript tests are in `tests`.
 
 ## Development and Checks
 
@@ -16,7 +16,7 @@ Use Node.js 22.18 or newer and run `npm install` to install dependencies.
 
 ## Style and Tests
 
-Follow the existing TypeScript, React, and Tailwind style, including two-space indentation. Name component folders and files in PascalCase, such as `Button/Button.tsx`; use lowercase, hyphenated names for shared modules such as `post-image.ts`. Keep visitor-facing copy in `src/content/text.json`.
+Follow the existing TypeScript, React, and Tailwind style, including two-space indentation. Name component folders and files in PascalCase, such as `Button/Button.tsx`; use lowercase, hyphenated names for shared modules such as `post-image.ts`. Keep visitor-facing copy in both language files.
 
 Use Node's built-in test runner and name tests `*.test.mjs`. Add focused tests for meaningful behavior changes, especially post and image handling. SQL policy checks belong in `supabase/tests`; avoid modifying real posts or images during testing. No coverage threshold is configured.
 

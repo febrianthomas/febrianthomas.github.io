@@ -18,6 +18,13 @@ npm run dev
 
 Open <http://localhost:3000>. Edit `src/app/page.tsx` to change the home page.
 
+### Languages
+
+The header switches between English and Indonesian and remembers the selection
+in the browser. Edit site text in `src/content/en.json` and `src/content/id.json`;
+keep their keys, links, and image paths in sync. Posts and projects stored in
+Supabase remain in the language in which they were written.
+
 ### Supabase
 
 Copy `.env.example` to `.env.local` and fill in your Supabase project URL and

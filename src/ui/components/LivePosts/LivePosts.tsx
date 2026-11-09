@@ -1,5 +1,7 @@
 "use client";
 
+import { useLanguage } from "@/ui/components/LanguageProvider/LanguageProvider";
+
 import { FileText } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -14,7 +16,8 @@ import { NewPostDialog } from "@/ui/components/NewPostDialog/NewPostDialog";
 import { formatPostDate, matchesPost, sortPosts } from "@/lib/post-list";
 
 export function LivePosts({ kind = "post" }: { kind?: PostKind }) {
-  const t = kindText(kind);
+  const { text, language } = useLanguage();
+  const t = kindText(kind, text);
   const [posts, setPosts] = useState<PostSummary[] | null>(null);
   const [error, setError] = useState(false);
   const [query, setQuery] = useState("");
@@ -60,7 +63,7 @@ export function LivePosts({ kind = "post" }: { kind?: PostKind }) {
           {post.featured && <p className="mt-2 text-sm font-semibold text-orange-700 dark:text-orange-300">{t.featured}</p>}
           <h2 className="mt-3 font-bagel-fat-one text-2xl">{post.title}</h2>
           <p className="mt-3 leading-7 text-zinc-600 dark:text-zinc-300">{post.description}</p>
-          <p className="mt-4 text-sm text-zinc-500 dark:text-zinc-400"><time dateTime={post.created_at}>{formatPostDate(post.created_at)}</time></p>
+          <p className="mt-4 text-sm text-zinc-500 dark:text-zinc-400"><time dateTime={post.created_at}>{formatPostDate(post.created_at, language)}</time></p>
           {post.tags.length > 0 && <div className="mt-3 flex flex-wrap gap-2">{post.tags.map((item) => <span key={item} className="rounded-full bg-orange-100 px-3 py-1 text-xs text-orange-800 dark:bg-zinc-800 dark:text-orange-200">{item}</span>)}</div>}
         </div>
       </Link>

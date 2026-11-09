@@ -1,5 +1,7 @@
 "use client";
 
+import { useLanguage } from "@/ui/components/LanguageProvider/LanguageProvider";
+
 import * as Dialog from "@radix-ui/react-dialog";
 import { Pencil, Plus, UploadCloud, X } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
@@ -18,7 +20,8 @@ import { LoadingIndicator } from "@/ui/components/LoadingIndicator/LoadingIndica
 const fieldClass = "mt-2 w-full rounded-xl border border-zinc-300 bg-white px-4 py-3 text-base text-zinc-950 outline-none focus:border-zinc-900 focus:ring-1 focus:ring-zinc-900 dark:border-zinc-600 dark:bg-zinc-800 dark:text-zinc-50 dark:focus:border-zinc-300 dark:focus:ring-zinc-300";
 
 export function NewPostDialog({ postId, postTitle, onSaved, compact = false, kind = "post" }: { postId?: string; postTitle?: string; onSaved?: (post: PublishedPost) => void; compact?: boolean; kind?: PostKind } = {}) {
-  const t = kindText(kind);
+  const { text } = useLanguage();
+  const t = kindText(kind, text);
   const router = useRouter();
   const reducedMotion = useReducedMotion();
   const [open, setOpen] = useState(false);

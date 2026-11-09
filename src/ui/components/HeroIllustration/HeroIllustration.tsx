@@ -5,9 +5,10 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import hero from "../../../../public/images/hero-1.png";
 import greetingHero from "../../../../public/images/hero-2.png";
-import text from "@/content/text.json";
+import { useLanguage } from "@/ui/components/LanguageProvider/LanguageProvider";
 
 export function HeroIllustration() {
+  const { text } = useLanguage();
   const [greeting, setGreeting] = useState(false);
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const reducedMotion = useReducedMotion();

@@ -6,7 +6,8 @@ import { Footer } from "@/ui/components/Footer/Footer";
 import { Header } from "@/ui/components/Header/Header";
 import { PageMotion } from "@/ui/components/PageMotion/PageMotion";
 import { SmoothScroll } from "@/ui/components/SmoothScroll/SmoothScroll";
-import text from "@/content/text.json";
+import { LanguageProvider } from "@/ui/components/LanguageProvider/LanguageProvider";
+import text from "@/content/en.json";
 import "lenis/dist/lenis.css";
 import "./globals.css";
 
@@ -39,9 +40,11 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <body className="flex min-h-svh flex-col text-zinc-950 antialiased dark:text-zinc-50">
         <SmoothScroll />
         <BackgroundShapes />
-        <Header />
-        <PageMotion>{children}</PageMotion>
-        <Footer />
+        <LanguageProvider>
+          <Header />
+          <PageMotion>{children}</PageMotion>
+          <Footer />
+        </LanguageProvider>
       </body>
     </html>
   );

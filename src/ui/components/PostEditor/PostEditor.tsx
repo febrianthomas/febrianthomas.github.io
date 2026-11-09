@@ -4,7 +4,7 @@ import { EditorContent, useEditor, useEditorState } from "@tiptap/react";
 import * as Dialog from "@radix-ui/react-dialog";
 import { Bold, Code, CodeXml, Heading2, Heading3, ImagePlus, Italic, List, ListOrdered, Minus, Quote, Strikethrough, Underline } from "lucide-react";
 import { useEffect, useState } from "react";
-import text from "@/content/text.json";
+import { useLanguage } from "@/ui/components/LanguageProvider/LanguageProvider";
 import { postEditorExtensions } from "@/lib/post-editor-extensions";
 import { Markdown } from "@tiptap/markdown";
 import type { PublishedPost } from "@/lib/posts";
@@ -13,6 +13,7 @@ import { postImageExtension } from "@/lib/post-image";
 export type PostEditorValue = { document: string; plainText: string };
 
 export function PostEditor({ onChange, onReady, onImage, disabled, initialPost }: { onChange: (value: PostEditorValue) => void; onReady?: (value: PostEditorValue) => void; onImage: (file: File) => string | null; disabled: boolean; initialPost?: PublishedPost | null }) {
+  const { text } = useLanguage();
   const [imageOpen, setImageOpen] = useState(false);
   const [imageError, setImageError] = useState("");
   const initialContent = initialPost?.body_format === "tiptap" ? JSON.parse(initialPost.body) : initialPost?.body_format === "markdown" ? initialPost.body : initialPost ? { type: "doc", content: initialPost.body.split("\n").map((line) => ({ type: "paragraph", content: line ? [{ type: "text", text: line }] : [] })) } : undefined;

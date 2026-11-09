@@ -16,8 +16,8 @@ export function matchesPost(post: { title: string; description: string; tags: st
   return matchesTag && words.every((word) => searchable.includes(word));
 }
 
-export function formatPostDate(date: string) {
-  return new Intl.DateTimeFormat("en", { year: "numeric", month: "long", day: "numeric", timeZone: "UTC" }).format(new Date(date));
+export function formatPostDate(date: string, language = "en") {
+  return new Intl.DateTimeFormat(language, { year: "numeric", month: "long", day: "numeric", timeZone: "UTC" }).format(new Date(date));
 }
 
 export function sortPosts<T extends { id: string; created_at: string; featured: boolean }>(posts: T[]) {

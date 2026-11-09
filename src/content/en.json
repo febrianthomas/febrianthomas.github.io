@@ -13,7 +13,8 @@
     "about": "About",
     "signIn": "Sign in",
     "signOut": "Sign out",
-    "darkTheme": "Dark theme"
+    "darkTheme": "Dark theme",
+    "changeLanguage": "Switch language to Indonesian"
   },
   "home": {
     "greeting": "Hi",
@@ -62,7 +63,7 @@
     "eyebrow": "A little introduction",
     "description": "Hi, I’m Febrian—a self-taught illustrator and 2D animator who loves bringing characters and ideas to life.",
     "details": "When I’m not drawing or learning web development, you’ll probably find me watching anime, playing games, or enjoying another cup of coffee.",
-    "image": "/images/hero-1.png",
+    "image": "/images/follow.gif",
     "imageAlt": "Illustration of febrianthomas",
     "socialLabel": "Social profiles",
     "socialUnavailable": "link not set",
@@ -73,10 +74,26 @@
       "enabled": "Visible",
       "disabled": "Hidden",
       "settingsError": "Could not load or save support button settings. Please try again later.",
-      "streamlabs": { "name": "Streamlabs", "url": "https://streamlabs.com/febrianthomas/tip", "image": "/images/donatedollar.gif" },
-      "saweria": { "name": "Saweria", "url": "https://saweria.co/donate/febrianthomas", "image": "/images/donaterp.gif" },
-      "kofi": { "name": "Ko-fi", "url": "https://ko-fi.com/febrianthomas", "image": "/images/donatedollar.gif" },
-      "trakteer": { "name": "Trakteer", "url": "https://trakteer.id/febrianthomas", "image": "/images/donaterp.gif" }
+      "streamlabs": {
+        "name": "Streamlabs",
+        "url": "https://streamlabs.com/febrianthomas/tip",
+        "image": "/images/donatedollar.gif"
+      },
+      "saweria": {
+        "name": "Saweria",
+        "url": "https://saweria.co/donate/febrianthomas",
+        "image": "/images/donaterp.gif"
+      },
+      "kofi": {
+        "name": "Ko-fi",
+        "url": "https://ko-fi.com/febrianthomas",
+        "image": "/images/donatedollar.gif"
+      },
+      "trakteer": {
+        "name": "Trakteer",
+        "url": "https://trakteer.id/febrianthomas",
+        "image": "/images/donaterp.gif"
+      }
     },
     "socials": {
       "instagram": {
@@ -110,11 +127,11 @@
       "items": [
         {
           "name": "XP Pen Artist 13.3 Pro",
-          "image": ""
+          "image": "/images/icons/xppen.png"
         },
         {
           "name": "PC",
-          "image": "",
+          "image": "/images/icons/pc.png",
           "details": [
             "AMD Ryzen 7 5700X",
             "AMD Radeon RX 9060 XT 16GB",
@@ -129,15 +146,19 @@
       "items": [
         {
           "name": "Adobe Animate CC",
-          "image": ""
+          "image": "/images/icons/an.png"
         },
         {
-          "name": "Clip Studio Paint EX V.1",
-          "image": ""
+          "name": "Adobe Audition CC",
+          "image": "/images/icons/au.png"
+        },
+        {
+          "name": "Clip Studio Paint EX",
+          "image": "/images/icons/csp.png"
         },
         {
           "name": "My small brain",
-          "image": ""
+          "image": "/images/icons/brain.png"
         }
       ]
     }
@@ -245,14 +266,14 @@
     "bodyTooLong": "Post content is too long. Please shorten it and try again.",
     "imageLabel": "Image (optional)",
     "imagePreview": "Selected image preview",
-    "imageHelp": "Choose a PNG, JPEG, WebP, or GIF up to 5 MB.",
+    "imageHelp": "Choose a PNG, JPEG, gif, or GIF up to 5 MB.",
     "chooseImage": "Choose file",
     "dropImage": "or drag and drop it here",
     "removeImage": "Remove image",
     "imageSingle": "Choose one image at a time.",
     "imageAltLabel": "Image description (optional)",
     "imageAltHelp": "Describe the image for people using screen readers. Leave blank if it is decorative.",
-    "imageInvalid": "Choose a PNG, JPEG, WebP, or GIF no larger than 5 MB.",
+    "imageInvalid": "Choose a PNG, JPEG, gif, or GIF no larger than 5 MB.",
     "imageCleanupUncertain": "The post couldn’t be confirmed. Check your posts before retrying; an uploaded image may remain in storage.",
     "publish": "Publish post",
     "publishing": "Publishing…",

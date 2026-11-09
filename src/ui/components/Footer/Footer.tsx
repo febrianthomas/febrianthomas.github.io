@@ -1,7 +1,10 @@
+"use client";
+
 import { siInstagram, siThreads, siX, siTiktok, siYoutube, siTwitch } from "simple-icons";
-import text from "@/content/text.json";
+import { useLanguage } from "@/ui/components/LanguageProvider/LanguageProvider";
 
 export function Footer() {
+  const { text } = useLanguage();
   const socials = [
     { ...text.about.socials.instagram, icon: siInstagram },
     { ...text.about.socials.threads, icon: siThreads },

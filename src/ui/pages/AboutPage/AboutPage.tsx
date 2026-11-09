@@ -1,12 +1,15 @@
+"use client";
+
 import Image from "next/image";
 import { ImageIcon } from "lucide-react";
 import { siInstagram, siYoutube, siX, siThreads, siTwitch, siTiktok } from "simple-icons";
 import { MotionLink } from "@/ui/components/MotionLink/MotionLink";
 import { SocialPlaceholder } from "@/ui/components/SocialPlaceholder/SocialPlaceholder";
 import { SupportButtons } from "@/ui/components/SupportButtons/SupportButtons";
-import text from "@/content/text.json";
+import { useLanguage } from "@/ui/components/LanguageProvider/LanguageProvider";
 
 export default function AboutPage() {
+  const { text } = useLanguage();
   const sections: { title: string; empty: string; items: { name: string; image: string; details?: string[] }[] }[] = [text.about.software, text.about.tools];
   const socials = [
     { ...text.about.socials.instagram, icon: siInstagram, color: "bg-pink-100 text-pink-700 dark:bg-pink-200 dark:text-pink-800" },

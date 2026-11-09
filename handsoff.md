@@ -4,7 +4,7 @@ Snapshot: 2026-11-09. Recheck the working tree and live state before making chan
 
 ## User preferences
 
-- Complete requested work directly and keep changes simple. Keep user-facing text in `src/content/text.json`.
+- Complete requested work directly and keep changes simple. Keep user-facing text in `src/content/en.json` and `src/content/id.json`.
 - Do not run a production build after every change. Use focused checks; build when needed for a significant release or static-export verification.
 - Commit after every requested change (not questions). Push to the active branch after every **10 commits**. Check `git status -sb` for the count since the last push.
 - Update this handoff every 5 commits. If the model limit is below 5%, stop all work and write all progress and pending tasks here. The assistant cannot see the quota; if the user reports a limit, stop and update this document.
@@ -22,16 +22,17 @@ Snapshot: 2026-11-09. Recheck the working tree and live state before making chan
 ## Recent progress
 
 - Added `AGENTS.md`, homepage previews for live posts and projects, and an About page donation section. Hero descriptions reflect the user's profile and use four committed GIFs. Tools and software stack vertically with horizontal item rows; donations follow them. The footer shows copyright and social links.
+- The header has an EN/ID language switch. Site copy is in `src/content/en.json` and `src/content/id.json`; the language is saved in local storage. Supabase post and project content stays in its original language. Keep keys and asset paths aligned across both files.
 - As of `4cbe096`, portfolio and post empty states have no outer card; the portfolio description and search text were refreshed. Check `git status -sb` for commits since the last push.
 - About page links include four donation providers with configurable GIFs. The outer support card was removed. Signed-in owner controls show or hide each provider using `public.support_buttons`; disabled buttons remain visible to signed-in users. Migration `20261109000009_support_buttons.sql` is applied remotely. RLS was tested in a rolled-back transaction with `supabase/tests/support_buttons_rls.sql`.
-- The user supplied six social links and four donation links, stored in `src/content/text.json`. Type checking passed after these changes. No production build was run.
+- The user supplied six social links and four donation links, stored in the language JSON files. Type checking passed after these changes. No production build was run.
 - The working tree also contains user-edited copy, deleted temporary assets, and new GIFs under `public/images`. Preserve these unrelated uncommitted edits. Check `git status` before further work.
 - The following post and portfolio features are committed. The live GitHub Pages deployment remains separate from source pushes.
 
 The user requested published and updated dates, better social previews, inline images, search, tags, image captions, featured posts, previous/next navigation, and an image lightbox. They cancelled custom URLs because static GitHub Pages cannot create new routes at runtime. They specifically approved a public unauthenticated Supabase Edge Function for social previews.
 
 - Portfolio feature: uses a separate `public.projects` table in Supabase with the same schema, grants, RLS policies, and Storage image-deletion protection as `public.posts`. `src/lib/post-kind.ts` (`kindTable`, `kindText`, `kindPath`) routes `"portfolio"` to `"projects"` and `"post"` to `"posts"`. `PostSectionPage`, `LivePosts`, `LivePostPage`, `NewPostDialog` and `DeletePostButton` take a `kind` prop. Routes: `/portfolio/` and `/portfolio/view/?id=<uuid>`.
-- Refactored UI and CSS: extracted `PostSectionPage`, removed modal outer borders, tuned card/image shadow & warm glow, updated Tailwind v4 classes (`@theme inline`, `size-*`, `z-60..90`), removed unused `Cherry_Bomb_One` font and 6 empty leftover folders, and updated `src/content/text.json` copy.
+- Refactored UI and CSS: extracted `PostSectionPage`, removed modal outer borders, tuned card/image shadow & warm glow, updated Tailwind v4 classes (`@theme inline`, `size-*`, `z-60..90`), and removed unused `Cherry_Bomb_One` font.
 - Applied to the connected Supabase project: `20261109000006_post_features.sql` (tags, featured, caption, updated timestamp) and `20261109000007_inline_images.sql` (inline paths and Storage deletion policy). These are backward-compatible for the currently deployed site. Both were tested inside rolled-back transactions before application. Do not reapply remotely.
 - The `share-post` Edge Function was deleted from Supabase (verified: function list is empty). Its local source and tests were removed. The copy-share feature is gone. The old GitHub Pages URL cannot serve dynamic post metadata.
 - Implemented locally: metadata fields and form controls, featured ordering, searchable post content, tag filtering, publish/update dates, cover captions, chronological previous/next links, a cover and inline-image lightbox, and inline image selection. The inline image flow uses temporary local blob URLs while editing, uploads on save, records `inline_image_paths`, and cleans up unreferenced images after an update/delete. Existing database posts and image paths must not be damaged.
