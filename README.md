@@ -61,8 +61,12 @@ added by `supabase/migrations/20261109000002_post_body_format.sql`; editor
 documents are enabled by `20261109000003_post_tiptap_format.sql`. Apply the
 migrations in order when setting up another project.
 Definitively rejected post inserts try to clean up their uploaded image; if the
-outcome is uncertain, check the post list and Storage before retrying. Editing and
-deletion are not included; deleting a post row alone does not delete its image.
+outcome is uncertain, check the post list and Storage before retrying. Signed-in
+owners can delete a post and its image from the post page. If image removal fails,
+retry from the confirmation dialog or check Storage. Owners can also edit posts,
+keeping, replacing, or removing the image. If an old image cannot be removed
+after saving, check Storage. The delete and edit policies are in migrations
+`20261109000004_delete_posts.sql` and `20261109000005_update_posts.sql`.
 
 ### Checks
 

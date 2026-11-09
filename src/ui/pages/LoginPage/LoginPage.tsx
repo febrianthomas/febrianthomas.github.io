@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { Eye, EyeOff } from "lucide-react";
 import { useEffect, useState, type FormEvent } from "react";
 import { Button } from "@/ui/components/Button/Button";
+import { LoadingIndicator } from "@/ui/components/LoadingIndicator/LoadingIndicator";
 import { getSupabase } from "@/lib/supabase";
 import text from "@/content/text.json";
 
@@ -73,7 +74,7 @@ export default function LoginPage() {
           </div>
           {message && <p role="alert" className="text-sm leading-6 text-red-700 dark:text-red-400">{message}</p>}
           <Button type="submit" disabled={loading} className="h-12 w-full">
-            {loading ? text.login.signingIn : text.navigation.signIn}
+            {loading ? <LoadingIndicator label={text.login.signingIn} /> : text.navigation.signIn}
           </Button>
         </form>
       </div>

@@ -6,6 +6,7 @@ import React from "react";
 import { renderToStaticMarkup } from "react-dom/server";
 import ReactMarkdown from "react-markdown";
 import { postEditorExtensions } from "../src/lib/post-editor-extensions.ts";
+import { Markdown } from "@tiptap/markdown";
 
 test("older Markdown posts retain their formatting", () => {
   const markdown = "## Title\n\n**Bold** and *italic*\n\n- Item";
@@ -65,4 +66,12 @@ test("new formatting survives saving and loads in the published post", () => {
   assert.deepEqual(viewer.getJSON().content.map((node) => node.type), ["heading", "paragraph", "codeBlock", "horizontalRule"]);
   assert.deepEqual(viewer.getJSON().content[1].content.map((node) => node.marks[0].type), ["underline", "strike", "code"]);
   viewer.destroy();
+});
+
+test("older Markdown posts load into the editor with their formatting", () => {
+  const editor = new Editor({ element: null, extensions: [...postEditorExtensions(true), Markdown], content: "## Heading\n\n**Bold** text", contentType: "markdown" });
+  const content = editor.getJSON().content;
+  assert.equal(content[0].type, "heading");
+  assert.equal(content[1].content[0].marks[0].type, "bold");
+  editor.destroy();
 });

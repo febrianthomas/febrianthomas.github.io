@@ -1,5 +1,6 @@
 import { getSupabase } from "@/lib/supabase";
 import { optimizePostImage, postImageExtension } from "@/lib/post-image";
+import { updatePostRecord } from "@/lib/post-update";
 
 export type PublishedPost = {
   id: string;
@@ -33,6 +34,13 @@ export async function getPost(id: string) {
     .select("id,title,description,body,body_format,created_at,image_path,image_alt").eq("id", id).maybeSingle();
   if (error) throw error;
   return data as PublishedPost | null;
+}
+
+export async function updatePost(original: PublishedPost, values: Pick<PublishedPost, "title" | "description" | "body" | "body_format" | "image_alt">, image: File | null, removeImage: boolean) {
+  if (image && !postImageExtension(image)) throw new Error("Invalid image");
+  const optimized = image ? await optimizePostImage(image) : null;
+  const result = await updatePostRecord(getSupabase(), original, values, optimized, removeImage);
+  return { post: result.post as PublishedPost, cleanupFailed: result.cleanupFailed };
 }
 
 export async function createPost(post: Pick<PublishedPost, "title" | "description" | "body">, image?: File, imageAlt?: string) {

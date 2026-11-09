@@ -32,6 +32,14 @@ begin
     raise exception 'Other authenticated users can publish';
   exception when insufficient_privilege then null;
   end;
+  update public.posts set description = 'forbidden update' where title = 'temporary policy check';
+  if exists (select 1 from public.posts where title = 'temporary policy check' and description = 'forbidden update') then
+    raise exception 'Other authenticated users can edit posts';
+  end if;
+  delete from public.posts where title = 'temporary policy check';
+  if not exists (select 1 from public.posts where title = 'temporary policy check') then
+    raise exception 'Other authenticated users can delete posts';
+  end if;
 end $$;
 
 set local role anon;
@@ -46,6 +54,33 @@ begin
     raise exception 'Anonymous users can publish';
   exception when insufficient_privilege then null;
   end;
+  begin
+    update public.posts set description = 'anonymous update' where title = 'temporary policy check';
+    raise exception 'Anonymous users can edit posts';
+  exception when insufficient_privilege then null;
+  end;
+  begin
+    delete from public.posts where title = 'temporary policy check';
+    raise exception 'Anonymous users can delete posts';
+  exception when insufficient_privilege then null;
+  end;
+end $$;
+
+set local role authenticated;
+select set_config('request.jwt.claim.sub', '1007e0fb-6f2f-473f-8305-067666bc643f', true);
+update public.posts set description = 'owner update' where title = 'temporary policy check';
+do $$
+begin
+  if not exists (select 1 from public.posts where title = 'temporary policy check' and description = 'owner update') then
+    raise exception 'Owner could not edit post';
+  end if;
+end $$;
+delete from public.posts where title = 'temporary policy check';
+do $$
+begin
+  if exists (select 1 from public.posts where title = 'temporary policy check') then
+    raise exception 'Owner could not delete post';
+  end if;
 end $$;
 
 rollback;

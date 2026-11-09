@@ -1,19 +1,25 @@
 "use client";
 
 import { EditorContent, useEditor, useEditorState } from "@tiptap/react";
-import { Bold, Code, CodeXml, Heading2, Heading3, Italic, List, ListOrdered, Minus, Quote, Redo2, Strikethrough, Underline, Undo2 } from "lucide-react";
+import { Bold, Code, CodeXml, Heading2, Heading3, Italic, List, ListOrdered, Minus, Quote, Strikethrough, Underline } from "lucide-react";
 import { useEffect } from "react";
 import text from "@/content/text.json";
 import { postEditorExtensions } from "@/lib/post-editor-extensions";
+import { Markdown } from "@tiptap/markdown";
+import type { PublishedPost } from "@/lib/posts";
 
 export type PostEditorValue = { document: string; plainText: string };
 
-export function PostEditor({ onChange, disabled }: { onChange: (value: PostEditorValue) => void; disabled: boolean }) {
+export function PostEditor({ onChange, onReady, disabled, initialPost }: { onChange: (value: PostEditorValue) => void; onReady?: (value: PostEditorValue) => void; disabled: boolean; initialPost?: PublishedPost | null }) {
+  const initialContent = initialPost?.body_format === "tiptap" ? JSON.parse(initialPost.body) : initialPost?.body_format === "markdown" ? initialPost.body : initialPost ? { type: "doc", content: initialPost.body.split("\n").map((line) => ({ type: "paragraph", content: line ? [{ type: "text", text: line }] : [] })) } : undefined;
   const editor = useEditor({
     immediatelyRender: false,
-    extensions: postEditorExtensions(true),
+    extensions: [...postEditorExtensions(true), Markdown],
+    content: initialContent,
+    contentType: initialPost?.body_format === "markdown" ? "markdown" : "json",
     editorProps: { attributes: { id: "post-body", role: "textbox", "aria-multiline": "true", "aria-required": "true", "aria-labelledby": "post-body-label", "aria-describedby": "post-link-help", class: "post-rich-content min-h-48 px-4 py-3 outline-none" } },
     onUpdate: ({ editor }) => onChange({ document: JSON.stringify(editor.getJSON()), plainText: editor.getText() }),
+    onCreate: ({ editor }) => onReady?.({ document: JSON.stringify(editor.getJSON()), plainText: editor.getText() }),
   });
   const active = useEditorState({
     editor,
@@ -47,8 +53,6 @@ export function PostEditor({ onChange, disabled }: { onChange: (value: PostEdito
     { label: text.post.inlineCode, icon: Code, active: active?.code, action: () => editor?.chain().focus().toggleCode().run() },
     { label: text.post.codeBlock, icon: CodeXml, active: active?.codeBlock, action: () => editor?.chain().focus().toggleCodeBlock().run() },
     { label: text.post.divider, icon: Minus, active: undefined, action: () => editor?.chain().focus().setHorizontalRule().run() },
-    { label: text.post.undo, icon: Undo2, active: undefined, action: () => editor?.chain().focus().undo().run() },
-    { label: text.post.redo, icon: Redo2, active: undefined, action: () => editor?.chain().focus().redo().run() },
   ];
 
   return (

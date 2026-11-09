@@ -9,7 +9,7 @@ export function PostCard({ children }: { children: ReactNode }) {
     <motion.article
       whileHover={reducedMotion ? undefined : { scale: 1.03 }}
       transition={{ type: "spring", duration: 0.3, bounce: 0.2 }}
-      className="surface-shadow overflow-hidden rounded-3xl bg-zinc-100 dark:bg-zinc-900"
+      className="surface-shadow relative overflow-hidden rounded-3xl bg-zinc-100 dark:bg-zinc-900"
     >
       {children}
     </motion.article>

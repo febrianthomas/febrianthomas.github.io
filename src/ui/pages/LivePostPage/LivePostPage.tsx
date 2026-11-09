@@ -3,12 +3,18 @@
 import Link from "next/link";
 import Image from "next/image";
 import Markdown from "react-markdown";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import text from "@/content/text.json";
 import { getPost, postImageUrl, type PublishedPost } from "@/lib/posts";
 import { PostContent } from "@/ui/components/PostContent/PostContent";
+import { DeletePostButton } from "@/ui/components/DeletePostButton/DeletePostButton";
+import { SignedInOnly } from "@/ui/components/SignedInOnly/SignedInOnly";
+import { PageLoading } from "@/ui/components/PageLoading/PageLoading";
+import { NewPostDialog } from "@/ui/components/NewPostDialog/NewPostDialog";
 
 export function LivePostPage() {
+  const router = useRouter();
   const [post, setPost] = useState<PublishedPost | null>(null);
   const [status, setStatus] = useState<"loading" | "ready" | "missing" | "error">("loading");
 
@@ -30,11 +36,14 @@ export function LivePostPage() {
   return (
     <main className="flex-1 px-6 sm:px-10">
       <article className="mx-auto max-w-3xl py-16 sm:py-24">
-        <Link href="/post/" className="inline-flex min-h-11 items-center text-sm font-medium text-zinc-600 underline underline-offset-4 hover:text-zinc-950 focus-visible:outline-2 focus-visible:outline-offset-4 dark:text-zinc-300 dark:hover:text-white">← {text.post.backToPosts}</Link>
-        {status !== "ready" && <p role="status" className="mt-10 text-zinc-600 dark:text-zinc-300">{status === "loading" ? text.post.loading : status === "missing" ? text.post.notFound : text.post.loadError}</p>}
+        <div className="flex flex-wrap items-center justify-between gap-3">
+          <Link href="/post/" className="inline-flex min-h-11 items-center text-sm font-medium text-zinc-600 underline underline-offset-4 hover:text-zinc-950 focus-visible:outline-2 focus-visible:outline-offset-4 dark:text-zinc-300 dark:hover:text-white">← {text.post.backToPosts}</Link>
+          {post && <SignedInOnly><div className="flex items-center gap-1"><NewPostDialog postId={post.id} postTitle={post.title} onSaved={setPost} /><DeletePostButton post={post} onDeleted={() => router.push("/post/")} /></div></SignedInOnly>}
+        </div>
+        {status === "loading" ? <PageLoading /> : status !== "ready" && <p role="status" className="mt-10 text-zinc-600 dark:text-zinc-300">{status === "missing" ? text.post.notFound : text.post.loadError}</p>}
         {post && (
           <>
-            <p className="mt-10 text-xs font-semibold uppercase tracking-[0.15em] text-zinc-500 dark:text-zinc-400">{text.navigation.post}</p>
+            <p className="mt-10 text-xs font-semibold uppercase tracking-[0.15em] text-zinc-500 dark:text-zinc-400">{text.post.itemLabel}</p>
             <h1 className="mt-4 font-bagel-fat-one text-5xl leading-tight sm:text-6xl">{post.title}</h1>
             <p className="mt-5 text-xl leading-8 text-zinc-600 dark:text-zinc-300">{post.description}</p>
             {post.image_path && <Image src={postImageUrl(post.image_path)} alt={post.image_alt ?? ""} width={1200} height={675} className="surface-shadow mt-10 h-auto w-full rounded-3xl object-contain" sizes="(min-width: 768px) 768px, 100vw" />}

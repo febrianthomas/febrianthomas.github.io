@@ -3,7 +3,7 @@
 import { useEffect, useState, type ReactNode } from "react";
 import { getSupabase } from "@/lib/supabase";
 
-export function SignedInOnly({ children, fallback = null }: { children: ReactNode; fallback?: ReactNode }) {
+export function useSignedIn() {
   const [signedIn, setSignedIn] = useState<boolean | null>(null);
 
   useEffect(() => {
@@ -18,5 +18,10 @@ export function SignedInOnly({ children, fallback = null }: { children: ReactNod
     }
   }, []);
 
+  return signedIn;
+}
+
+export function SignedInOnly({ children, fallback = null }: { children: ReactNode; fallback?: ReactNode }) {
+  const signedIn = useSignedIn();
   return signedIn === null ? null : signedIn ? children : fallback;
 }
