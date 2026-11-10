@@ -26,6 +26,8 @@ Use short conventional commit messages, for example `feat: add project previews`
 
 ## Configuration and Agent Notes
 
+At the start of each project session, read and follow `C:/Users/febrianthomas/.codex/skills/init-project/SKILL.md`.
+
 Copy `.env.example` to `.env.local` for local Supabase configuration. Browser-exposed `NEXT_PUBLIC_*` values must never contain secret or service-role keys. Keep database and Storage policies enforced by Supabase RLS. Use browser-side data fetching for live content: static GitHub Pages cannot run server routes.
 
 Read `handsoff.md` for current project state and user preferences. Use Context7 documentation for library, framework, API, and cloud questions. Commit each requested change, push after ten commits, and update the handoff every five commits. Never include credentials in commits or handoffs.
