@@ -2,10 +2,13 @@
 
 import { siInstagram, siThreads, siX, siTiktok, siYoutube, siTwitch } from "simple-icons";
 import Image from "next/image";
+import { useEffect, useState } from "react";
 import { useLanguage } from "@/ui/components/LanguageProvider/LanguageProvider";
 
 export function Footer() {
   const { text } = useLanguage();
+  const [year, setYear] = useState<number>();
+  useEffect(() => { setYear(new Date().getFullYear()); }, []);
   const socials = [
     { ...text.about.socials.instagram, icon: siInstagram },
     { ...text.about.socials.threads, icon: siThreads },
@@ -20,7 +23,7 @@ export function Footer() {
       <div className="mx-auto max-w-6xl py-6 text-center sm:text-left">
         <div className="flex w-full flex-col items-center gap-4 sm:flex-row sm:justify-between">
           <div className="flex flex-wrap items-center justify-center gap-3">
-            <span className="text-sm text-zinc-500 dark:text-zinc-400">{text.site.copyright}</span>
+            <span className="text-sm text-zinc-500 dark:text-zinc-400">{year ? text.site.copyright.replace(/\d{4}/, String(year)) : text.site.copyright}</span>
             <div className="flex items-end gap-1" aria-hidden="true">
               {["bulba", "ivy", "venu"].map((name) => (
                 <Image key={name} src={`/images/${name}.gif`} alt="" width={32} height={32} className="size-8 object-contain" unoptimized />
