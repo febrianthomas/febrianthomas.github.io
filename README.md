@@ -1,8 +1,15 @@
 ﻿# febrianthomas.github.io
 
-The personal website of Febrian Thomas, an illustrator and 2D animator. Browse the [portfolio and posts](https://febrianthomas.github.io/), or find social and support links on the About page.
+The personal website of Febrian Thomas, a self-taught illustrator and 2D animator. It brings together illustrations, animation, portfolio projects, and posts, along with links to his social profiles and ways to support his work.
 
-The site supports English and Indonesian, light and dark themes, and searchable posts and projects. The owner can sign in to publish and edit content with images and YouTube embeds.
+Visit the site at [febrianthomas.github.io](https://febrianthomas.github.io/).
+
+## Features
+
+- Portfolio projects and posts with search, tags, featured items, and previous/next navigation.
+- A rich-text editor for the site owner to publish, edit, and delete content with cover images, inline images, and YouTube embeds.
+- English and Indonesian interface copy, plus light and dark themes.
+- Social links and configurable support buttons on the About page.
 
 ## Built with
 
