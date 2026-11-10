@@ -1,30 +1,27 @@
-﻿# Febrian Thomas
+﻿# febrianthomas.github.io
 
-Personal website for Febrian Thomas, an illustrator and 2D animator. It brings together portfolio projects, posts, and links to his work.
+The personal website of Febrian Thomas, an illustrator and 2D animator. Browse the [portfolio and posts](https://febrianthomas.github.io/), or find social and support links on the About page.
 
-Visit [febrianthomas.github.io](https://febrianthomas.github.io/).
+The site supports English and Indonesian, light and dark themes, and searchable posts and projects. The owner can sign in to publish and edit content with images and YouTube embeds.
 
-## Features
+## Built with
 
-- Portfolio and posts with search, tags, featured items, and image previews.
-- An editor for posts and projects with formatted text, images, and YouTube embeds.
-- Owner sign-in for publishing, editing, deleting, and managing support link visibility.
-- English and Indonesian interface text, with light and dark themes.
-- An About page with social links, tools, software, and support links.
+- Next.js, React, TypeScript, and Tailwind CSS
+- Supabase for authentication, posts, and image storage
+- Tiptap for the editor; Motion and Lenis for motion and scrolling
+- GitHub Pages for hosting
 
-## Tech stack
+Next.js exports a static site. The browser connects to Supabase for live content, so publishing a post does not require a site rebuild.
 
-The site uses Next.js App Router, React, TypeScript, and Tailwind CSS. It exports static files for GitHub Pages. Supabase provides authentication, database storage, and image storage; the browser fetches live content. Tiptap powers the editor, while Motion and Lenis handle animation and scrolling.
+## Get started
 
-## Run locally
-
-Node.js 22.18 or newer and npm are required.
+Install Node.js 22.18 or newer, then run:
 
 ```sh
 npm install
 ```
 
-Copy `.env.example` to `.env.local` and fill in the Supabase project URL and publishable key:
+Copy `.env.example` to `.env.local` and add your Supabase project URL and publishable key:
 
 ```env
 NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
@@ -35,52 +32,52 @@ NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=your-publishable-key
 npm run dev
 ```
 
-Open <http://localhost:3000>. The site can build without Supabase credentials, but live content and sign-in require a configured project. Restart the development server after changing environment variables.
+Open <http://localhost:3000>. Restart the development server after changing environment variables. The static build works without credentials, but live content and sign-in need a configured Supabase project.
 
-`NEXT_PUBLIC_*` values are included in the built site. Never put a secret or service-role key in them.
+`NEXT_PUBLIC_*` values are visible in the built site. Never use a secret or service-role key.
 
-## Content and configuration
+## Supabase
 
-- `src/content/en.json` and `src/content/id.json` contain editable interface text. Keep both languages in sync.
-- `public/images` contains local site images.
-- `src/app` contains routes; `src/ui/pages` and `src/ui/components` contain page layouts and reusable components.
-- `src/lib` contains shared logic, including Supabase and post handling.
-- `supabase/migrations` contains the database and Storage setup; `supabase/tests` contains SQL checks.
+Apply the migrations in `supabase/migrations` in order. Enable email/password authentication and create the owner account in Supabase Auth. Sign in at `/login/`.
 
-Posts and projects are stored in Supabase and remain in the language in which they were written. They can be updated without rebuilding the site.
+The migrations set up posts, the public `post-images` bucket, support buttons, and Row Level Security policies. Owner policies reference a specific user ID: update them when using a different owner account. Keep database and Storage policies enabled.
 
-## Supabase setup
+Cover images accept PNG, JPEG, WebP, and GIF files up to 5 MiB. Static images may be resized and converted to WebP; animated images retain their format. If cleanup fails after editing or deleting content, inspect the Storage bucket.
 
-Apply the migrations in `supabase/migrations` in order. Enable email/password authentication and create the owner account in Supabase Auth. The sign-in page is `/login/`.
+## Project files
 
-The migrations configure public reads and owner-restricted writes using Row Level Security, including policies for posts, images, and support buttons. Owner policies contain a specific user ID; update them for the intended owner when setting up a different Supabase project. Keep RLS and Storage policies enabled.
+| Path | Purpose |
+| --- | --- |
+| `src/app` | Routes and global styles |
+| `src/ui/pages` | Page layouts |
+| `src/ui/components` | Reusable components |
+| `src/content/en.json`, `src/content/id.json` | English and Indonesian interface copy |
+| `src/lib` | Shared logic and Supabase client |
+| `public/images` | Local images |
+| `supabase/migrations`, `supabase/tests` | Database setup and SQL checks |
+| `tests` | Node.js tests |
 
-Images are stored in the public `post-images` bucket. Cover images accept PNG, JPEG, WebP, and GIF files up to 5 MiB. Static images may be resized and converted to WebP; animated images retain their format. If image cleanup fails after editing or deleting a post, inspect the bucket.
+Keep both language files in sync. Posts and projects remain in the language in which they were written.
 
-## Checks
+## Commands
 
-```sh
-npm run typecheck
-npm test
-npm run build
-```
+| Command | Purpose |
+| --- | --- |
+| `npm run dev` | Start the development server |
+| `npm run typecheck` | Check TypeScript |
+| `npm test` | Run JavaScript tests |
+| `npm run build` | Export the site to `out/` |
+| `npm run deploy` | Build and publish `out/` to the `gh-pages` branch |
 
-The build creates the static export in `out/`. JavaScript tests use Node's built-in test runner and live in `tests`.
+## Deployment
 
-## Deploy
+The GitHub Actions workflow deploys the committed `main` branch when triggered manually. Push source changes, set the GitHub Pages source to **GitHub Actions**, and add `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` as repository Actions secrets.
 
-The GitHub Actions workflow builds and deploys the committed `main` branch when manually triggered. Push source changes first, set GitHub Pages to use **GitHub Actions**, and configure these repository Actions secrets:
-
-- `NEXT_PUBLIC_SUPABASE_URL`
-- `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`
-
-Run the workflow from GitHub or with:
+Trigger and check the workflow from GitHub or with:
 
 ```sh
 gh workflow run deploy-pages.yml --ref main
 gh run list --workflow deploy-pages.yml --limit 1
 ```
 
-Alternatively, `npm run deploy` builds locally and publishes `out/` to the `gh-pages` branch. Configure Pages for the deployment method you use. Pushing source commits alone does not deploy the site.
-
-GitHub Pages serves static files, so live features use browser-side Supabase calls. Runtime server routes and server-side rendering require a server host.
+Alternatively, use `npm run deploy` and configure Pages to serve the `gh-pages` branch. Pushing source commits alone does not deploy the site. Runtime server routes and server-side rendering require a server host.
