@@ -159,6 +159,14 @@
         {
           "name": "Otak kecilku",
           "image": "/images/icons/brain.png"
+        },
+        {
+          "name": "DaVinci Resolve",
+          "image": "/images/icons/dr.png"
+        },
+        {
+          "name": "OBS Studio",
+          "image": "/images/icons/obs.png"
         }
       ]
     }
