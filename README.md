@@ -13,10 +13,13 @@ Visit the site at [febrianthomas.github.io](https://febrianthomas.github.io/).
 
 ## Built with
 
-- Next.js, React, TypeScript, and Tailwind CSS
-- Supabase for authentication, posts, and image storage
-- Tiptap for the editor; Motion and Lenis for motion and scrolling
-- GitHub Pages for hosting
+| Technology | Purpose |
+| --- | --- |
+| Next.js, React, TypeScript, Tailwind CSS | Site and user interface |
+| Supabase | Authentication, content, and image storage |
+| Tiptap | Rich-text editor |
+| Motion, Lenis | Animation and scrolling |
+| GitHub Pages | Hosting |
 
 Next.js exports a static site. The browser connects to Supabase for live content, so publishing a post does not require a site rebuild.
 
@@ -47,7 +50,7 @@ Open <http://localhost:3000>. Restart the development server after changing envi
 
 Apply the migrations in `supabase/migrations` in order. Enable email/password authentication and create the owner account in Supabase Auth. Sign in at `/login/`.
 
-The migrations set up posts, the public `post-images` bucket, support buttons, and Row Level Security policies. Owner policies reference a specific user ID: update them when using a different owner account. Keep database and Storage policies enabled.
+The migrations set up posts, portfolio projects, the public `post-images` bucket, support buttons, and Row Level Security policies. Owner policies reference a specific user ID across the migrations: update those references when using a different owner account. Keep database and Storage policies enabled.
 
 Cover images accept PNG, JPEG, WebP, and GIF files up to 5 MiB. Static images may be resized and converted to WebP; animated images retain their format. If cleanup fails after editing or deleting content, inspect the Storage bucket.
 
@@ -78,9 +81,9 @@ Keep both language files in sync. Posts and projects remain in the language in w
 
 ## Deployment
 
-The GitHub Actions workflow deploys the committed `main` branch when triggered manually. Push source changes, set the GitHub Pages source to **GitHub Actions**, and add `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` as repository Actions secrets.
+The GitHub Actions workflow deploys a selected ref when triggered manually. Push source changes, set the GitHub Pages source to **GitHub Actions**, and add `NEXT_PUBLIC_SUPABASE_URL` and `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` as repository Actions secrets.
 
-Trigger and check the workflow from GitHub or with:
+Trigger and check a deployment of `main` from GitHub or with:
 
 ```sh
 gh workflow run deploy-pages.yml --ref main

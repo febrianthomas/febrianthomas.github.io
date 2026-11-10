@@ -22,7 +22,7 @@ Use Node.js 22.18 or newer and install dependencies with `npm install`.
 - `npm run build`: export the site to `out/`. Run it when static-export verification is needed, not after every change.
 - `npm run deploy`: build and publish `out/` to the `gh-pages` branch.
 
-The GitHub Actions Pages workflow deploys the committed `main` branch when manually triggered. Pushing source commits does not deploy the site.
+The GitHub Actions Pages workflow deploys the selected ref when manually triggered. Pushing source commits does not deploy the site.
 
 ## Implementation and tests
 
@@ -34,7 +34,7 @@ Use Node's built-in test runner and name tests `*.test.mjs`. Add focused tests f
 
 ## Configuration and security
 
-Copy `.env.example` to `.env.local` for local Supabase configuration. Browser-exposed `NEXT_PUBLIC_*` values must never contain secret or service-role keys. Keep database and Storage policies enforced by Supabase RLS. Never include credentials in commits or handoffs.
+Copy `.env.example` to `.env.local` for local Supabase configuration. Browser-exposed `NEXT_PUBLIC_*` values must never contain secret or service-role keys. Keep database and Storage policies enforced by Supabase RLS. Owner policies contain a specific user ID across multiple migrations. Never include credentials in commits or handoffs.
 
 Use Context7 documentation for library, framework, API, and cloud questions. If `handsoff.md` exists, read it for current project state and user preferences and update it every five commits. Preserve its deletion if it is absent from the working tree.
 
