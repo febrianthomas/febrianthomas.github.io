@@ -54,7 +54,7 @@ export function LivePostPage({ kind = "post" }: { kind?: PostKind }) {
         {post && (
           <>
             <p className="mt-10 text-xs font-semibold uppercase tracking-[0.15em] text-zinc-500 dark:text-zinc-400">{t.itemLabel}</p>
-            <h1 className="mt-4 font-bagel-fat-one text-5xl leading-tight sm:text-6xl">{post.title}</h1>
+            <h1 className="mt-4 text-5xl leading-tight sm:text-6xl">{post.title}</h1>
             <p className="mt-5 text-xl leading-8 text-zinc-600 dark:text-zinc-300">{post.description}</p>
             <p className="mt-5 text-sm text-zinc-600 dark:text-zinc-400">{t.published} <time dateTime={post.created_at}>{formatPostDate(post.created_at, language)}</time>{post.updated_at && <> · {t.updated} <time dateTime={post.updated_at}>{formatPostDate(post.updated_at, language)}</time></>}</p>
             {post.tags.length > 0 && <div className="mt-4 flex flex-wrap gap-2">{post.tags.map((tag) => <span key={tag} className="rounded-full bg-orange-100 px-3 py-1 text-sm text-orange-800 dark:bg-zinc-800 dark:text-orange-200">{tag}</span>)}</div>}
