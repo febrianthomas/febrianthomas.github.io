@@ -25,7 +25,7 @@ export default function AboutPage() {
       <div className="mx-auto grid min-h-[calc(100svh-140px)] max-w-5xl content-center items-center gap-10 py-12 md:min-h-[calc(100svh-76px)] md:grid-cols-2 md:gap-16 md:py-16">
         <Image src={text.about.image} alt={text.about.imageAlt} width={500} height={500} className="mx-auto aspect-square w-full max-w-md object-contain" sizes="(min-width: 768px) 448px, 100vw" />
         <div>
-          <p className="text-xs font-bold uppercase tracking-[0.18em] text-zinc-500 dark:text-zinc-400">{text.about.eyebrow}</p>
+          <p className="text-xs uppercase tracking-[0.18em] text-zinc-500 dark:text-zinc-400">{text.about.eyebrow}</p>
           <h1 className="mt-5 font-bagel-fat-one text-6xl leading-none sm:text-8xl">{text.about.title}</h1>
           <p className="mt-6 text-xl leading-8 text-zinc-800 dark:text-zinc-200">{text.about.description}</p>
           <p className="mt-4 text-lg leading-8 text-zinc-600 dark:text-zinc-300">{text.about.details}</p>
@@ -55,7 +55,7 @@ export default function AboutPage() {
                       ) : (
                         <span aria-hidden="true" className="flex size-22 items-center justify-center text-zinc-400 dark:text-zinc-500"><ImageIcon size={32} /></span>
                       )}
-                      <span className="wrap-break-words font-bold">{item.name}</span>
+                      <span className="wrap-break-words">{item.name}</span>
                       {item.details && (
                         <ul className="-mt-2 space-y-1 text-sm leading-5 text-zinc-600 dark:text-zinc-300">
                           {item.details.map((detail) => <li key={detail}>{detail}</li>)}

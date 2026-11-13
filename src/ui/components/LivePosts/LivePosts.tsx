@@ -59,8 +59,8 @@ export function LivePosts({ kind = "post" }: { kind?: PostKind }) {
           {post.image_path ? <Image src={postImageUrl(post.image_path)} alt="" width={600} height={450} className="size-full object-cover" sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw" /> : <FileText size={48} aria-hidden="true" />}
         </div>
         <div className="p-6 sm:p-7">
-          <p className="text-xs font-bold uppercase tracking-[0.15em] text-zinc-500 dark:text-zinc-400">{t.itemLabel}</p>
-          {post.featured && <p className="mt-2 text-sm font-bold text-orange-700 dark:text-orange-300">{t.featured}</p>}
+          <p className="text-xs uppercase tracking-[0.15em] text-zinc-500 dark:text-zinc-400">{t.itemLabel}</p>
+          {post.featured && <p className="mt-2 text-sm text-orange-700 dark:text-orange-300">{t.featured}</p>}
           <h2 className="mt-3 text-2xl font-bold">{post.title}</h2>
           <p className="mt-3 leading-7 text-zinc-600 dark:text-zinc-300">{post.description}</p>
           <p className="mt-4 text-sm text-zinc-500 dark:text-zinc-400"><time dateTime={post.created_at}>{formatPostDate(post.created_at, language)}</time></p>
