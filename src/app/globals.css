@@ -51,13 +51,11 @@ html::-webkit-scrollbar, body::-webkit-scrollbar, [data-lenis-prevent]::-webkit-
 }
 
 .post-rich-content h2 {
-  font-family: var(--font-bagel-fat-one), sans-serif;
   font-size: 1.5em;
   line-height: 1.2;
 }
 
 .post-rich-content h3 {
-  font-family: var(--font-bagel-fat-one), sans-serif;
   font-size: 1.2em;
   line-height: 1.3;
 }

@@ -50,7 +50,7 @@ export function SupportButtons() {
 
   return (
     <section id="support" className="mx-auto mt-24 max-w-3xl scroll-mt-24 text-center sm:mt-32">
-      <h2 className="font-bagel-fat-one text-4xl sm:text-5xl">{t.title}</h2>
+      <h2 className="text-4xl sm:text-5xl">{t.title}</h2>
       <p className="mx-auto mt-5 max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-300">{t.description}</p>
       {error && <p role="alert" className="mt-5 text-sm text-red-700 dark:text-red-300">{t.settingsError}</p>}
       {status && <div className="mt-8 flex flex-wrap justify-center gap-4">

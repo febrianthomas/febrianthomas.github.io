@@ -36,7 +36,7 @@ export function LivePosts({ kind = "post" }: { kind?: PostKind }) {
   if (posts.length === 0) return (
     <div className="flex min-h-72 flex-col items-center justify-center px-6 py-12 text-center sm:col-span-2 lg:col-span-3">
       <span aria-hidden="true" className="flex size-16 items-center justify-center rounded-2xl bg-orange-100 text-orange-700 dark:bg-zinc-800 dark:text-orange-300"><FileText size={30} /></span>
-      <h2 className="mt-6 font-bagel-fat-one text-3xl">{t.emptyTitle}</h2>
+      <h2 className="mt-6 text-3xl">{t.emptyTitle}</h2>
       <p className="mt-3 max-w-sm leading-7 text-zinc-600 dark:text-zinc-300">{t.emptyDescription}</p>
     </div>
   );
@@ -61,7 +61,7 @@ export function LivePosts({ kind = "post" }: { kind?: PostKind }) {
         <div className="p-6 sm:p-7">
           <p className="text-xs font-semibold uppercase tracking-[0.15em] text-zinc-500 dark:text-zinc-400">{t.itemLabel}</p>
           {post.featured && <p className="mt-2 text-sm font-semibold text-orange-700 dark:text-orange-300">{t.featured}</p>}
-          <h2 className="mt-3 font-bagel-fat-one text-2xl">{post.title}</h2>
+          <h2 className="mt-3 text-2xl">{post.title}</h2>
           <p className="mt-3 leading-7 text-zinc-600 dark:text-zinc-300">{post.description}</p>
           <p className="mt-4 text-sm text-zinc-500 dark:text-zinc-400"><time dateTime={post.created_at}>{formatPostDate(post.created_at, language)}</time></p>
           {post.tags.length > 0 && <div className="mt-3 flex flex-wrap gap-2">{post.tags.map((item) => <span key={item} className="rounded-full bg-orange-100 px-3 py-1 text-xs text-orange-800 dark:bg-zinc-800 dark:text-orange-200">{item}</span>)}</div>}

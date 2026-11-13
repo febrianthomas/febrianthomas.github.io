@@ -45,7 +45,7 @@ export default function AboutPage() {
         <div className="flex flex-col gap-16 sm:gap-20">
           {sections.map((section) => (
             <section key={section.title}>
-              <h2 className="text-center font-bagel-fat-one text-4xl sm:text-5xl">{section.title}</h2>
+              <h2 className="text-center text-4xl sm:text-5xl">{section.title}</h2>
               {section.items.length > 0 ? (
                 <ul className="mt-8 flex flex-wrap justify-center gap-4">
                   {section.items.map((item) => (

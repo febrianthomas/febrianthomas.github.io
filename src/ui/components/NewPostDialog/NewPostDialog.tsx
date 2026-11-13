@@ -178,7 +178,7 @@ export function NewPostDialog({ postId, postTitle, onSaved, compact = false, kin
               className="surface-shadow pointer-events-auto max-h-[calc(100dvh-2rem)] w-full max-w-2xl overflow-y-auto rounded-3xl bg-white p-6 text-zinc-950 focus:outline-none sm:p-8 dark:bg-zinc-900 dark:text-zinc-50"
             >
               <div className="flex items-start justify-between gap-4">
-                <Dialog.Title className="font-bagel-fat-one text-4xl">{postId ? t.editTitle : t.createTitle}</Dialog.Title>
+                <Dialog.Title className="text-4xl">{postId ? t.editTitle : t.createTitle}</Dialog.Title>
                 <Dialog.Close asChild>
                   <button type="button" disabled={pending} aria-label={t.close} className="flex size-11 shrink-0 items-center justify-center rounded-xl hover:bg-zinc-100 focus-visible:outline-2 focus-visible:outline-offset-2 disabled:opacity-50 dark:hover:bg-zinc-800"><X size={20} aria-hidden="true" /></button>
                 </Dialog.Close>
