@@ -15,7 +15,7 @@ export function PostContent({ body }: { body: string }) {
     editable: false,
     extensions: postEditorExtensions(false, text.post.openImage),
     content: (() => { try { return JSON.parse(body); } catch { return { type: "doc", content: [{ type: "paragraph", content: [{ type: "text", text: body }] }] }; } })(),
-    editorProps: { attributes: { class: "post-rich-content mt-10 text-lg leading-8 text-zinc-700 dark:text-zinc-200" } },
+    editorProps: { attributes: { class: "post-rich-content text-lg leading-8 text-zinc-700 dark:text-zinc-200" } },
   }, [text.post.openImage]);
 
   function openImage(target: EventTarget | null) {
