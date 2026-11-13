@@ -29,7 +29,7 @@ export function HomePreview({ kind }: { kind: PostKind }) {
   return (
     <section className="mx-auto w-full max-w-6xl py-20 sm:py-28">
       <Link href={path} className="group inline-flex items-center gap-4 rounded-xl focus-visible:outline-2 focus-visible:outline-offset-4">
-        <h2 className="text-5xl sm:text-6xl">{t.title}</h2>
+        <h2 className="font-bagel-fat-one text-5xl sm:text-6xl">{t.title}</h2>
         <ArrowRight aria-hidden="true" className="transition-transform group-hover:translate-x-1" />
       </Link>
       <p className="mt-5 max-w-lg text-lg leading-7 text-zinc-600 dark:text-zinc-300">{t.description}</p>

@@ -35,7 +35,7 @@ export default function Home() {
               sizes="(min-width: 1024px) 492px, (min-width: 768px) 50vw, 100vw"
             />
             <div className={section.imagePosition === "right" ? "order-1 md:justify-self-end" : ""}>
-              <h2 className="text-5xl sm:text-6xl">{section.title}</h2>
+              <h2 className="font-bagel-fat-one text-5xl sm:text-6xl">{section.title}</h2>
               <p className="mt-5 text-xl leading-8 text-zinc-600 dark:text-zinc-300">{section.description}</p>
             </div>
           </div>
