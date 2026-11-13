@@ -22,7 +22,7 @@ export function PostSectionPage({ kind = "post" }: { kind?: PostKind }) {
           </SignedInOnly>
         </div>
         <p className="mt-6 max-w-lg text-lg leading-7 text-zinc-600 dark:text-zinc-300">{t.description}</p>
-        <div className="mt-12 grid gap-8 sm:mt-16 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-12 grid gap-8 sm:mt-16">
           <LivePosts kind={kind} />
         </div>
       </div>
