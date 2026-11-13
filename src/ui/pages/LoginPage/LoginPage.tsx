@@ -59,12 +59,12 @@ export default function LoginPage() {
         <form onSubmit={handleSubmit} className="mt-10 space-y-5">
           <div>
             <label htmlFor="email" className="block text-sm font-medium text-zinc-900 dark:text-zinc-100">{text.login.email}</label>
-            <input id="email" name="email" type="email" autoComplete="email" required className="mt-2 h-12 w-full rounded-md border border-zinc-300 bg-white dark:border-zinc-600 dark:bg-zinc-800 dark:text-zinc-50 px-3 text-base outline-none focus:border-zinc-900 focus:ring-1 focus:ring-zinc-900 dark:focus:border-zinc-300 dark:focus:ring-zinc-300" />
+            <input id="email" name="email" type="email" autoComplete="email" required placeholder={text.login.emailPlaceholder} className="mt-2 h-12 w-full rounded-md border border-zinc-300 bg-white dark:border-zinc-600 dark:bg-zinc-800 dark:text-zinc-50 px-3 text-base outline-none focus:border-zinc-900 focus:ring-1 focus:ring-zinc-900 dark:focus:border-zinc-300 dark:focus:ring-zinc-300" />
           </div>
           <div>
             <label htmlFor="password" className="block text-sm font-medium text-zinc-900 dark:text-zinc-100">{text.login.password}</label>
             <div className="relative mt-2">
-              <input id="password" name="password" type={showPassword ? "text" : "password"} autoComplete="current-password" required className="h-12 w-full rounded-md border border-zinc-300 bg-white px-3 pr-12 text-base outline-none focus:border-zinc-900 focus:ring-1 focus:ring-zinc-900 dark:border-zinc-600 dark:bg-zinc-800 dark:text-zinc-50 dark:focus:border-zinc-300 dark:focus:ring-zinc-300" />
+              <input id="password" name="password" type={showPassword ? "text" : "password"} autoComplete="current-password" required placeholder={text.login.passwordPlaceholder} className="h-12 w-full rounded-md border border-zinc-300 bg-white px-3 pr-12 text-base outline-none focus:border-zinc-900 focus:ring-1 focus:ring-zinc-900 dark:border-zinc-600 dark:bg-zinc-800 dark:text-zinc-50 dark:focus:border-zinc-300 dark:focus:ring-zinc-300" />
               <button type="button" onClick={() => setShowPassword(!showPassword)} aria-label={showPassword ? text.login.hidePassword : text.login.showPassword} aria-controls="password" className="absolute right-0 top-0 flex size-12 items-center justify-center rounded-md text-zinc-500 hover:text-zinc-900 focus-visible:outline-2 focus-visible:outline-offset-2 dark:text-zinc-400 dark:hover:text-zinc-100">
                 {showPassword ? <EyeOff size={20} aria-hidden="true" /> : <Eye size={20} aria-hidden="true" />}
               </button>
