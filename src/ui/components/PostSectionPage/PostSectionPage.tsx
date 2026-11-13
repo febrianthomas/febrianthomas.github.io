@@ -14,7 +14,7 @@ export function PostSectionPage({ kind = "post" }: { kind?: PostKind }) {
   return (
     <main className="flex-1 px-6 sm:px-10">
       <div className="mx-auto max-w-6xl py-20 sm:py-28">
-        <p className="text-xs font-semibold uppercase tracking-[0.18em] text-zinc-500 dark:text-zinc-400">{t.eyebrow}</p>
+        <p className="text-xs font-bold uppercase tracking-[0.18em] text-zinc-500 dark:text-zinc-400">{t.eyebrow}</p>
         <div className="mt-5 flex flex-wrap items-center justify-between gap-5">
           <h1 className="font-bagel-fat-one text-6xl leading-none sm:text-8xl">{t.title}</h1>
           <SignedInOnly>

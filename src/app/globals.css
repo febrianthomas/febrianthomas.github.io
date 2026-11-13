@@ -52,11 +52,13 @@ html::-webkit-scrollbar, body::-webkit-scrollbar, [data-lenis-prevent]::-webkit-
 
 .post-rich-content h2 {
   font-size: 1.5em;
+  font-weight: 700;
   line-height: 1.2;
 }
 
 .post-rich-content h3 {
   font-size: 1.2em;
+  font-weight: 700;
   line-height: 1.3;
 }
 

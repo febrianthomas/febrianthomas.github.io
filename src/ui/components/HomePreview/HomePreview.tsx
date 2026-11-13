@@ -42,7 +42,7 @@ export function HomePreview({ kind }: { kind: PostKind }) {
                   {item.image_path ? <Image src={postImageUrl(item.image_path)} alt="" width={600} height={450} className="size-full object-cover" sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw" /> : <FileText size={48} aria-hidden="true" />}
                 </div>
                 <div className="p-6 sm:p-7">
-                  <h3 className="text-2xl">{item.title}</h3>
+                  <h3 className="text-2xl font-bold">{item.title}</h3>
                   <p className="mt-3 leading-7 text-zinc-600 dark:text-zinc-300">{item.description}</p>
                 </div>
               </Link>

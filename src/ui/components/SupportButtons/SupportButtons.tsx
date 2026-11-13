@@ -50,7 +50,7 @@ export function SupportButtons() {
 
   return (
     <section id="support" className="mx-auto mt-24 max-w-3xl scroll-mt-24 text-center sm:mt-32">
-      <h2 className="text-4xl sm:text-5xl">{t.title}</h2>
+      <h2 className="font-bagel-fat-one text-4xl sm:text-5xl">{t.title}</h2>
       <p className="mx-auto mt-5 max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-300">{t.description}</p>
       {error && <p role="alert" className="mt-5 text-sm text-red-700 dark:text-red-300">{t.settingsError}</p>}
       {status && <div className="mt-8 flex flex-wrap justify-center gap-4">
@@ -59,7 +59,7 @@ export function SupportButtons() {
           const enabled = status[id] === true;
           if (!signedIn && !enabled) return null;
           return <div key={id} className="flex flex-col items-center gap-3">
-            {(enabled || signedIn) && donation.url && <MotionLink href={donation.url} target="_blank" rel="noopener noreferrer" whileHover={{ y: -3, scale: 1.04 }} className={`inline-flex min-h-40 w-40 max-w-full flex-col items-center justify-center gap-3 rounded-2xl px-6 py-6 text-lg text-zinc-900 focus-visible:outline-2 focus-visible:outline-offset-4 dark:text-zinc-100 ${enabled ? "" : "opacity-60"}`}>
+            {(enabled || signedIn) && donation.url && <MotionLink href={donation.url} target="_blank" rel="noopener noreferrer" whileHover={{ y: -3, scale: 1.04 }} className={`inline-flex min-h-40 w-40 max-w-full flex-col items-center justify-center gap-3 rounded-2xl px-6 py-6 text-lg font-bold text-zinc-900 focus-visible:outline-2 focus-visible:outline-offset-4 dark:text-zinc-100 ${enabled ? "" : "opacity-60"}`}>
               {donation.image && <Image src={donation.image} alt="" width={80} height={80} className="size-20 object-contain" />}{donation.name}
             </MotionLink>}
             {signedIn && <label className="flex min-h-11 cursor-pointer items-center gap-2 text-sm text-zinc-700 dark:text-zinc-300">
