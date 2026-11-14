@@ -22,7 +22,7 @@ export function ThemeToggle() {
   return (
     <button type="button" role="switch" aria-checked={dark} aria-label={text.navigation.darkTheme} onClick={toggleTheme} className="inline-flex h-11 items-center rounded-full focus-visible:outline-2 focus-visible:outline-offset-2">
       <span aria-hidden="true" className="flex h-8 w-14 items-center rounded-full bg-zinc-200 p-1 dark:bg-zinc-700">
-        <span className={`flex size-6 items-center justify-center rounded-full bg-white text-zinc-700 shadow-sm ${dark ? "translate-x-6" : ""}`}>
+        <span className={`flex size-6 items-center justify-center rounded-full bg-white text-zinc-700 shadow-sm transition-transform ${dark ? "translate-x-6" : ""}`}>
           {dark ? <Moon size={14} /> : <Sun size={14} />}
         </span>
       </span>

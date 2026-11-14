@@ -294,8 +294,11 @@
   },
   "login": {
     "eyebrow": "Account access",
+    "checkingTitle": "One little moment.",
+    "checkingStatus": "Checking your session…",
     "title": "Welcome back, febrianthomas.",
     "description": "Only febrianthomas can sign in.",
+    "missingConfig": "Supabase isn’t configured yet. Add your project URL and publishable key to",
     "email": "Email address",
     "emailPlaceholder": "you@example.com",
     "password": "Password",

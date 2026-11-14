@@ -7,7 +7,7 @@ import { MotionLink } from "@/ui/components/MotionLink/MotionLink";
 import { ConfirmDialog } from "@/ui/components/ConfirmDialog/ConfirmDialog";
 import { useSignedIn } from "@/ui/components/SignedInOnly/SignedInOnly";
 
-const controlClass = "inline-flex size-11 items-center justify-center text-zinc-500 hover:text-zinc-950 focus-visible:outline-2 focus-visible:outline-offset-4 dark:text-zinc-400 dark:hover:text-zinc-50";
+const controlClass = "inline-flex size-11 items-center justify-center text-zinc-500 transition-colors hover:text-zinc-950 focus-visible:outline-2 focus-visible:outline-offset-4 dark:text-zinc-400 dark:hover:text-zinc-50";
 
 export function AuthControl() {
   const { text } = useLanguage();
@@ -28,13 +28,13 @@ export function AuthControl() {
         pendingLabel={text.login.signingOut}
         errorMessage={text.login.signOutError}
         onConfirm={signOut}
-        trigger={<button type="button" aria-label={text.navigation.signOut} className={controlClass}><LogOut aria-hidden="true" size={18} strokeWidth={1.75} /></button>}
+        trigger={<button type="button" aria-label={text.navigation.signOut} title={text.navigation.signOut} className={controlClass}><LogOut aria-hidden="true" size={18} strokeWidth={1.75} /></button>}
       />
     );
   }
 
   return (
-    <MotionLink href="/login/" aria-label={text.navigation.signIn} className={controlClass}>
+    <MotionLink href="/login/" aria-label={text.navigation.signIn} title={text.navigation.signIn} className={controlClass}>
       <UserRound aria-hidden="true" size={18} strokeWidth={1.75} />
     </MotionLink>
   );

@@ -294,8 +294,11 @@
   },
   "login": {
     "eyebrow": "Akses akun",
+    "checkingTitle": "Sebentar, ya.",
+    "checkingStatus": "Memeriksa sesi…",
     "title": "Welcome back, febrianthomas.",
     "description": "Cuma febrianthomas yang bisa masuk.",
+    "missingConfig": "Supabase belum dikonfigurasi. Tambahkan project URL dan publishable key ke",
     "email": "Alamat email",
     "emailPlaceholder": "nama@example.com",
     "password": "Kata sandi",
