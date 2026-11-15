@@ -14,7 +14,9 @@
     "signIn": "Sign in",
     "signOut": "Sign out",
     "darkTheme": "Dark theme",
-    "changeLanguage": "Switch language to Indonesian"
+    "changeLanguage": "Switch language to Indonesian",
+    "playMusic": "Play background music",
+    "pauseMusic": "Pause background music"
   },
   "home": {
     "greeting": "Hi",

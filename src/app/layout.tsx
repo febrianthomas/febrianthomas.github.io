@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Bagel_Fat_One, Sniglet } from "next/font/google";
 import type { ReactNode } from "react";
+import { BackgroundMusic } from "@/ui/components/BackgroundMusic/BackgroundMusic";
 import { BackgroundShapes } from "@/ui/components/BackgroundShapes/BackgroundShapes";
 import { Footer } from "@/ui/components/Footer/Footer";
 import { Header } from "@/ui/components/Header/Header";
@@ -44,6 +45,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           <Header />
           <PageMotion>{children}</PageMotion>
           <Footer />
+          <BackgroundMusic />
         </LanguageProvider>
       </body>
     </html>

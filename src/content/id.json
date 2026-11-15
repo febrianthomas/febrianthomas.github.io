@@ -14,7 +14,9 @@
     "signIn": "Masuk",
     "signOut": "Keluar",
     "darkTheme": "Tema gelap",
-    "changeLanguage": "Ganti bahasa ke Inggris"
+    "changeLanguage": "Ganti bahasa ke Inggris",
+    "playMusic": "Putar musik latar",
+    "pauseMusic": "Jeda musik latar"
   },
   "home": {
     "greeting": "Hai",
