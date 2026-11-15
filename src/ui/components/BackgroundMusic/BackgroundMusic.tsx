@@ -20,7 +20,6 @@ export function BackgroundMusic() {
 
   const [play, { pause, sound }] = useSound("/mp3/bg.mp3", {
     loop: true,
-    html5: true,
     autoplay: true,
     onplay: () => {
       if (userPaused.current) {
@@ -34,7 +33,6 @@ export function BackgroundMusic() {
     onstop: () => setPlaying(false),
     onend: () => setPlaying(false),
     onplayerror: () => {
-      setPlaying(false);
       if (userPaused.current || clearUnlockRef.current) return;
       const resume = (event: Event) => {
         if (event.target instanceof Node && buttonRef.current?.contains(event.target)) return;
@@ -69,6 +67,7 @@ export function BackgroundMusic() {
       pause();
     } else {
       userPaused.current = false;
+      setPlaying(true);
       play();
     }
   }
@@ -92,6 +91,7 @@ export function BackgroundMusic() {
           alt=""
           className="h-auto w-16 sm:w-20"
           sizes="(min-width: 640px) 80px, 64px"
+          unoptimized
         />
       </motion.button>
     </div>
