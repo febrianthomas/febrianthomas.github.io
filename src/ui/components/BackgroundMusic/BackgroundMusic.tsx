@@ -4,28 +4,37 @@ import { motion, useReducedMotion } from "motion/react";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import useSound from "use-sound";
-import heroPaused from "../../../../public/images/mp3-pause.png";
-import heroPlaying from "../../../../public/images/mp3-play.png";
+import heroPaused from "../../../../public/images/mp3-pause.gif";
+import heroPlaying from "../../../../public/images/mp3-play.gif";
 import { useLanguage } from "@/ui/components/LanguageProvider/LanguageProvider";
 
 export function BackgroundMusic() {
   const { text } = useLanguage();
-  const [playing, setPlaying] = useState(false);
+  const [playing, setPlaying] = useState(true);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const userPaused = useRef(false);
   const clearUnlockRef = useRef<(() => void) | null>(null);
   const playRef = useRef<() => void>(() => {});
+  const pauseRef = useRef<() => void>(() => {});
   const reducedMotion = useReducedMotion();
 
   const [play, { pause, sound }] = useSound("/mp3/bg.mp3", {
     loop: true,
     html5: true,
     autoplay: true,
-    onplay: () => setPlaying(true),
+    onplay: () => {
+      if (userPaused.current) {
+        pauseRef.current();
+        setPlaying(false);
+        return;
+      }
+      setPlaying(true);
+    },
     onpause: () => setPlaying(false),
     onstop: () => setPlaying(false),
     onend: () => setPlaying(false),
     onplayerror: () => {
+      setPlaying(false);
       if (userPaused.current || clearUnlockRef.current) return;
       const resume = (event: Event) => {
         if (event.target instanceof Node && buttonRef.current?.contains(event.target)) return;
@@ -43,6 +52,7 @@ export function BackgroundMusic() {
   });
 
   playRef.current = play;
+  pauseRef.current = pause;
 
   useEffect(() => {
     return () => {
@@ -55,6 +65,7 @@ export function BackgroundMusic() {
     clearUnlockRef.current?.();
     if (playing) {
       userPaused.current = true;
+      setPlaying(false);
       pause();
     } else {
       userPaused.current = false;
