@@ -3,6 +3,7 @@ import { Bagel_Fat_One, Sniglet } from "next/font/google";
 import type { ReactNode } from "react";
 import { BackgroundMusic } from "@/ui/components/BackgroundMusic/BackgroundMusic";
 import { BackgroundShapes } from "@/ui/components/BackgroundShapes/BackgroundShapes";
+import { ClickSound } from "@/ui/components/ClickSound/ClickSound";
 import { Footer } from "@/ui/components/Footer/Footer";
 import { Header } from "@/ui/components/Header/Header";
 import { PageMotion } from "@/ui/components/PageMotion/PageMotion";
@@ -46,6 +47,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           <PageMotion>{children}</PageMotion>
           <Footer />
           <BackgroundMusic />
+          <ClickSound />
         </LanguageProvider>
       </body>
     </html>
