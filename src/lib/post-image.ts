@@ -34,8 +34,21 @@ async function mayBeAnimated(file: File) {
   return true;
 }
 
+async function optimizeGif(file: File): Promise<File> {
+  if (typeof Worker === "undefined" || typeof Element === "undefined") return file;
+  const { default: gifsicle } = await import("gifsicle-wasm-browser");
+  const outputs = await gifsicle.run({
+    input: [{ file, name: "input.gif" }],
+    command: ["-O2 --lossy=60 --resize-fit 1600x1600 input.gif -o /out/output.gif"],
+  });
+  const out = outputs?.[0];
+  if (!out || out.type !== "image/gif" || out.size === 0 || out.size >= file.size) return file;
+  return new File([out], "post-image.gif", { type: out.type, lastModified: file.lastModified });
+}
+
 export async function optimizePostImage(file: File): Promise<File> {
   try {
+    if (file.type === "image/gif") return await optimizeGif(file);
     if (await mayBeAnimated(file)) return file;
     const url = URL.createObjectURL(file);
     try {

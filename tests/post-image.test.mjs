@@ -43,7 +43,38 @@ test("large static images are resized and uploaded as smaller WebP files", async
   }
 });
 
-test("animated GIF, PNG, and WebP files keep their original frames", async () => {
+test("GIFs are compressed via gifsicle when smaller and keep original otherwise", async () => {
+  const originalWorker = globalThis.Worker;
+  const originalElement = globalThis.Element;
+  let outputBytes = new Uint8Array(10);
+  let lastCommand = null;
+  globalThis.Element = class {};
+  globalThis.Worker = class {
+    onmessage = null;
+    onerror = null;
+    terminate() {}
+    postMessage(payload) {
+      lastCommand = payload.command;
+      queueMicrotask(() => this.onmessage?.({ data: [{ name: "output.gif", file: outputBytes }] }));
+    }
+  };
+  try {
+    const gif = new File([new Uint8Array(30)], "animated.gif", { type: "image/gif" });
+    const optimized = await optimizePostImage(gif);
+    assert.equal(optimized.type, "image/gif");
+    assert.equal(optimized.size, 10);
+    assert.equal(postImageExtension(optimized), "gif");
+    assert.deepEqual(lastCommand, ["-O2 --lossy=60 --resize-fit 1600x1600 input.gif -o /out/output.gif"]);
+
+    outputBytes = new Uint8Array(40);
+    assert.equal(await optimizePostImage(gif), gif);
+  } finally {
+    globalThis.Worker = originalWorker;
+    globalThis.Element = originalElement;
+  }
+});
+
+test("animated PNG, animated WebP, and fallback GIF files keep their original frames", async () => {
   const gif = new File([new Uint8Array(30)], "animated.gif", { type: "image/gif" });
   const pngBytes = new Uint8Array(20);
   pngBytes.set([137, 80, 78, 71, 13, 10, 26, 10], 0);
