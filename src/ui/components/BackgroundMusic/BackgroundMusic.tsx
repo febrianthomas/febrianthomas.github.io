@@ -3,8 +3,8 @@
 import { motion, useReducedMotion } from "motion/react";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import heroPaused from "../../../../public/images/hero-1.png";
-import heroPlaying from "../../../../public/images/hero-2.png";
+import heroPaused from "../../../../public/images/mp3-pause.png";
+import heroPlaying from "../../../../public/images/mp3-play.png";
 import { useLanguage } from "@/ui/components/LanguageProvider/LanguageProvider";
 
 export function BackgroundMusic() {
