@@ -5,9 +5,9 @@ Personal portfolio and blog of Febrian Thomas, a self-taught illustrator and 2D 
 ## Features
 
 - **Home (`/`)**: Interactive greeting illustration (`HeroIllustration`), scroll-revealed story sections, and live 3-item previews for Portfolio and Posts.
-- **Portfolio & Posts (`/portfolio/`, `/post/`, `/portfolio/view/?id=<uuid>`, `/post/view/?id=<uuid>`)**: Query-based detail views compatible with static export, multi-word search across titles, descriptions, tags, and Tiptap document text, topic tag filtering, featured-first ordering, chronological previous/next navigation, and image lightbox previews.
+- **Portfolio & Posts (`/portfolio/`, `/post/`, `/portfolio/view/?id=<uuid>`, `/post/view/?id=<uuid>`)**: Query-based detail pages compatible with static export, multi-word search across titles, descriptions, tags (up to 10 tags, 40 chars each), and Tiptap document text, topic tag filtering, featured-first ordering, chronological previous/next navigation, and image lightbox previews.
 - **Owner CMS & Authentication (`/login/`)**: Email/password sign-in via Supabase Auth unlocks create, edit, and delete dialogs for posts and projects, plus visibility toggles for support buttons on `/about/`.
-- **Rich-Text & Media Pipeline**: Tiptap editor supporting headings, text formatting, lists, blockquotes, code blocks, safe external links, pasted YouTube embeds (`youtube-nocookie.com`), up to 20 inline images, and cover images (PNG, JPEG, WebP, GIF up to 5 MiB) with client-side WebP/GIF optimization (`Canvas` and `gifsicle-wasm-browser`) and automatic orphaned-image cleanup.
+- **Rich-Text & Media Pipeline**: Tiptap editor supporting headings, text formatting, lists, blockquotes, code blocks, safe external links, pasted YouTube embeds (`youtube-nocookie.com`), up to 20 inline images (20,000-character body limit), and cover images (PNG, JPEG, WebP, GIF up to 5 MiB) with client-side WebP/GIF optimization (`Canvas` and `gifsicle-wasm-browser`) and automatic orphaned-image cleanup.
 - **About (`/about/`)**: Introduction, social links, hardware/software gear lists, and Supabase-backed support links (Streamlabs, Saweria, Ko-fi, Trakteer).
 - **Bilingual & Accessible UX**: English (`en`) and Indonesian (`id`) copy, light/dark theme persistence, background music toggle and UI click sounds, Lenis smooth scrolling, and Motion transitions honoring `prefers-reduced-motion`.
 
@@ -50,13 +50,13 @@ Open `http://localhost:3000`. Restart the dev server after changing `.env.local`
 
 ## Scripts
 
-| Command | Purpose |
-| --- | --- |
-| `npm run dev` | Start the Next.js development server |
-| `npm run typecheck` | Run `tsc --noEmit` |
-| `npm test` | Run Node.js test suite (`tests/*.test.mjs`) |
-| `npm run build` | Export the static site to `out/` |
-| `npm run deploy` | Run `predeploy` (`npm run build`) and publish `out/` to `gh-pages` |
+```bash
+npm run dev        # Start the Next.js development server
+npm run typecheck  # Run tsc --noEmit
+npm test           # Run Node.js unit tests (tests/*.test.mjs)
+npm run build      # Export the static site to out/
+npm run deploy     # Run predeploy (npm run build) and publish out/ to gh-pages
+```
 
 ## Supabase
 
