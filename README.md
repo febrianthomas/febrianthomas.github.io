@@ -103,3 +103,7 @@ Alternatively, publish `out/` to the `gh-pages` branch with `npm run deploy`.
 ```
 
 Keep `src/content/en.json` and `src/content/id.json` keys in sync; user-authored posts and portfolio projects remain in their original language.
+
+## License
+
+Licensed under the [MIT License](LICENSE).
