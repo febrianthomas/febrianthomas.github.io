@@ -1,8 +1,6 @@
-﻿# febrianthomas.github.io
+# febrianthomas.github.io
 
 Personal portfolio and blog of Febrian Thomas, a self-taught illustrator and 2D animator. Built as a statically exported Next.js App Router site hosted on GitHub Pages, with browser-side Supabase queries for live posts, portfolio projects, authentication, support button visibility, and image storage so publishing or editing content requires no site rebuild.
-
-Visit the live site at [febrianthomas.github.io](https://febrianthomas.github.io/).
 
 ## Features
 
