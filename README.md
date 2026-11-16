@@ -1,6 +1,6 @@
 ﻿# febrianthomas.github.io
 
-Personal portfolio and blog of Febrian Thomas, a self-taught illustrator and 2D animator. Built as a statically exported Next.js App Router site hosted on GitHub Pages, with browser-side Supabase queries for live posts, portfolio projects, authentication, support button visibility, and image storage—so publishing or editing content requires no site rebuild.
+Personal portfolio and blog of Febrian Thomas, a self-taught illustrator and 2D animator. Built as a statically exported Next.js App Router site hosted on GitHub Pages, with browser-side Supabase queries for live posts, portfolio projects, authentication, support button visibility, and image storage so publishing or editing content requires no site rebuild.
 
 Visit the live site at [febrianthomas.github.io](https://febrianthomas.github.io/).
 
@@ -48,7 +48,7 @@ Start the development server:
 npm run dev
 ```
 
-Open `http://localhost:3000`. Restart the dev server after changing `.env.local`. Static builds succeed without credentials, while live content and owner sign-in require a configured Supabase project. `NEXT_PUBLIC_*` values are embedded in the static bundle—never use a secret or service-role key.
+Open `http://localhost:3000`. Restart the dev server after changing `.env.local`. Static builds succeed without credentials, while live content and owner sign-in require a configured Supabase project. `NEXT_PUBLIC_*` values are embedded in the static bundle; never use a secret or service-role key.
 
 ## Scripts
 
@@ -64,7 +64,7 @@ Open `http://localhost:3000`. Restart the dev server after changing `.env.local`
 
 Apply the SQL migrations in `supabase/migrations` in chronological order, enable email/password auth, and create the owner user in Supabase Auth (sign in at `/login/`).
 
-The migrations provision `posts`, `projects`, `support_buttons`, the public `post-images` Storage bucket, and Row Level Security policies. Owner RLS policies reference a specific user ID across multiple migrations—update that user ID if deploying under a different Supabase Auth account. SQL policy checks live in `supabase/tests`.
+The migrations provision `posts`, `projects`, `support_buttons`, the public `post-images` Storage bucket, and Row Level Security policies. Owner RLS policies reference a specific user ID across multiple migrations; update that user ID if deploying under a different Supabase Auth account. SQL policy checks live in `supabase/tests`.
 
 ## Deployment
 
