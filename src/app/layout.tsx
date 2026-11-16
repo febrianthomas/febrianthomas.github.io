@@ -27,9 +27,40 @@ const sniglet = Sniglet({
   preload: false,
 });
 
+const SITE_URL = "https://febrianthomas.github.io";
+const PREVIEW_IMAGE_URL = `${SITE_URL}/preview.webp`;
+const PREVIEW_IMAGE_ALT = `${text.site.name} — ${text.site.description}`;
+
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: text.site.name,
   description: text.site.description,
+  openGraph: {
+    type: "website",
+    url: `${SITE_URL}/`,
+    siteName: text.site.name,
+    title: text.site.name,
+    description: text.site.description,
+    images: [
+      {
+        url: PREVIEW_IMAGE_URL,
+        width: 1200,
+        height: 630,
+        alt: PREVIEW_IMAGE_ALT,
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: text.site.name,
+    description: text.site.description,
+    images: [
+      {
+        url: PREVIEW_IMAGE_URL,
+        alt: PREVIEW_IMAGE_ALT,
+      },
+    ],
+  },
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
