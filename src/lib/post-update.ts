@@ -1,4 +1,6 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
+import { POST_IMAGES_BUCKET } from "../constants/post.ts";
+import { createPostImagePath } from "./post-image.ts";
 import { removeUnlinkedImages } from "./post-inline-images.ts";
 
 export class PostUpdateUncertainError extends Error {}
@@ -6,10 +8,9 @@ export class PostUpdateUncertainError extends Error {}
 export async function updatePostRecord(client: SupabaseClient, original: { id: string; image_path: string | null; inline_image_paths: string[] }, values: { title: string; description: string; body: string; body_format: string; image_alt: string | null; image_caption: string | null; tags: string[]; featured: boolean; inline_image_paths: string[] }, image: File | null, removeImage: boolean, table: "posts" | "projects" = "posts") {
   let newPath: string | null = null;
   if (image) {
-    const extension = image.type === "image/jpeg" ? "jpg" : image.type.split("/")[1];
-    newPath = `${crypto.randomUUID()}.${extension}`;
+    newPath = createPostImagePath(image);
     try {
-      const result = await client.storage.from("post-images").upload(newPath, image, { contentType: image.type, upsert: false });
+      const result = await client.storage.from(POST_IMAGES_BUCKET).upload(newPath, image, { contentType: image.type, upsert: false });
       if (result.error) throw result.error;
     } catch {
       throw new PostUpdateUncertainError();
@@ -28,7 +29,7 @@ export async function updatePostRecord(client: SupabaseClient, original: { id: s
     if (result.error && (result.status < 400 || result.status >= 500 || result.status === 408)) throw new PostUpdateUncertainError();
     if (newPath) {
       try {
-        const cleanup = await client.storage.from("post-images").remove([newPath]);
+        const cleanup = await client.storage.from(POST_IMAGES_BUCKET).remove([newPath]);
         if (cleanup.error || !cleanup.data?.length) throw new Error();
       } catch { throw new PostUpdateUncertainError(); }
     }

@@ -7,7 +7,7 @@ import Image from "next/image";
 import { Fragment } from "react";
 import { useLanguage } from "@/ui/components/LanguageProvider/LanguageProvider";
 
-export default function Home() {
+export default function HeroPage() {
   const { text } = useLanguage();
   return (
     <main className="flex flex-1 flex-col px-6 sm:px-10">

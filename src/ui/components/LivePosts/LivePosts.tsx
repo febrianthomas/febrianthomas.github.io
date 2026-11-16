@@ -1,19 +1,19 @@
 "use client";
 
-import { useLanguage } from "@/ui/components/LanguageProvider/LanguageProvider";
-
 import { FileText } from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { INPUT_FIELD_CLASS, TAG_BADGE_CLASS } from "@/constants/ui";
+import { useSignedIn } from "@/hooks/use-signed-in";
 import { kindPath, kindText } from "@/lib/post-kind";
-import { listPosts, postImageUrl, type PostKind, type PostSummary } from "@/lib/posts";
-import { PostCard } from "@/ui/components/PostCard/PostCard";
-import { DeletePostButton } from "@/ui/components/DeletePostButton/DeletePostButton";
-import { useSignedIn } from "@/ui/components/SignedInOnly/SignedInOnly";
-import { PageLoading } from "@/ui/components/PageLoading/PageLoading";
-import { NewPostDialog } from "@/ui/components/NewPostDialog/NewPostDialog";
 import { formatPostDate, matchesPost, sortPosts } from "@/lib/post-list";
+import { listPosts, type PostKind, type PostSummary } from "@/lib/posts";
+import { DeletePostButton } from "@/ui/components/DeletePostButton/DeletePostButton";
+import { useLanguage } from "@/ui/components/LanguageProvider/LanguageProvider";
+import { NewPostDialog } from "@/ui/components/NewPostDialog/NewPostDialog";
+import { PageLoading } from "@/ui/components/PageLoading/PageLoading";
+import { PostCard } from "@/ui/components/PostCard/PostCard";
+import { PostThumbnail } from "@/ui/components/PostThumbnail/PostThumbnail";
 
 export function LivePosts({ kind = "post" }: { kind?: PostKind }) {
   const { text, language } = useLanguage();
@@ -47,7 +47,7 @@ export function LivePosts({ kind = "post" }: { kind?: PostKind }) {
 
   return <>
     <div className="flex flex-wrap gap-3">
-      <label className="min-w-48 flex-1"><span className="sr-only">{t.search}</span><input type="search" value={query} onChange={(event) => setQuery(event.target.value)} placeholder={t.searchPlaceholder} className="min-h-11 w-full rounded-xl border border-zinc-300 bg-white px-4 text-zinc-950 outline-none focus:ring-2 focus:ring-zinc-900 dark:border-zinc-600 dark:bg-zinc-800 dark:text-zinc-50 dark:focus:ring-zinc-300" /></label>
+      <label className="min-w-48 flex-1"><span className="sr-only">{t.search}</span><input type="search" value={query} onChange={(event) => setQuery(event.target.value)} placeholder={t.searchPlaceholder} className={`min-h-11 px-4 ${INPUT_FIELD_CLASS}`} /></label>
       {tags.length > 0 && <label><span className="sr-only">{t.filterTags}</span><select value={selectedTag} onChange={(event) => setTag(event.target.value)} className="min-h-11 max-w-48 rounded-xl border border-zinc-300 bg-white px-3 text-zinc-950 dark:border-zinc-600 dark:bg-zinc-800 dark:text-zinc-50"><option value="">{t.allTags}</option>{tags.map((item) => <option key={item} value={item}>{item}</option>)}</select></label>}
     </div>
     {visible.length === 0 && <p role="status" className="text-zinc-600 dark:text-zinc-300">{t.noSearchResults}</p>}
@@ -55,16 +55,14 @@ export function LivePosts({ kind = "post" }: { kind?: PostKind }) {
     <PostCard key={post.id}>
       {signedIn && <div className="absolute right-3 top-3 z-10 flex gap-2"><NewPostDialog kind={kind} postId={post.id} postTitle={post.title} compact onSaved={(updated) => setPosts((current) => current ? sortPosts(current.map((item) => item.id === updated.id ? updated : item)) : null)} /><DeletePostButton kind={kind} post={post} compact onDeleted={() => setPosts((current) => current?.filter((item) => item.id !== post.id) ?? null)} /></div>}
       <Link href={`${kindPath(kind)}view/?id=${encodeURIComponent(post.id)}`} className="flex h-full flex-col sm:flex-row focus-visible:outline-2 focus-visible:outline-offset-4">
-        <div className="flex aspect-4/3 shrink-0 items-center justify-center overflow-hidden bg-orange-100 text-orange-700 sm:w-64 md:w-72 dark:bg-zinc-800 dark:text-orange-300">
-          {post.image_path ? <Image src={postImageUrl(post.image_path)} alt="" width={600} height={450} className="size-full object-cover" sizes="(min-width: 768px) 288px, (min-width: 640px) 256px, 100vw" /> : <FileText size={48} aria-hidden="true" />}
-        </div>
+        <PostThumbnail imagePath={post.image_path} sizes="(min-width: 768px) 288px, (min-width: 640px) 256px, 100vw" className="shrink-0 sm:w-64 md:w-72" />
         <div className="flex min-w-0 flex-1 flex-col justify-center p-6 sm:p-7">
           <p className="text-xs uppercase tracking-[0.15em] text-zinc-500 dark:text-zinc-400">{t.itemLabel}</p>
           {post.featured && <p className="mt-2 text-sm text-orange-700 dark:text-orange-300">{t.featured}</p>}
           <h2 className="mt-3 text-2xl font-bold">{post.title}</h2>
           <p className="mt-3 leading-7 text-zinc-600 dark:text-zinc-300">{post.description}</p>
           <p className="mt-4 text-sm text-zinc-500 dark:text-zinc-400"><time dateTime={post.created_at}>{formatPostDate(post.created_at, language)}</time></p>
-          {post.tags.length > 0 && <div className="mt-3 flex flex-wrap gap-2">{post.tags.map((item) => <span key={item} className="rounded-full bg-orange-100 px-3 py-1 text-xs text-orange-800 dark:bg-zinc-800 dark:text-orange-200">{item}</span>)}</div>}
+          {post.tags.length > 0 && <div className="mt-3 flex flex-wrap gap-2">{post.tags.map((item) => <span key={item} className={`${TAG_BADGE_CLASS} text-xs`}>{item}</span>)}</div>}
         </div>
       </Link>
     </PostCard>

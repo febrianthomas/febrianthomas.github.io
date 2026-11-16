@@ -5,7 +5,7 @@ import { useLanguage } from "@/ui/components/LanguageProvider/LanguageProvider";
 import { getSupabase } from "@/lib/supabase";
 import { MotionLink } from "@/ui/components/MotionLink/MotionLink";
 import { ConfirmDialog } from "@/ui/components/ConfirmDialog/ConfirmDialog";
-import { useSignedIn } from "@/ui/components/SignedInOnly/SignedInOnly";
+import { useSignedIn } from "@/hooks/use-signed-in";
 
 const controlClass = "inline-flex size-11 items-center justify-center text-zinc-500 transition-colors hover:text-zinc-950 focus-visible:outline-2 focus-visible:outline-offset-4 dark:text-zinc-400 dark:hover:text-zinc-50";
 

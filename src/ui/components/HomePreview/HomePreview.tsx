@@ -1,13 +1,13 @@
 "use client";
 
-import { ArrowRight, FileText } from "lucide-react";
-import Image from "next/image";
+import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useLanguage } from "@/ui/components/LanguageProvider/LanguageProvider";
 import { kindPath, kindText } from "@/lib/post-kind";
-import { listPostPreviews, postImageUrl, type PostKind } from "@/lib/posts";
+import { listPostPreviews, type PostKind } from "@/lib/posts";
 import { PostCard } from "@/ui/components/PostCard/PostCard";
+import { PostThumbnail } from "@/ui/components/PostThumbnail/PostThumbnail";
 
 type Preview = Awaited<ReturnType<typeof listPostPreviews>>[number];
 
@@ -38,9 +38,7 @@ export function HomePreview({ kind }: { kind: PostKind }) {
           {items.map((item) => (
             <PostCard key={item.id}>
               <Link href={`${path}view/?id=${encodeURIComponent(item.id)}`} className="block h-full focus-visible:outline-2 focus-visible:outline-offset-4">
-                <div className="flex aspect-4/3 items-center justify-center overflow-hidden bg-orange-100 text-orange-700 dark:bg-zinc-800 dark:text-orange-300">
-                  {item.image_path ? <Image src={postImageUrl(item.image_path)} alt="" width={600} height={450} className="size-full object-cover" sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw" /> : <FileText size={48} aria-hidden="true" />}
-                </div>
+                <PostThumbnail imagePath={item.image_path} sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw" />
                 <div className="p-6 sm:p-7">
                   <h3 className="text-2xl font-bold">{item.title}</h3>
                   <p className="mt-3 leading-7 text-zinc-600 dark:text-zinc-300">{item.description}</p>

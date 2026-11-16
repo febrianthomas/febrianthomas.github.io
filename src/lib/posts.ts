@@ -1,6 +1,7 @@
+import { POST_IMAGES_BUCKET } from "@/constants/post";
 import { getSupabase } from "@/lib/supabase";
 import { kindTable } from "@/lib/post-kind";
-import { optimizePostImage, postImageExtension } from "@/lib/post-image";
+import { createPostImagePath, optimizePostImage, postImageExtension } from "@/lib/post-image";
 import { updatePostRecord } from "@/lib/post-update";
 
 export type PostKind = "post" | "portfolio";
@@ -27,7 +28,7 @@ export type PostDetails = Pick<PublishedPost, "title" | "description" | "body" |
 export class PostImageUncertainError extends Error {}
 
 export function postImageUrl(path: string) {
-  return getSupabase().storage.from("post-images").getPublicUrl(path).data.publicUrl;
+  return getSupabase().storage.from(POST_IMAGES_BUCKET).getPublicUrl(path).data.publicUrl;
 }
 
 export async function listPostPreviews(kind: PostKind) {
@@ -74,9 +75,9 @@ export async function createPost(post: Pick<PublishedPost, "title" | "descriptio
     image = await optimizePostImage(image);
     const extension = postImageExtension(image);
     if (!extension) throw new Error("Invalid image");
-    imagePath = `${crypto.randomUUID()}.${extension}`;
+    imagePath = createPostImagePath(image);
     try {
-      const { error } = await supabase.storage.from("post-images").upload(imagePath, image, { contentType: image.type, upsert: false });
+      const { error } = await supabase.storage.from(POST_IMAGES_BUCKET).upload(imagePath, image, { contentType: image.type, upsert: false });
       if (error) throw error;
     } catch {
       // An interrupted upload can have succeeded even when no response arrived.
@@ -97,7 +98,7 @@ export async function createPost(post: Pick<PublishedPost, "title" | "descriptio
   if (result.error) {
     if (imagePath && result.status >= 400 && result.status < 500) {
       try {
-        const cleanup = await supabase.storage.from("post-images").remove([imagePath]);
+        const cleanup = await supabase.storage.from(POST_IMAGES_BUCKET).remove([imagePath]);
         if (cleanup.error || !cleanup.data?.length) throw new PostImageUncertainError();
       } catch {
         throw new PostImageUncertainError();

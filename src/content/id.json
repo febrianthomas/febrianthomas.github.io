@@ -72,7 +72,6 @@
     "donations": {
       "title": "Dukung Karyaku.",
       "description": "Suka sama karyaku? Kamu bisa support aku lewat sini!",
-      "unavailable": "Coming soon",
       "enabled": "Tampil",
       "disabled": "Tersembunyi",
       "settingsError": "Pengaturan tombol support belum bisa dimuat atau disimpan. Coba lagi nanti, ya.",

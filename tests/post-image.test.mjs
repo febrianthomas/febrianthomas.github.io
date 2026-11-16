@@ -1,6 +1,11 @@
 import assert from "node:assert/strict";
 import { test } from "node:test";
-import { maxPostImageSize, optimizePostImage, postImageExtension } from "../src/lib/post-image.ts";
+import { createPostImagePath, maxPostImageSize, optimizePostImage, postImageExtension } from "../src/lib/post-image.ts";
+
+test("createPostImagePath generates UUID paths with normalized extensions", () => {
+  assert.match(createPostImagePath({ type: "image/jpeg" }), /^[0-9a-f-]+\.jpg$/);
+  assert.match(createPostImagePath({ type: "image/webp" }), /^[0-9a-f-]+\.webp$/);
+});
 
 test("post images accept supported formats up to 5 MiB", () => {
   for (const [type, extension] of [["image/jpeg", "jpg"], ["image/png", "png"], ["image/webp", "webp"], ["image/gif", "gif"]]) {

@@ -1,12 +1,11 @@
 "use client";
 
-import { useLanguage } from "@/ui/components/LanguageProvider/LanguageProvider";
-
-import type { PostKind } from "@/lib/posts";
 import { kindText } from "@/lib/post-kind";
-import { SignedInOnly } from "@/ui/components/SignedInOnly/SignedInOnly";
+import type { PostKind } from "@/lib/posts";
+import { useLanguage } from "@/ui/components/LanguageProvider/LanguageProvider";
 import { LivePosts } from "@/ui/components/LivePosts/LivePosts";
 import { NewPostDialog } from "@/ui/components/NewPostDialog/NewPostDialog";
+import { SignedInOnly } from "@/ui/components/SignedInOnly/SignedInOnly";
 
 export function PostSectionPage({ kind = "post" }: { kind?: PostKind }) {
   const { text } = useLanguage();

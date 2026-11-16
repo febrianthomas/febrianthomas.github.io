@@ -1,19 +1,18 @@
 "use client";
 
-import { motion, useReducedMotion } from "motion/react";
-import { useRouter } from "next/navigation";
 import { Eye, EyeOff } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useEffect, useState, type FormEvent } from "react";
+import { INPUT_FIELD_CLASS } from "@/constants/ui";
 import { getSupabase } from "@/lib/supabase";
+import { Button } from "@/ui/components/Button/Button";
 import { useLanguage } from "@/ui/components/LanguageProvider/LanguageProvider";
 
-const inputClass =
-  "h-11 w-full rounded-xl border border-zinc-300 bg-white px-3.5 text-sm outline-none focus:ring-2 focus:ring-zinc-900 dark:border-zinc-600 dark:bg-zinc-800 dark:text-zinc-50 dark:focus:ring-zinc-300";
+const inputClass = `h-11 px-3.5 text-sm ${INPUT_FIELD_CLASS}`;
 
 export default function LoginPage() {
   const { text } = useLanguage();
   const router = useRouter();
-  const reducedMotion = useReducedMotion();
   const [loading, setLoading] = useState(false);
   const [checkingSession, setCheckingSession] = useState(true);
   const [missingConfig, setMissingConfig] = useState(false);
@@ -141,15 +140,13 @@ export default function LoginPage() {
                     {message}
                   </p>
                 )}
-                <motion.button
+                <Button
                   type="submit"
                   disabled={loading || missingConfig}
-                  whileTap={reducedMotion ? undefined : { scale: 0.98 }}
-                  transition={{ duration: 0.14 }}
-                  className="inline-flex h-11 w-full items-center justify-center rounded-xl bg-zinc-900 px-4 py-2 text-sm text-white transition-colors hover:bg-zinc-700 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-zinc-900 disabled:cursor-not-allowed disabled:opacity-50 dark:bg-zinc-100 dark:text-zinc-900 dark:hover:bg-zinc-300 dark:focus-visible:outline-zinc-100"
+                  className="h-11 w-full rounded-xl!"
                 >
                   {loading ? text.login.signingIn : text.navigation.signIn}
-                </motion.button>
+                </Button>
               </form>
             </>
           )}

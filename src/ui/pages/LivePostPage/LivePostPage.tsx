@@ -1,21 +1,23 @@
 "use client";
 
-import { useLanguage } from "@/ui/components/LanguageProvider/LanguageProvider";
-
-import Link from "next/link";
-import Markdown from "react-markdown";
 import { ArrowLeft, ArrowRight } from "lucide-react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import Markdown from "react-markdown";
+import { ALLOWED_MARKDOWN_ELEMENTS } from "@/constants/post";
+import { TAG_BADGE_CLASS } from "@/constants/ui";
+import { isValidUuid } from "@/lib/post-form";
 import { kindPath, kindText } from "@/lib/post-kind";
-import { getPost, listPosts, postImageUrl, type PostKind, type PublishedPost, type PostSummary } from "@/lib/posts";
-import { PostContent } from "@/ui/components/PostContent/PostContent";
-import { DeletePostButton } from "@/ui/components/DeletePostButton/DeletePostButton";
-import { SignedInOnly } from "@/ui/components/SignedInOnly/SignedInOnly";
-import { PageLoading } from "@/ui/components/PageLoading/PageLoading";
-import { NewPostDialog } from "@/ui/components/NewPostDialog/NewPostDialog";
 import { adjacentPosts, formatPostDate } from "@/lib/post-list";
+import { getPost, listPosts, postImageUrl, type PostKind, type PostSummary, type PublishedPost } from "@/lib/posts";
+import { DeletePostButton } from "@/ui/components/DeletePostButton/DeletePostButton";
 import { ImageLightbox } from "@/ui/components/ImageLightbox/ImageLightbox";
+import { useLanguage } from "@/ui/components/LanguageProvider/LanguageProvider";
+import { NewPostDialog } from "@/ui/components/NewPostDialog/NewPostDialog";
+import { PageLoading } from "@/ui/components/PageLoading/PageLoading";
+import { PostContent } from "@/ui/components/PostContent/PostContent";
+import { SignedInOnly } from "@/ui/components/SignedInOnly/SignedInOnly";
 
 export function LivePostPage({ kind = "post" }: { kind?: PostKind }) {
   const { text, language } = useLanguage();
@@ -27,7 +29,7 @@ export function LivePostPage({ kind = "post" }: { kind?: PostKind }) {
 
   useEffect(() => {
     const id = new URLSearchParams(window.location.search).get("id");
-    if (!id || !/^[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(id)) {
+    if (!isValidUuid(id)) {
       setStatus("missing");
       return;
     }
@@ -57,17 +59,17 @@ export function LivePostPage({ kind = "post" }: { kind?: PostKind }) {
             <h1 className="mt-4 text-5xl font-bold leading-tight sm:text-6xl">{post.title}</h1>
             <p className="mt-5 text-xl leading-8 text-zinc-600 dark:text-zinc-300">{post.description}</p>
             <p className="mt-5 text-sm text-zinc-600 dark:text-zinc-400">{t.published} <time dateTime={post.created_at}>{formatPostDate(post.created_at, language)}</time>{post.updated_at && <> · {t.updated} <time dateTime={post.updated_at}>{formatPostDate(post.updated_at, language)}</time></>}</p>
-            {post.tags.length > 0 && <div className="mt-4 flex flex-wrap gap-2">{post.tags.map((tag) => <span key={tag} className="rounded-full bg-orange-100 px-3 py-1 text-sm text-orange-800 dark:bg-zinc-800 dark:text-orange-200">{tag}</span>)}</div>}
+            {post.tags.length > 0 && <div className="mt-4 flex flex-wrap gap-2">{post.tags.map((tag) => <span key={tag} className={`${TAG_BADGE_CLASS} text-sm`}>{tag}</span>)}</div>}
             {post.image_path && <figure className="mt-10"><ImageLightbox src={postImageUrl(post.image_path)} alt={post.image_alt ?? ""} className="image-glow h-auto w-full rounded-3xl object-contain" />{post.image_caption && <figcaption className="mt-3 text-center text-sm text-zinc-600 dark:text-zinc-400">{post.image_caption}</figcaption>}</figure>}
             <div className="surface-shadow mt-10 rounded-3xl bg-zinc-100 p-6 sm:p-8 dark:bg-zinc-900">
               {post.body_format === "tiptap" ? (
                 <PostContent body={post.body} />
               ) : post.body_format === "markdown" ? (
                 <div className="post-rich-content text-lg leading-8 text-zinc-700 dark:text-zinc-200">
-                  <Markdown skipHtml allowedElements={["p", "strong", "em", "ul", "ol", "li", "blockquote", "h2", "br", "a"]} unwrapDisallowed components={{ a: ({ node: _node, ...props }) => <a {...props} target="_blank" rel="noopener noreferrer" /> }}>{post.body}</Markdown>
+                  <Markdown skipHtml allowedElements={ALLOWED_MARKDOWN_ELEMENTS} unwrapDisallowed components={{ a: ({ node: _node, ...props }) => <a {...props} target="_blank" rel="noopener noreferrer" /> }}>{post.body}</Markdown>
                 </div>
               ) : (
-                <div className="whitespace-pre-wrap wrap-break-words text-lg leading-8 text-zinc-700 dark:text-zinc-200">{post.body}</div>
+                <div className="whitespace-pre-wrap wrap-break-word text-lg leading-8 text-zinc-700 dark:text-zinc-200">{post.body}</div>
               )}
             </div>
             {(previous || next) && <nav aria-label={t.navigationLabel} className="mt-16 flex justify-between gap-6 border-t border-zinc-200 pt-6 dark:border-zinc-700">{previous ? <a href={`${kindPath(kind)}view/?id=${encodeURIComponent(previous.id)}`} aria-label={`${t.previousPost}: ${previous.title}`} title={`${t.previousPost}: ${previous.title}`} className="flex size-11 items-center justify-center rounded-xl hover:bg-zinc-100 focus-visible:outline-2 focus-visible:outline-offset-2 dark:hover:bg-zinc-800"><ArrowLeft size={20} aria-hidden="true" /></a> : <span />}{next && <a href={`${kindPath(kind)}view/?id=${encodeURIComponent(next.id)}`} aria-label={`${t.nextPost}: ${next.title}`} title={`${t.nextPost}: ${next.title}`} className="flex size-11 items-center justify-center rounded-xl hover:bg-zinc-100 focus-visible:outline-2 focus-visible:outline-offset-2 dark:hover:bg-zinc-800"><ArrowRight size={20} aria-hidden="true" /></a>}</nav>}

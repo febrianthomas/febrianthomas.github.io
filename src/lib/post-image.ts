@@ -1,3 +1,5 @@
+import { MAX_POST_IMAGE_SIZE } from "../constants/post.ts";
+
 const imageExtensions: Record<string, string> = {
   "image/jpeg": "jpg",
   "image/png": "png",
@@ -5,7 +7,12 @@ const imageExtensions: Record<string, string> = {
   "image/gif": "gif",
 };
 
-export const maxPostImageSize = 5 * 1024 * 1024;
+export const maxPostImageSize = MAX_POST_IMAGE_SIZE;
+
+export function createPostImagePath(file: Pick<File, "type">) {
+  const extension = imageExtensions[file.type] ?? file.type.split("/")[1];
+  return `${crypto.randomUUID()}.${extension}`;
+}
 
 export function postImageExtension(file: Pick<File, "type" | "size">) {
   if (file.size <= 0 || file.size > maxPostImageSize || !Object.hasOwn(imageExtensions, file.type)) return null;

@@ -72,7 +72,6 @@
     "donations": {
       "title": "Support My Work.",
       "description": "If you enjoy what I create, you can support me here.",
-      "unavailable": "Coming soon",
       "enabled": "Visible",
       "disabled": "Hidden",
       "settingsError": "Could not load or save support button settings. Please try again later.",

@@ -2,12 +2,7 @@
 
 import { motion, useMotionValue, useReducedMotion, useSpring } from "motion/react";
 import { useEffect } from "react";
-
-const paths = [
-  ["translate3d(-55px, -60px, 0)", "translate3d(130px, 65px, 0)", "translate3d(-60px, 160px, 0)"],
-  ["translate3d(75px, -60px, 0)", "translate3d(-120px, 30px, 0)", "translate3d(35px, 140px, 0)"],
-  ["translate3d(-80px, 75px, 0)", "translate3d(50px, -90px, 0)", "translate3d(140px, 65px, 0)"],
-];
+import { BACKGROUND_SHAPE_COUNT, BACKGROUND_SHAPE_PATHS } from "@/constants/background-shapes";
 
 export function BackgroundShapes() {
   const reducedMotion = useReducedMotion();
@@ -37,11 +32,11 @@ export function BackgroundShapes() {
   return (
     <div className="background-shapes" aria-hidden="true">
       <motion.div className="background-shapes-layer" style={{ x, y }}>
-        {Array.from({ length: 24 }, (_, index) => (
+        {Array.from({ length: BACKGROUND_SHAPE_COUNT }, (_, index) => (
           <motion.span
             key={index}
-            initial={{ transform: paths[index % 3][0] }}
-            animate={reducedMotion ? { transform: "none" } : { transform: paths[index % 3] }}
+            initial={{ transform: BACKGROUND_SHAPE_PATHS[index % 3][0] }}
+            animate={reducedMotion ? { transform: "none" } : { transform: BACKGROUND_SHAPE_PATHS[index % 3] }}
             transition={reducedMotion ? { duration: 0 } : { duration: 12 + (index % 9), delay: -(index % 10), ease: "easeInOut", repeat: Infinity, repeatType: "reverse" }}
           />
         ))}

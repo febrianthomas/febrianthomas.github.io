@@ -5,17 +5,15 @@ import { useEffect, useState } from "react";
 import { useLanguage } from "@/ui/components/LanguageProvider/LanguageProvider";
 import { getSupabase } from "@/lib/supabase";
 import { MotionLink } from "@/ui/components/MotionLink/MotionLink";
-import { useSignedIn } from "@/ui/components/SignedInOnly/SignedInOnly";
-
-const buttons = ["streamlabs", "saweria", "kofi", "trakteer"] as const;
-type ButtonId = (typeof buttons)[number];
-type Status = Partial<Record<ButtonId, boolean>>;
+import { useSignedIn } from "@/hooks/use-signed-in";
+import { SUPPORT_BUTTON_IDS, type SupportButtonId } from "@/constants/post";
+type Status = Partial<Record<SupportButtonId, boolean>>;
 
 export function SupportButtons() {
   const { text } = useLanguage();
   const signedIn = useSignedIn();
   const [status, setStatus] = useState<Status | null>(null);
-  const [pending, setPending] = useState<ButtonId | null>(null);
+  const [pending, setPending] = useState<SupportButtonId | null>(null);
   const [error, setError] = useState(false);
   const t = text.about.donations;
 
@@ -34,7 +32,7 @@ export function SupportButtons() {
     return () => { active = false; };
   }, []);
 
-  async function toggle(id: ButtonId, enabled: boolean) {
+  async function toggle(id: SupportButtonId, enabled: boolean) {
     setPending(id);
     setError(false);
     try {
@@ -54,7 +52,7 @@ export function SupportButtons() {
       <p className="mx-auto mt-5 max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-300">{t.description}</p>
       {error && <p role="alert" className="mt-5 text-sm text-red-700 dark:text-red-300">{t.settingsError}</p>}
       {status && <div className="mt-8 flex flex-wrap justify-center gap-4">
-        {buttons.map((id) => {
+        {SUPPORT_BUTTON_IDS.map((id) => {
           const donation = t[id];
           const enabled = status[id] === true;
           if (!signedIn && !enabled) return null;

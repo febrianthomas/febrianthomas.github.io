@@ -3,6 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
+import { NAV_ITEMS } from "@/constants/navigation";
 import { AuthControl } from "@/ui/components/AuthControl/AuthControl";
 import { MotionLink } from "@/ui/components/MotionLink/MotionLink";
 import { ThemeToggle } from "@/ui/components/ThemeToggle/ThemeToggle";
@@ -21,12 +22,10 @@ function normalizePath(path: string) {
 export function Header() {
   const { text } = useLanguage();
   const pathname = normalizePath(usePathname() ?? "/");
-  const links = [
-    { href: "/", label: text.navigation.home, rotate: -4 },
-    { href: "/portfolio/", label: text.navigation.portfolio, rotate: 4 },
-    { href: "/post/", label: text.navigation.post, rotate: -4 },
-    { href: "/about/", label: text.navigation.about, rotate: 4 },
-  ];
+  const links = NAV_ITEMS.map((item) => ({
+    ...item,
+    label: text.navigation[item.key],
+  }));
 
   return (
     <header className="sticky top-0 z-50 border-b border-zinc-200 bg-zinc-50 px-6 sm:px-10 dark:border-zinc-800 dark:bg-zinc-900">

@@ -1,4 +1,6 @@
 import type { SupabaseClient } from "@supabase/supabase-js";
+import { MAX_INLINE_IMAGES, POST_IMAGES_BUCKET } from "../constants/post.ts";
+import { createPostImagePath } from "./post-image.ts";
 
 type ImageNode = { type?: string; attrs?: { src?: string; storagePath?: string | null; [key: string]: unknown }; content?: ImageNode[] };
 export class InlineImageLimitError extends Error {}
@@ -6,7 +8,7 @@ export class InlineImageCleanupError extends Error {}
 
 export async function removeUnlinkedImages(client: SupabaseClient, paths: string[]) {
   if (!paths.length) return;
-  const bucket = client.storage.from("post-images");
+  const bucket = client.storage.from(POST_IMAGES_BUCKET);
   const cleanup = await bucket.remove(paths);
   if (cleanup.error) throw cleanup.error;
   if ((cleanup.data?.length ?? 0) < paths.length) {
@@ -25,7 +27,7 @@ export async function prepareInlineImages(client: SupabaseClient, body: string, 
     node.content?.forEach(visit);
   };
   visit(document);
-  if (nodes.length > 20) throw new InlineImageLimitError();
+  if (nodes.length > MAX_INLINE_IMAGES) throw new InlineImageLimitError();
   const paths = new Set<string>();
   const uploaded: string[] = [];
   const replacements = new Map<string, { src: string; path: string }>();
@@ -39,12 +41,11 @@ export async function prepareInlineImages(client: SupabaseClient, body: string, 
           const file = files.get(attrs.src);
           if (!file) throw new Error("Missing image");
           const optimized = await optimize(file);
-          const extension = optimized.type === "image/jpeg" ? "jpg" : optimized.type.split("/")[1];
-          const path = `${crypto.randomUUID()}.${extension}`;
+          const path = createPostImagePath(optimized);
           uploaded.push(path);
-          const result = await client.storage.from("post-images").upload(path, optimized, { contentType: optimized.type, upsert: false });
+          const result = await client.storage.from(POST_IMAGES_BUCKET).upload(path, optimized, { contentType: optimized.type, upsert: false });
           if (result.error) throw result.error;
-          replacement = { src: client.storage.from("post-images").getPublicUrl(path).data.publicUrl, path };
+          replacement = { src: client.storage.from(POST_IMAGES_BUCKET).getPublicUrl(path).data.publicUrl, path };
           replacements.set(attrs.src, replacement);
         }
         attrs.src = replacement.src;

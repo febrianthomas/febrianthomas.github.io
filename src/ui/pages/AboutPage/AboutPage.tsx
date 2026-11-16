@@ -2,8 +2,9 @@
 
 import Image from "next/image";
 import { ImageIcon } from "lucide-react";
-import { siInstagram, siYoutube, siX, siThreads, siTwitch, siTiktok } from "simple-icons";
+import { SOCIAL_PLATFORMS } from "@/constants/socials";
 import { MotionLink } from "@/ui/components/MotionLink/MotionLink";
+import { SocialIcon } from "@/ui/components/SocialIcon/SocialIcon";
 import { SocialPlaceholder } from "@/ui/components/SocialPlaceholder/SocialPlaceholder";
 import { SupportButtons } from "@/ui/components/SupportButtons/SupportButtons";
 import { useLanguage } from "@/ui/components/LanguageProvider/LanguageProvider";
@@ -11,14 +12,11 @@ import { useLanguage } from "@/ui/components/LanguageProvider/LanguageProvider";
 export default function AboutPage() {
   const { text } = useLanguage();
   const sections: { title: string; empty: string; items: { name: string; image: string; details?: string[] }[] }[] = [text.about.software, text.about.tools];
-  const socials = [
-    { ...text.about.socials.instagram, icon: siInstagram, color: "bg-pink-100 text-pink-700 dark:bg-pink-200 dark:text-pink-800" },
-    { ...text.about.socials.threads, icon: siThreads, color: "bg-zinc-200 text-zinc-950 dark:bg-zinc-100 dark:text-zinc-950" },
-    { ...text.about.socials.twitter, icon: siX, color: "bg-zinc-200 text-zinc-950 dark:bg-zinc-100 dark:text-zinc-950" },
-    { ...text.about.socials.tiktok, icon: siTiktok, color: "bg-cyan-100 text-zinc-950 dark:bg-cyan-200 dark:text-zinc-950" },
-    { ...text.about.socials.youtube, icon: siYoutube, color: "bg-red-100 text-red-700 dark:bg-red-200 dark:text-red-800" },
-    { ...text.about.socials.twitch, icon: siTwitch, color: "bg-violet-100 text-violet-700 dark:bg-violet-200 dark:text-violet-800" },
-  ];
+  const socials = SOCIAL_PLATFORMS.map((platform) => ({
+    ...text.about.socials[platform.key],
+    icon: platform.icon,
+    color: platform.color,
+  }));
 
   return (
     <main className="flex-1 px-6 sm:px-10">
@@ -31,7 +29,7 @@ export default function AboutPage() {
           <p className="mt-4 text-lg leading-8 text-zinc-600 dark:text-zinc-300">{text.about.details}</p>
           <nav aria-label={text.about.socialLabel} className="mt-8 flex flex-wrap gap-3">
             {socials.map((social, index) => {
-              const icon = <svg aria-hidden="true" viewBox="0 0 24 24" className="size-6 fill-current"><path d={social.icon.path} /></svg>;
+              const icon = <SocialIcon path={social.icon.path} className="size-6" />;
               return social.url ? (
                 <MotionLink key={social.name} href={social.url} target="_blank" rel="noopener noreferrer" aria-label={social.name} title={social.name} whileHover={{ y: -4, rotate: index % 2 ? 8 : -8, scale: 1.12 }} className={`inline-flex size-12 items-center justify-center rounded-full focus-visible:outline-2 focus-visible:outline-offset-2 ${social.color}`}>{icon}</MotionLink>
               ) : (
@@ -55,7 +53,7 @@ export default function AboutPage() {
                       ) : (
                         <span aria-hidden="true" className="flex size-22 items-center justify-center text-zinc-400 dark:text-zinc-500"><ImageIcon size={32} /></span>
                       )}
-                      <span className="wrap-break-words">{item.name}</span>
+                      <span className="wrap-break-word">{item.name}</span>
                       {item.details && (
                         <ul className="-mt-2 space-y-1 text-sm leading-5 text-zinc-600 dark:text-zinc-300">
                           {item.details.map((detail) => <li key={detail}>{detail}</li>)}
